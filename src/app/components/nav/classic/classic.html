@@ -1,0 +1,188 @@
+<nav aria-label="navigation">
+  <mat-nav-list class="m-0 min-w-[16rem]">
+    <ul>
+      @for (item of internalItems(); track item.id) { @if (!item.hidden) {
+      <li class="m-[3px]">
+        @switch (item.type) { @case ('divider') {
+        <mat-divider class="my-2"></mat-divider>
+        } @case ('spacer') {
+        <div class="h-4"></div>
+        } @case ('group') {
+        <div
+          class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider"
+          style="color: var(--mat-sys-primary)"
+        >
+          {{ item.title }}
+        </div>
+
+        @if (item.children && item.children.length > 0) {
+        <ul>
+          @for (child of item.children; track child.id) { @if (!child.hidden) {
+          <li>
+            <a
+              mat-list-item
+              [routerLink]="child.link"
+              [routerLinkActive]="'list-item--activated'"
+              [routerLinkActiveOptions]="{ exact: child.exactMatch ?? false }"
+              [class.opacity-50]="child.disabled"
+              [class.pointer-events-none]="child.disabled"
+              [class.cursor-default]="child.disabled"
+              [attr.title]="child.tooltip"
+              [attr.aria-disabled]="child.disabled"
+              [target]="child.externalLink ? child.target ?? '_blank' : undefined"
+              [attr.rel]="child.externalLink ? 'noopener noreferrer' : undefined"
+              class="rounded-lg transition-all duration-200 custom-list-item-hover"
+            >
+              @if (child.icon) {
+              <mat-icon matListItemIcon [class]="child.classes?.icon">
+                {{ child.icon }}
+              </mat-icon>
+              }
+              <span matListItemTitle [class]="child.classes?.title">
+                {{ child.title }}
+              </span>
+
+              @if (child.badge) {
+              <span
+                matListItemMeta
+                class="text-xs px-2 py-0.5 rounded-full mr-2"
+                [class]="child.badge.classes"
+                [attr.aria-label]="child.badge.title"
+              >
+                {{ child.badge.title }}
+              </span>
+              }
+            </a>
+          </li>
+          } }
+        </ul>
+        } } @case ('collapsable') { @if (item.children && item.children.length > 0) {
+        <a
+          mat-list-item
+          (click)="toggleExpand(item)"
+          [class.opacity-50]="item.disabled"
+          [class.pointer-events-none]="item.disabled"
+          [class.cursor-default]="item.disabled"
+          [attr.title]="item.tooltip"
+          [attr.aria-expanded]="item._expanded()"
+          class="rounded-lg transition-all duration-200"
+        >
+          @if (item.icon) {
+          <mat-icon matListItemIcon [class]="item.classes?.icon">
+            {{ item.icon }}
+          </mat-icon>
+          }
+          <span matListItemTitle [class]="item.classes?.title">
+            {{ item.title }}
+          </span>
+
+          @if (item.badge) {
+          <span
+            matListItemMeta
+            class="text-xs px-2 py-0.5 rounded-full mr-2"
+            [class]="item.badge.classes"
+            [attr.aria-label]="item.badge.title"
+          >
+            {{ item.badge.title }}
+          </span>
+          }
+
+          <div matListItemMeta>
+            <mat-icon
+              class="transition-transform duration-200 ease-in-out"
+              [class.rotate-90]="item._expanded()"
+              aria-hidden="true"
+            >
+              chevron_right
+            </mat-icon>
+          </div>
+        </a>
+
+        <div
+          class="grid transition-[grid-template-rows] duration-300 ease-in-out overflow-hidden"
+          [class.grid-rows-[0fr]]="!item._expanded()"
+          [class.grid-rows-[1fr]]="item._expanded()"
+        >
+          <ul class="min-h-0">
+            @for (child of item.children; track child.id) { @if (!child.hidden) {
+            <li>
+              <a
+                mat-list-item
+                [routerLink]="child.link"
+                [routerLinkActive]="'list-item--activated'"
+                [routerLinkActiveOptions]="{ exact: child.exactMatch ?? false }"
+                [class.opacity-50]="child.disabled"
+                [class.pointer-events-none]="child.disabled"
+                [class.cursor-default]="child.disabled"
+                [attr.title]="child.tooltip"
+                [attr.aria-disabled]="child.disabled"
+                [target]="child.externalLink ? child.target ?? '_blank' : undefined"
+                [attr.rel]="child.externalLink ? 'noopener noreferrer' : undefined"
+                class="rounded-lg transition-all duration-200 custom-list-item-hover"
+              >
+                @if (child.icon) {
+                <mat-icon matListItemIcon class="ml-8!" [class]="child.classes?.icon">
+                  {{ child.icon }}
+                </mat-icon>
+                }
+                <span matListItemTitle [class]="child.classes?.title">
+                  {{ child.title }}
+                </span>
+
+                @if (child.badge) {
+                <span
+                  matListItemMeta
+                  class="text-xs px-2 py-0.5 rounded-full mr-2"
+                  [class]="child.badge.classes"
+                  [attr.aria-label]="child.badge.title"
+                >
+                  {{ child.badge.title }}
+                </span>
+                }
+              </a>
+            </li>
+            } }
+          </ul>
+        </div>
+        } } @case ('basic') {
+        <a
+          mat-list-item
+          [routerLink]="item.link"
+          [routerLinkActive]="'list-item--activated'"
+          [routerLinkActiveOptions]="{ exact: item.exactMatch ?? false }"
+          [class.opacity-50]="item.disabled"
+          [class.pointer-events-none]="item.disabled"
+          [class.cursor-default]="item.disabled"
+          [attr.title]="item.tooltip"
+          [attr.aria-disabled]="item.disabled"
+          [target]="item.externalLink ? item.target ?? '_blank' : undefined"
+          [attr.rel]="item.externalLink ? 'noopener noreferrer' : undefined"
+          class="rounded-lg transition-all duration-200 custom-list-item-hover"
+        >
+          @if (item.icon) {
+          <mat-icon matListItemIcon [class]="item.classes?.icon">
+            {{ item.icon }}
+          </mat-icon>
+          }
+          <span matListItemTitle [class]="item.classes?.title">
+            {{ item.title }}
+          </span>
+
+          @if (item.badge) {
+          <span
+            matListItemMeta
+            class="text-xs px-2 py-0.5 rounded-full mr-2"
+            [class]="item.badge.classes"
+            [attr.aria-label]="item.badge.title"
+          >
+            {{ item.badge.title }}
+          </span>
+          }
+        </a>
+        } }
+        <!-- /switch -->
+      </li>
+      } }
+    </ul>
+  </mat-nav-list>
+</nav>

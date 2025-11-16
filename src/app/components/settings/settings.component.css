@@ -1,0 +1,37 @@
+/* settings.component.css - Estilo gatze-drawer */
+
+/* Host configuration */
+:host {
+  display: block;
+}
+
+/* Material Drawer configuration */
+.settings-drawer {
+  width: 100vw !important;
+  min-width: 100vw !important;
+  padding: 0;
+  box-shadow: var(--mat-sys-level4);
+  z-index: 999;
+}
+
+/* Backdrop personalizado */
+::ng-deep .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-scrim) calc(var(--mat-sys-hover-state-layer-opacity) * 200%),
+    transparent
+  ) !important;
+}
+
+/* Icon size utility */
+.icon-size-5 {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  font-size: 1.25rem !important;
+}
+
+.icon-size-7 {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  font-size: 1.75rem !important;
+}

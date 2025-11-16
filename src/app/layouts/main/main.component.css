@@ -1,0 +1,52 @@
+.sidenav-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidenav {
+  width: fit-content !important;
+  padding: 2px;
+}
+
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden !important;
+}
+
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.content-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+  background: rgba(90, 3, 3, 0.2);
+  border-radius: 5px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 12, 12, 0.3);
+}
+
+.content-inner {
+  min-height: 100%;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .content-inner {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-inner {
+    padding: 2rem;
+  }
+}

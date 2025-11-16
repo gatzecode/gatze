@@ -1,0 +1,67 @@
+<mat-sidenav-container
+  class="sidenav-container bg-white dark:bg-gray-900 text-black dark:text-white"
+>
+  <!-- Navigation Sidenav (Left) -->
+  <mat-sidenav
+    #drawer
+    class="sidenav overflow-hidden [--mat-sidenav-container-shape:0] rounded-none!"
+    fixedInViewport
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    @if (configService.layout() === 'classic') {
+    <div navHeader class="flex justify-between items-center p-4">
+      <div class="flex items-center gap-3">
+        <h2 class="text-lg font-bold uppercase tracking-wide text-primary">Gatze</h2>
+      </div>
+    </div>
+    <nav-classic [navItems]="navItems" />
+
+    } @else if (configService.layout() === 'dense') {
+    <div navHeader class="flex justify-between items-center p-4">
+      <div class="flex items-center gap-3"></div>
+    </div>
+    <nav-dense [navItems]="navItems" />
+    }
+  </mat-sidenav>
+
+  <mat-sidenav
+    #settings
+    class="overflow-hidden [--mat-sidenav-container-shape:0] rounded-none!"
+    position="end"
+    mode="over"
+    ><app-settings
+      #settingsPanel
+      [class]="'theme-' + configService.themeColor()"
+      [currentLayout]="configService.layout()"
+      [availableLayouts]="configService.availableLayouts"
+      [availableThemes]="configService.availableColors"
+      (layoutChange)="setLayout($event)"
+      (themeChange)="setTheme($event)"
+      (schemeChange)="setThemeMode($event)"
+  /></mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>gatze</span>
+
+      <span class="flex-1"></span>
+
+      <!-- Settings Button -->
+      <button mat-icon-button (click)="settings.open()" aria-label="Open settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content-scroll">
+      <div class="content-inner">
+        <div class=" mx-auto">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

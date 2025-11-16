@@ -1,0 +1,31 @@
+/* Product Component Styles */
+
+/* Ensure proper spacing and alignment */
+.mat-mdc-table {
+  background: transparent;
+}
+
+.mat-mdc-header-row {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+:host-context(.dark) .mat-mdc-header-row {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Card hover effect */
+mat-card.hover\:shadow-lg {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .mat-mdc-table {
+    font-size: 0.875rem;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding: 8px 4px;
+  }
+}
