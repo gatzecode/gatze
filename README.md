@@ -30,6 +30,7 @@ Traditional navigation with full text labels and icons:
 - **Features:**
   - Auto-expand active menu items on navigation
   - Optional collapse of other items when expanding one
+  - **Smart parent highlighting**: Parent items are visually highlighted when collapsed and a child route is active (highlighting disappears when expanded)
   - Reactive state management using Angular signals
   - Full support for icons, badges, and subtitles
   - Disabled and hidden item states
@@ -41,12 +42,14 @@ Traditional navigation with full text labels and icons:
 
 ##### DenseNav (`nav-dense`)
 
-Compact navigation with hover-to-expand behavior:
+Compact navigation with intelligent state preservation:
 
 - **Features:**
   - Ultra-compact width (4rem by default) that expands on hover (16rem)
   - Temporary expansion on mouse hover
-  - Auto-collapse submenus when leaving hover area
+  - **Smart submenu behavior**: Items expanded via click stay expanded when you leave hover
+  - **State preservation**: Navigation remembers which items you've expanded
+  - **Smart parent highlighting**: Parent items are visually highlighted when collapsed and a child route is active (highlighting disappears when expanded)
   - Same reactive signal-based architecture as ClassicNav
   - Perfect for maximizing content space
 
@@ -57,6 +60,25 @@ Compact navigation with hover-to-expand behavior:
   - `expandedWidth`: Width when expanded (default: '16rem')
   - `autoExpandActive`: Auto-expand active items (default: true)
   - `collapseOthersOnExpand`: Collapse other items on expand (default: true)
+
+- **How It Works:**
+  1. **On sidebar hover enter**: Sidebar expands from 4rem to 16rem
+  2. **Click on collapsable item**: Item expands to show children (traditional behavior)
+  3. **On sidebar hover leave**: Sidebar collapses to 4rem, **but items stay expanded**
+  4. **On sidebar re-hover**: Sidebar expands again, showing your expanded items
+  5. **Smart parent highlighting**:
+     - **Sidebar collapsed (4rem)**: Parent always highlighted if any child is active
+     - **Sidebar expanded (16rem)**:
+       - Item collapsed → Parent highlighted if child is active
+       - Item expanded → Parent NOT highlighted (child is visible)
+
+  This creates a smooth, intuitive experience where users can:
+  - Expand items with click (standard interaction)
+  - Leave and return to the sidebar without losing their navigation state
+  - See their previously expanded items when hovering back
+  - **Always** identify which parent contains the active page when sidebar is collapsed (icon highlighted)
+  - See the actual active child when both sidebar and item are expanded (no redundant highlighting)
+  - Work more efficiently without re-expanding menus constantly
 
 ##### Planned Variants
 

@@ -81,9 +81,10 @@
           [class.opacity-50]="item.disabled"
           [class.pointer-events-none]="item.disabled"
           [class.cursor-default]="item.disabled"
+          [class.list-item--activated]="hasActiveChild(item)"
           [attr.title]="item.tooltip"
           [attr.aria-expanded]="item._expanded()"
-          class="rounded-lg transition-all duration-200"
+          class="rounded-lg transition-all duration-200 cursor-pointer"
         >
           @if (item.icon) {
           <mat-icon

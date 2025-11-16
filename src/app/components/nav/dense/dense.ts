@@ -85,19 +85,15 @@ export class DenseNav {
       if (!this.denseMode()) return;
       const hovering = this.isHovering();
       if (hovering) {
-        // expand the sidebar temporarily
+        // Expand the sidebar temporarily
         this.isTemporarilyExpanded.set(true);
-
-        // ensure all collapsables are closed when hover opens (visual in your design)
-        this.internalItems().forEach((it) => {
-          if (it.type === 'collapsable') it._expanded.set(false);
-        });
+        // NOTE: We preserve the expanded state of items
+        // Items are only expanded/collapsed via click events
       } else {
-        // leave hover: collapse temporary expansion and ensure no submenus left open
+        // Leave hover: collapse temporary expansion
         this.isTemporarilyExpanded.set(false);
-        this.internalItems().forEach((it) => {
-          if (it.type === 'collapsable') it._expanded.set(false);
-        });
+        // NOTE: We preserve the expanded state of items when leaving hover
+        // This allows users to keep their menu items expanded after clicking
       }
     });
   }
@@ -114,6 +110,10 @@ export class DenseNav {
     this.isHovering.set(false);
   }
 
+  /**
+   * Toggle expand/collapse state of a collapsable item
+   * This is triggered by click events only
+   */
   onToggleExpand(item: InternalNavItem): void {
     if (item.disabled) return;
 
@@ -187,6 +187,29 @@ export class DenseNav {
     if (!link) return false;
     if (exactMatch) return currentUrl === link;
     return currentUrl.startsWith(link);
+  }
+
+  /**
+   * Check if a collapsable item has an active child
+   * Smart highlighting logic:
+   * - When sidebar is collapsed (4rem): Always highlight parent if child is active
+   * - When sidebar is expanded (16rem): Only highlight if item is NOT expanded
+   */
+  hasActiveChild(item: InternalNavItem): boolean {
+    if (item.type !== 'collapsable' || !item.children) return false;
+
+    const currentUrl = this.router.url;
+    const hasActiveChild = item.children.some(
+      (child) => child.link && this.isLinkActive(currentUrl, child.link, child.exactMatch)
+    );
+
+    if (!hasActiveChild) return false;
+
+    // If sidebar is collapsed (not temporarily expanded), always highlight parent
+    if (!this.isTemporarilyExpanded()) return true;
+
+    // If sidebar is expanded, only highlight if item is NOT expanded
+    return !item._expanded();
   }
 
   // trackBy helper (if you migrate template to *ngFor later)

@@ -127,6 +127,21 @@ export class ClassicNav {
     return currentUrl.startsWith(link);
   }
 
+  /**
+   * Check if a collapsable item has an active child
+   * Used to highlight parent items when collapsed (not expanded)
+   * When expanded, the parent loses highlighting since the active child is visible
+   */
+  hasActiveChild(item: InternalNavItem): boolean {
+    if (item.type !== 'collapsable' || !item.children) return false;
+    // Only highlight parent if it's NOT expanded
+    if (item._expanded()) return false;
+    const currentUrl = this.router.url;
+    return item.children.some(
+      (child) => child.link && this.isLinkActive(currentUrl, child.link, child.exactMatch)
+    );
+  }
+
   toggleExpand(item: InternalNavItem): void {
     if (item.disabled) return;
 
