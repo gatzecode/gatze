@@ -1,0 +1,85 @@
+.mat-mdc-nav-list .mat-mdc-list-item {
+  border-radius: var(--mat-list-active-indicator-shape, var(--mat-sys-corner-small));
+  --mat-focus-indicator-border-radius: var(
+    --mat-list-active-indicator-shape,
+    var(--mat-sys-corner-small)
+  ) !important;
+}
+
+mat-icon.chevron-icon {
+  transition: transform 300ms ease-in-out !important;
+  display: inline-flex !important;
+  will-change: transform;
+}
+
+.mat-icon.chevron-icon {
+  transition: transform 300ms ease-in-out !important;
+}
+
+/* Group divider - thicker and shorter */
+.group-divider {
+  height: 3px;
+  background-color: var(--mat-sys-outline-variant);
+  border-radius: 2px;
+  margin: 8px auto;
+  width: 24px;
+}
+
+.custom-list-item-hover {
+  --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-surface);
+  --mat-list-list-item-hover-state-layer-opacity: 0.06;
+}
+
+.list-item--activated {
+  background-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
+}
+
+/* Helper visibility */
+.hidden {
+  opacity: 0;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none;
+  display: inline-block;
+}
+
+/* Center icons when collapsed (dense) */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* rotate chevron */
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.chevron-transition {
+  transition: transform 200ms ease-in-out !important;
+}
+
+.chevron-transition.rotate-90 {
+  transform: rotate(90deg) !important;
+}
+
+/* Badge classes kept in case user uses them */
+.badge-primary {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+.badge-success {
+  background-color: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+}
+.badge-warning {
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+.badge-danger {
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+.badge-info {
+  background-color: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
+}

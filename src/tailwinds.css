@@ -1,0 +1,106 @@
+/* Importa Tailwind */
+@import 'tailwindcss';
+
+/* IMPORTA TU TEMA MATERIAL */
+@import './theme.css';
+
+/* stylelint-disable-next-line at-rule-no-unknown */
+@theme {
+  /* ============================================
+     DARK MODE CONFIGURATION
+     ============================================ */
+  
+  /* Opción 1: Usar 'class' para control manual con la clase .dark */
+  --dark: .dark;
+  
+  /* Opción 2: Usar 'media' para respetar preferencia del sistema */
+  /* --dark: media; */
+  
+  /* Opción 3: Usar selector personalizado */
+  /* --dark: .dark; */
+
+  /* ============================================
+     THEME COLORS - Mapeados desde Material Design 3
+     ============================================ */
+
+  /* Background */
+  --color-background: var(--mat-sys-background);
+  --color-surface: var(--mat-sys-surface);
+  --color-surface-container: var(--mat-sys-surface-container);
+  --color-surface-dark: var(--mat-sys-surface);
+  --color-surface-container-dark: var(--mat-sys-surface-container);
+
+  /* Texto */
+  --color-text: var(--mat-sys-on-surface);
+  --color-on-surface: var(--mat-sys-on-surface);
+  --color-on-surface-dark: var(--mat-sys-on-surface);
+  --color-on-surface-variant: var(--mat-sys-on-surface-variant);
+  --color-muted: var(--mat-sys-on-surface-variant);
+
+  /* Primario */
+  --color-primary: var(--mat-sys-primary);
+  --color-primary-dark: var(--mat-sys-primary);
+  --color-on-primary: var(--mat-sys-on-primary);
+  --color-primary-container: var(--mat-sys-primary-container);
+
+  /* Secundario */
+  --color-secondary: var(--mat-sys-secondary);
+  --color-on-secondary: var(--mat-sys-on-secondary);
+
+  /* Outline */
+  --color-outline: var(--mat-sys-outline);
+  --color-outline-variant: var(--mat-sys-outline-variant);
+  --color-outline-variant-dark: var(--mat-sys-outline-variant);
+
+  /* Error */
+  --color-error: var(--mat-sys-error);
+  --color-on-error: var(--mat-sys-on-error);
+
+  /* ============================================
+     GRAY SCALE - Para componentes neutros
+     ============================================ */
+
+  /* Grises claros (modo light) y oscuros (modo dark) */
+  --color-gray-50: light-dark(#09090b, #fafafa);
+  --color-gray-100: light-dark(#18181b, #f4f4f5);
+  --color-gray-200: light-dark(#27272a, #e4e4e7);
+  --color-gray-300: light-dark(#3f3f46, #d4d4d8);
+  --color-gray-400: light-dark(#52525b, #a1a1aa);
+  --color-gray-500: light-dark(#71717a, #71717a);
+  --color-gray-600: light-dark(#a1a1aa, #52525b);
+  --color-gray-700: light-dark(#d4d4d8, #3f3f46);
+  --color-gray-800: light-dark(#e4e4e7, #27272a);
+  --color-gray-900: light-dark(#fafafa, #18181b);
+
+  /* ============================================
+     ANIMATION & TRANSITIONS - Material Design Motion
+     ============================================ */
+
+  /* Durations */
+  --transition-duration-short: 100ms;
+  --transition-duration-medium: 300ms;
+  --transition-duration-long: 500ms;
+  --motion-duration-medium: 300ms;
+
+  /* Easing functions (Material Design) */
+  --transition-timing-function-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-function-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --transition-timing-function-accelerate: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ============================================
+   UTILITY CLASSES PERSONALIZADAS (Opcional)
+   ============================================ */
+
+/* Puedes agregar utilities personalizadas si lo necesitas */
+@layer utilities {
+  .surface {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+  
+  .surface-container {
+    background-color: var(--mat-sys-surface-container);
+    color: var(--color-text);
+  }
+}

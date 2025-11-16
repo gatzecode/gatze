@@ -1,0 +1,209 @@
+<div class="w-full min-h-screen bg-background p-4 sm:p-6 lg:p-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-text">Dashboard</h1>
+        <p class="mt-1 text-sm text-secondary">Welcome back! Here's what's happening today.</p>
+      </div>
+      <div class="flex gap-3">
+        <button mat-raised-button color="primary">
+          <mat-icon>download</mat-icon>
+          Export Report
+        </button>
+        <button mat-raised-button>
+          <mat-icon>refresh</mat-icon>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    @for (stat of stats; track stat.title) {
+    <mat-card class="hover:shadow-lg transition-shadow">
+      <mat-card-content class="p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-secondary mb-1">{{ stat.title }}</p>
+            <p class="text-2xl font-bold text-text">{{ stat.value }}</p>
+            <div class="flex items-center gap-1 mt-2">
+              <mat-icon
+                class="text-sm"
+                [ngClass]="{
+                  'text-green-600 dark:text-green-400': stat.changeType === 'positive',
+                  'text-red-600 dark:text-red-400': stat.changeType === 'negative',
+                  'text-gray-600 dark:text-gray-400': stat.changeType === 'neutral'
+                }"
+              >
+                {{ stat.changeType === 'positive' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+              <span
+                class="text-sm font-medium"
+                [ngClass]="{
+                  'text-green-600 dark:text-green-400': stat.changeType === 'positive',
+                  'text-red-600 dark:text-red-400': stat.changeType === 'negative',
+                  'text-gray-600 dark:text-gray-400': stat.changeType === 'neutral'
+                }"
+              >
+                {{ stat.change }}
+              </span>
+              <span class="text-sm text-secondary">vs last month</span>
+            </div>
+          </div>
+          <div class="shrink-0">
+            <div
+              class="w-12 h-12 rounded-full flex items-center justify-center bg-primary/10 dark:bg-primary/20"
+            >
+              <mat-icon [class]="stat.color">{{ stat.icon }}</mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+
+  <!-- Charts and Recent Activity Row -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Weekly Activity Chart -->
+    <mat-card class="lg:col-span-2">
+      <mat-card-header class="p-6 pb-0">
+        <mat-card-title>Weekly Activity</mat-card-title>
+        <mat-card-subtitle>Sales overview for the last 7 days</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="p-6">
+        <!-- Simple Bar Chart -->
+        <div class="flex items-end justify-between h-64 gap-2">
+          @for (data of chartData; track data.label) {
+          <div class="flex-1 flex flex-col items-center gap-2">
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-t relative flex-1 flex items-end">
+              <div
+                class="w-full bg-primary rounded-t transition-all hover:opacity-80 cursor-pointer"
+                [style.height.%]="data.value"
+                [title]="data.value + '%'"
+              ></div>
+            </div>
+            <span class="text-xs text-secondary font-medium">{{ data.label }}</span>
+          </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Recent Activity -->
+    <mat-card>
+      <mat-card-header class="p-6 pb-0">
+        <mat-card-title>Recent Activity</mat-card-title>
+        <mat-card-subtitle>Latest system events</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="p-6 pt-4">
+        <div class="space-y-4">
+          @for (activity of recentActivities; track activity.title) {
+          <div class="flex gap-3">
+            <div class="shrink-0">
+              <div
+                class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+              >
+                <mat-icon class="text-lg" [ngClass]="activity.color">{{ activity.icon }}</mat-icon>
+              </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-text truncate">{{ activity.title }}</p>
+              <p class="text-xs text-secondary truncate">{{ activity.description }}</p>
+              <p class="text-xs text-secondary mt-1">{{ activity.time }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="p-6 pt-0">
+        <button mat-button color="primary">View all activities</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Recent Transactions Table -->
+  <mat-card>
+    <mat-card-header class="p-6 pb-0">
+      <mat-card-title>Recent Transactions</mat-card-title>
+      <mat-card-subtitle>Latest customer transactions</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="p-0">
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="recentTransactions" class="w-full">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Transaction ID</th>
+            <td mat-cell *matCellDef="let transaction" class="font-mono text-sm">
+              {{ transaction.id }}
+            </td>
+          </ng-container>
+
+          <!-- Customer Column -->
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Customer</th>
+            <td mat-cell *matCellDef="let transaction">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center"
+                >
+                  <span class="text-xs font-semibold text-primary">{{
+                    transaction.customer.charAt(0)
+                  }}</span>
+                </div>
+                <span>{{ transaction.customer }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Product Column -->
+          <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Product</th>
+            <td mat-cell *matCellDef="let transaction">{{ transaction.product }}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Amount</th>
+            <td mat-cell *matCellDef="let transaction" class="font-semibold">
+              ${{ transaction.amount.toFixed(2) }}
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Status</th>
+            <td mat-cell *matCellDef="let transaction">
+              <span
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                [ngClass]="getStatusColor(transaction.status)"
+              >
+                {{ transaction.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Date</th>
+            <td mat-cell *matCellDef="let transaction" class="text-secondary">
+              {{ formatDate(transaction.date) }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+          ></tr>
+        </table>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="p-6 pt-4">
+      <button mat-button color="primary">View all transactions</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

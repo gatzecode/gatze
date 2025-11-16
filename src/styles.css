@@ -1,0 +1,18 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+
+.mat-mdc-text-field-wrapper .mdc-notched-outline .mdc-notched-outline__notch {
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  padding: 0 !important;
+}
+
+/* Mantener validación de errores */
+.mat-form-field-invalid .mdc-notched-outline__notch {
+  border-color: var(--mat-sys-error) !important;
+}

@@ -1,0 +1,235 @@
+<div class="w-full min-h-screen bg-background p-4 sm:p-6 lg:p-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-text">Product Management</h1>
+        <p class="mt-1 text-sm text-secondary">
+          Manage your product catalog with full CRUD operations
+        </p>
+      </div>
+      <div class="flex gap-3">
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon>
+          Add Product
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- Total Products -->
+    <mat-card class="hover:shadow-lg transition-shadow">
+      <mat-card-content class="p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-secondary mb-1">Total Products</p>
+            <p class="text-2xl font-bold text-text">{{ totalProducts() }}</p>
+          </div>
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-blue-100 dark:bg-blue-900">
+              <mat-icon class="text-blue-600 dark:text-blue-400">inventory_2</mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Active Products -->
+    <mat-card class="hover:shadow-lg transition-shadow">
+      <mat-card-content class="p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-secondary mb-1">Active</p>
+            <p class="text-2xl font-bold text-text">{{ activeProducts() }}</p>
+          </div>
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-green-100 dark:bg-green-900">
+              <mat-icon class="text-green-600 dark:text-green-400">check_circle</mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Out of Stock -->
+    <mat-card class="hover:shadow-lg transition-shadow">
+      <mat-card-content class="p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-secondary mb-1">Out of Stock</p>
+            <p class="text-2xl font-bold text-text">{{ outOfStock() }}</p>
+          </div>
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-red-100 dark:bg-red-900">
+              <mat-icon class="text-red-600 dark:text-red-400">warning</mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Total Value -->
+    <mat-card class="hover:shadow-lg transition-shadow">
+      <mat-card-content class="p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-secondary mb-1">Inventory Value</p>
+            <p class="text-2xl font-bold text-text">{{ formatCurrency(totalValue()) }}</p>
+          </div>
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-purple-100 dark:bg-purple-900">
+              <mat-icon class="text-purple-600 dark:text-purple-400">attach_money</mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Products Table -->
+  <mat-card>
+    <mat-card-header class="p-6 pb-0">
+      <mat-card-title>Products List</mat-card-title>
+      <mat-card-subtitle>All products in the catalog</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="p-0">
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="products()" class="w-full">
+          <!-- SKU Column -->
+          <ng-container matColumnDef="sku">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">SKU</th>
+            <td mat-cell *matCellDef="let product" class="font-mono text-sm">{{ product.sku }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Product</th>
+            <td mat-cell *matCellDef="let product">
+              <div class="flex flex-col">
+                <span class="font-medium">{{ product.name }}</span>
+                <span class="text-xs text-secondary truncate max-w-xs">{{ product.description }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Category</th>
+            <td mat-cell *matCellDef="let product">
+              <div class="flex items-center gap-2">
+                <mat-icon class="text-lg text-secondary">{{ getCategoryIcon(product.category) }}</mat-icon>
+                <span>{{ product.category }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Price</th>
+            <td mat-cell *matCellDef="let product" class="font-semibold">
+              {{ formatCurrency(product.price) }}
+            </td>
+          </ng-container>
+
+          <!-- Stock Column -->
+          <ng-container matColumnDef="stock">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Stock</th>
+            <td mat-cell *matCellDef="let product">
+              <div class="flex items-center gap-2">
+                <span
+                  [class]="
+                    product.stock === 0
+                      ? 'text-red-600 dark:text-red-400 font-semibold'
+                      : product.stock < 20
+                        ? 'text-orange-600 dark:text-orange-400 font-medium'
+                        : 'text-text'
+                  "
+                >
+                  {{ product.stock }}
+                </span>
+                @if (product.stock < 20 && product.stock > 0) {
+                <mat-icon class="text-sm text-orange-600 dark:text-orange-400" matTooltip="Low stock">
+                  warning
+                </mat-icon>
+                }
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Status</th>
+            <td mat-cell *matCellDef="let product">
+              <span
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                [ngClass]="getStatusColor(product.status)"
+              >
+                {{ product.status === 'out-of-stock' ? 'Out of Stock' : product.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold">Actions</th>
+            <td mat-cell *matCellDef="let product">
+              <div class="flex items-center gap-1">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="openEditDialog(product)"
+                  matTooltip="Edit product"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                @if (product.status !== 'out-of-stock') {
+                <button
+                  mat-icon-button
+                  [color]="product.status === 'active' ? 'accent' : ''"
+                  (click)="toggleProductStatus(product)"
+                  [matTooltip]="product.status === 'active' ? 'Deactivate' : 'Activate'"
+                >
+                  <mat-icon>{{ product.status === 'active' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                </button>
+                }
+
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteProduct(product)"
+                  matTooltip="Delete product"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+          ></tr>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      @if (products().length === 0) {
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <mat-icon class="text-6xl text-secondary mb-4">inventory_2</mat-icon>
+        <h3 class="text-xl font-semibold text-text mb-2">No products yet</h3>
+        <p class="text-secondary mb-6">Get started by adding your first product</p>
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon>
+          Add Your First Product
+        </button>
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
