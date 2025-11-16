@@ -10,15 +10,21 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
 import { NavItemType } from '../../components/nav';
-import { ConfigService, ThemeColor, ThemeMode, LayoutType } from '../../core/services/config.service';
-import { SettingsComponent } from '../../components/settings/settings.component';
+import {
+  ConfigService,
+  ThemeColor,
+  ThemeMode,
+  LayoutType,
+} from '../../core/services/config.service';
+import { Settings } from '../../components/settings/settings';
 import { DenseNav } from '../../components/nav/dense/dense';
 import { ClassicNav } from '../../components/nav/classic/classic';
+import { LogoGatze } from '../../components/logo/logo';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.css',
+  templateUrl: './main.html',
+  styleUrl: './main.css',
   imports: [
     MatToolbarModule,
     MatButtonModule,
@@ -27,18 +33,18 @@ import { ClassicNav } from '../../components/nav/classic/classic';
     MatIconModule,
     AsyncPipe,
     RouterOutlet,
-    SettingsComponent,
-
+    Settings,
+    LogoGatze,
     DenseNav,
     ClassicNav,
   ],
 })
-export class MainComponent {
+export class Main {
   private breakpointObserver = inject(BreakpointObserver);
   protected configService = inject(ConfigService);
 
   // ViewChild for settings drawer
-  settingsPanel = viewChild.required<SettingsComponent>('settingsPanel');
+  settingsPanel = viewChild.required<Settings>('settingsPanel');
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),

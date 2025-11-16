@@ -1,0 +1,42 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gatze Logo - Geometric Cat Design -->
+  <!-- Primary color: #5f6fff (indigo) - Can be customized -->
+
+  <g id="gatze-cat">
+    <!-- Left ear -->
+    <path d="M20 35 L35 15 L40 35 Z" fill="#5f6fff"/>
+
+    <!-- Right ear -->
+    <path d="M80 35 L85 15 L100 35 Z" fill="#5f6fff"/>
+
+    <!-- Head -->
+    <circle cx="60" cy="55" r="32" fill="#5f6fff"/>
+
+    <!-- Face details -->
+    <!-- Left eye -->
+    <ellipse cx="48" cy="50" rx="4" ry="6" fill="#ffffff"/>
+
+    <!-- Right eye -->
+    <ellipse cx="72" cy="50" rx="4" ry="6" fill="#ffffff"/>
+
+    <!-- Nose -->
+    <path d="M60 58 L56 62 L64 62 Z" fill="#ffffff"/>
+
+    <!-- Mouth -->
+    <path d="M60 62 Q56 66 52 64 M60 62 Q64 66 68 64" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+    <!-- Body -->
+    <ellipse cx="60" cy="95" rx="28" ry="20" fill="#5f6fff"/>
+
+    <!-- Tail -->
+    <path d="M85 95 Q100 85 105 70 Q107 75 102 80 Q95 90 88 95" fill="#5f6fff"/>
+
+    <!-- Whiskers - Left -->
+    <line x1="35" y1="55" x2="20" y2="52" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="35" y1="60" x2="20" y2="60" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Whiskers - Right -->
+    <line x1="85" y1="55" x2="100" y2="52" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="85" y1="60" x2="100" y2="60" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

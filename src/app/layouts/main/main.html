@@ -10,16 +10,14 @@
     [opened]="(isHandset$ | async) === false"
   >
     @if (configService.layout() === 'classic') {
-    <div navHeader class="flex justify-between items-center p-4">
-      <div class="flex items-center gap-3">
-        <h2 class="text-lg font-bold uppercase tracking-wide text-primary">Gatze</h2>
-      </div>
+    <div navHeader class="flex justify-between items-center p-4 pb-1">
+      <app-logo [width]="40" [height]="40" [showText]="true" />
     </div>
     <nav-classic [navItems]="navItems" />
 
     } @else if (configService.layout() === 'dense') {
-    <div navHeader class="flex justify-between items-center p-4">
-      <div class="flex items-center gap-3"></div>
+    <div navHeader class="flex justify-center items-center p-4">
+      <app-logo [width]="32" [height]="32" [showText]="false" />
     </div>
     <nav-dense [navItems]="navItems" />
     }
@@ -42,11 +40,10 @@
   /></mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar>
+    <mat-toolbar class="shadow">
       <button type="button" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>gatze</span>
 
       <span class="flex-1"></span>
 
@@ -58,7 +55,7 @@
 
     <div class="content-scroll">
       <div class="content-inner">
-        <div class=" mx-auto">
+        <div class="mx-auto">
           <router-outlet></router-outlet>
         </div>
       </div>

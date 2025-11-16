@@ -1,0 +1,27 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simplified Gatze Logo for small sizes (favicon, etc.) -->
+
+  <g id="gatze-cat-simple">
+    <!-- Left ear -->
+    <path d="M12 20 L20 8 L24 20 Z" fill="#5f6fff"/>
+
+    <!-- Right ear -->
+    <path d="M40 20 L44 8 L52 20 Z" fill="#5f6fff"/>
+
+    <!-- Head -->
+    <circle cx="32" cy="30" r="18" fill="#5f6fff"/>
+
+    <!-- Eyes -->
+    <circle cx="26" cy="28" r="2.5" fill="#ffffff"/>
+    <circle cx="38" cy="28" r="2.5" fill="#ffffff"/>
+
+    <!-- Nose -->
+    <path d="M32 32 L29 35 L35 35 Z" fill="#ffffff"/>
+
+    <!-- Body -->
+    <ellipse cx="32" cy="50" rx="16" ry="12" fill="#5f6fff"/>
+
+    <!-- Tail -->
+    <path d="M46 50 Q54 45 56 38 Q57 40 54 44 Q50 48 48 50" fill="#5f6fff"/>
+  </g>
+</svg>

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { MainComponent } from './layouts/main/main.component';
+import { Main } from './layouts/main/main';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    MainComponent
-  ],
+  imports: [Main],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

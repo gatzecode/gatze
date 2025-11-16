@@ -375,3 +375,148 @@ Potential improvements:
 - Category management
 - Backend API integration
 - Authentication/authorization
+
+---
+
+# Gatze Logo Design
+
+A custom SVG logo featuring a geometric cat design that represents the brand identity.
+
+## Design Concept
+
+The logo depicts a minimalist, geometric cat ("Gatze" is similar to "Katze" - German for cat) with:
+- **Triangular ears**: Sharp, alert appearance
+- **Circular head**: Friendly, approachable feel
+- **Simple facial features**: Eyes, nose, and smiling mouth
+- **Rounded body**: Soft, welcoming silhouette
+- **Curved tail**: Adds movement and character
+- **Whiskers**: Characteristic cat detail
+
+## Color Scheme
+
+The logo adapts to the application's theme colors:
+- **Primary fills**: Uses the current theme color (indigo, green, rose, or orange)
+- **Detail colors**: Adapts to light/dark mode automatically
+- **High contrast**: Ensures visibility in all themes
+
+## Component Implementation
+
+### LogoComponent
+
+Located in `src/app/components/logo/logo.component.ts`
+
+**Features:**
+- Standalone Angular component
+- Fully responsive and scalable
+- Theme-aware (adapts to light/dark mode)
+- Smooth animations on hover
+- Configurable size and text
+
+**Properties:**
+```typescript
+@Input() width: string | number = '48'        // Logo width in pixels
+@Input() height: string | number = '48'       // Logo height in pixels
+@Input() showText: boolean = true             // Show/hide "Gatze" text
+@Input() text: string = 'Gatze'               // Custom text (default: "Gatze")
+@Input() containerClass: string = ''          // Additional CSS classes
+```
+
+**Usage Examples:**
+
+Full logo with text:
+```html
+<app-logo [width]="48" [height]="48" [showText]="true" />
+```
+
+Icon only (no text):
+```html
+<app-logo [width]="32" [height]="32" [showText]="false" />
+```
+
+Custom text:
+```html
+<app-logo [width]="64" [height]="64" text="My Brand" />
+```
+
+### Integration Points
+
+The logo appears in:
+1. **Navigation sidebar** (Classic layout) - 40x40px with text
+2. **Navigation sidebar** (Dense layout) - 32x32px without text
+3. **Top toolbar** - 32x32px with text
+
+### SVG Assets
+
+Two standalone SVG files are provided:
+
+#### 1. Full Logo (`src/assets/logo/gatze-logo.svg`)
+- **Size**: 120x120px viewBox
+- **Use case**: High-resolution displays, print materials, social media
+- **Features**: Complete detail with all whiskers and facial features
+
+#### 2. Simple Logo (`src/assets/logo/gatze-logo-simple.svg`)
+- **Size**: 64x64px viewBox
+- **Use case**: Favicons, small icons, mobile displays
+- **Features**: Simplified design for optimal clarity at small sizes
+
+### Customization
+
+To change the logo color in standalone SVGs:
+1. Open the SVG file
+2. Find `fill="#5f6fff"` (indigo color)
+3. Replace with your desired hex color
+
+For the Angular component, colors automatically adapt to:
+- Current theme color (indigo/green/rose/orange)
+- Light/dark mode preference
+- Material Design 3 color system
+
+### Accessibility
+
+- **Alt text**: Component supports ARIA labels
+- **High contrast**: Works in all theme combinations
+- **Scalable**: Vector format ensures clarity at any size
+
+### Animation
+
+The logo features a subtle hover effect:
+- Scale transformation (1.05x)
+- Smooth transition (0.2s ease-in-out)
+- Transform origin: center
+
+### File Locations
+
+```
+src/
+├── app/
+│   └── components/
+│       └── logo/
+│           └── logo.component.ts       # Angular component
+└── assets/
+    └── logo/
+        ├── gatze-logo.svg              # Full resolution
+        └── gatze-logo-simple.svg       # Simplified version
+```
+
+### Brand Guidelines
+
+**Do:**
+- Use the logo in provided sizes
+- Maintain aspect ratio when scaling
+- Ensure adequate clear space around logo
+- Use on contrasting backgrounds
+
+**Don't:**
+- Distort or skew the logo
+- Add effects (shadows, gradients, outlines)
+- Change the cat design elements
+- Use low-resolution versions at large sizes
+
+### Future Enhancements
+
+Potential logo improvements:
+- Animated version for loading screens
+- Multiple cat poses/expressions
+- Seasonal/themed variations
+- Logo mark variations (horizontal, vertical, square)
+- Monochrome versions for print
