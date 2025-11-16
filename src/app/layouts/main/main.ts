@@ -62,13 +62,6 @@ export class Main {
       exactMatch: true,
     },
     {
-      id: 'analytics',
-      title: 'Analytics',
-      icon: 'analytics',
-      link: '/analytics',
-      type: 'basic',
-    },
-    {
       id: 'divider-1',
       type: 'divider',
     },
