@@ -19,6 +19,39 @@ The `MainComponent` (`src/app/layouts/main/`) serves as a **layout template/mold
 - Theme management integration
 - Navigation variant selection
 
+##### Responsive Layout Switching
+
+The MainComponent automatically adapts the navigation layout based on device type:
+
+**Desktop/Tablet:**
+- Users can choose between `classic` and `dense` layouts
+- Layout preference is saved to localStorage
+- Smooth transitions between layouts
+
+**Mobile (Handset):**
+- **Automatically forces `classic` layout** regardless of user preference
+- Dense layout is disabled on mobile for better UX
+- Sidenav opens in `over` mode (overlays content)
+- Sidenav is closed by default on mobile
+
+**Implementation:**
+```typescript
+// Computed signal that forces classic on mobile
+protected effectiveLayout = computed<LayoutType>(() => {
+  const isMobile = this.isHandset();
+  const configuredLayout = this.configService.layout();
+
+  // Force classic layout on mobile devices
+  if (isMobile) {
+    return 'classic';
+  }
+
+  return configuredLayout;
+});
+```
+
+This ensures optimal UX across all device sizes without manual configuration.
+
 #### Navigation Components
 
 The application features a modern, signal-based navigation system located in `src/app/components/nav/`:

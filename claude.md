@@ -826,3 +826,204 @@ main.js: 590.38 kB (-0.62 kB, -0.1%)
 - ✅ Collapse others on expand (when enabled)
 - ✅ All inputs work correctly
 
+
+---
+
+# Responsive Layout Switching
+
+Automatic navigation layout adaptation based on device type for optimal UX.
+
+## Implementation
+
+### Problem Statement
+
+Dense navigation (4rem collapsible sidebar) works great on desktop but provides poor UX on mobile devices:
+- Icons-only navigation is hard to understand on small screens
+- Hover interactions don't work on touch devices
+- Compact layout wastes precious screen space on mobile
+
+### Solution: Automatic Layout Detection
+
+The `MainComponent` now automatically forces `classic` layout on mobile devices, regardless of user preference.
+
+**File:** `src/app/layouts/main/main.ts`
+
+```typescript
+import { toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
+export class Main {
+  // Detect mobile devices using Angular CDK
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
+
+  // Convert to signal for reactive patterns
+  private isHandset = toSignal(this.isHandset$, { initialValue: false });
+
+  /**
+   * Effective layout based on device type
+   * Mobile devices always use 'classic' layout regardless of user preference
+   * Desktop devices use the configured layout
+   */
+  protected effectiveLayout = computed<LayoutType>(() => {
+    const isMobile = this.isHandset();
+    const configuredLayout = this.configService.layout();
+
+    // Force classic layout on mobile devices
+    if (isMobile) {
+      return 'classic';
+    }
+
+    return configuredLayout;
+  });
+}
+```
+
+### Template Usage
+
+**Before:**
+```html
+@if (configService.layout() === 'classic') {
+  <nav-classic [navItems]="navItems" />
+} @else if (configService.layout() === 'dense') {
+  <nav-dense [navItems]="navItems" />
+}
+```
+
+**After:**
+```html
+@if (effectiveLayout() === 'classic') {
+  <nav-classic [navItems]="navItems" />
+} @else if (effectiveLayout() === 'dense') {
+  <nav-dense [navItems]="navItems" />
+}
+```
+
+### Behavior
+
+| Device Type | User Preference | Actual Layout | Reason |
+|-------------|----------------|---------------|---------|
+| Desktop | Classic | Classic | ✅ User choice |
+| Desktop | Dense | Dense | ✅ User choice |
+| Mobile | Classic | Classic | ✅ User choice |
+| Mobile | Dense | **Classic** | ⚠️ Forced (better UX) |
+
+### Breakpoint Detection
+
+Uses Angular CDK's `Breakpoints.Handset`:
+- **Mobile:** Portrait phones and small tablets
+- **Desktop:** Everything else
+
+**Handset breakpoint:**
+- `max-width: 599.98px` and `portrait`
+- `max-width: 959.98px` and `landscape`
+
+### Benefits
+
+**User Experience:**
+- ✅ Always optimal layout for device type
+- ✅ No configuration needed
+- ✅ Consistent mobile experience
+- ✅ Full text labels on mobile (better accessibility)
+
+**Developer Experience:**
+- ✅ Zero manual configuration
+- ✅ Automatic responsive behavior
+- ✅ Leverages Angular CDK (battle-tested)
+- ✅ Signal-based reactivity
+
+**Performance:**
+- ✅ Computed signal (cached, efficient)
+- ✅ No extra HTTP requests
+- ✅ No layout flashing (instant detection)
+
+### Edge Cases Handled
+
+**1. Window Resize (Desktop ↔ Mobile)**
+```typescript
+// Observable continuously monitors breakpoint
+isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset);
+
+// Converted to signal, updates automatically
+isHandset = toSignal(isHandset$);
+
+// Computed recalculates on signal change
+effectiveLayout = computed(() => {
+  const isMobile = this.isHandset(); // ✅ Reactive
+  // ...
+});
+```
+
+**2. Settings Panel Display**
+The settings panel shows the **effective** layout, not the user preference:
+```html
+<app-settings [currentLayout]="effectiveLayout()" />
+```
+
+This prevents confusion—users see "Classic" in settings when on mobile, even if they selected "Dense" on desktop.
+
+**3. Preference Preservation**
+User's desktop layout preference is **preserved** in localStorage:
+- User selects "Dense" on desktop → Saved
+- User opens app on mobile → Shows "Classic" (forced)
+- User returns to desktop → Shows "Dense" (restored)
+
+### Future Enhancements
+
+**Tablet-specific layouts:**
+```typescript
+protected effectiveLayout = computed(() => {
+  const isHandset = this.isHandset();
+  const isTablet = this.isTablet(); // New signal
+  const configured = this.configService.layout();
+
+  if (isHandset) return 'classic';
+  if (isTablet) return 'compact'; // New layout variant
+  return configured;
+});
+```
+
+**User override option:**
+```typescript
+// Allow advanced users to override on mobile
+const allowMobileOverride = this.configService.allowMobileOverride();
+
+if (isMobile && !allowMobileOverride) {
+  return 'classic';
+}
+```
+
+**Orientation detection:**
+```typescript
+// Different layouts for portrait vs landscape on tablets
+const isLandscape = this.isLandscape();
+
+if (isTablet && isLandscape) {
+  return 'dense'; // More horizontal space
+}
+```
+
+### Testing Checklist
+
+- ✅ Build passes without errors
+- ✅ Desktop shows user-selected layout
+- ✅ Mobile always shows classic layout
+- ✅ Window resize updates layout reactively
+- ✅ Settings panel shows correct layout
+- ✅ User preference persists across sessions
+- ✅ No layout flashing on initial load
+- ✅ Sidenav mode changes (side/over) correctly
+
+### Related Files
+
+- `src/app/layouts/main/main.ts` - Layout detection logic
+- `src/app/layouts/main/main.html` - Template with effectiveLayout
+- `src/app/core/services/config.service.ts` - Layout preference storage
+- `src/app/components/settings/settings.component.ts` - Settings UI
+
+---
+

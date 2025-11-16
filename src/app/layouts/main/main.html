@@ -9,13 +9,13 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    @if (configService.layout() === 'classic') {
+    @if (effectiveLayout() === 'classic') {
     <div navHeader class="flex justify-between items-center p-4 pb-1">
       <app-logo [width]="40" [height]="40" [showText]="true" />
     </div>
     <nav-classic [navItems]="navItems" />
 
-    } @else if (configService.layout() === 'dense') {
+    } @else if (effectiveLayout() === 'dense') {
     <div navHeader class="flex justify-center items-center p-4">
       <app-logo [width]="32" [height]="32" [showText]="false" />
     </div>
@@ -31,7 +31,7 @@
     ><app-settings
       #settingsPanel
       [class]="'theme-' + configService.themeColor()"
-      [currentLayout]="configService.layout()"
+      [currentLayout]="effectiveLayout()"
       [availableLayouts]="configService.availableLayouts"
       [availableThemes]="configService.availableColors"
       (layoutChange)="setLayout($event)"
@@ -40,7 +40,7 @@
   /></mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="shadow">
+    <mat-toolbar class="shadow-sm z-50">
       <button type="button" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>

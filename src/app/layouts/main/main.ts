@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, inject, viewChild, computed } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { NavItemType } from '../../components/nav';
 import {
@@ -46,10 +47,31 @@ export class Main {
   // ViewChild for settings drawer
   settingsPanel = viewChild.required<Settings>('settingsPanel');
 
+  // Observable for backward compatibility
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),
     shareReplay()
   );
+
+  // Convert to signal for reactive layout switching
+  private isHandset = toSignal(this.isHandset$, { initialValue: false });
+
+  /**
+   * Effective layout based on device type
+   * Mobile devices always use 'classic' layout regardless of user preference
+   * Desktop devices use the configured layout
+   */
+  protected effectiveLayout = computed<LayoutType>(() => {
+    const isMobile = this.isHandset();
+    const configuredLayout = this.configService.layout();
+
+    // Force classic layout on mobile devices
+    if (isMobile) {
+      return 'classic';
+    }
+
+    return configuredLayout;
+  });
 
   // Navigation items
   protected readonly navItems: NavItemType[] = [
