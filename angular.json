@@ -41,12 +41,24 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "define": {
+                "import.meta.env.API_URL": "'https://api.production.com'",
+                "import.meta.env.ENVIRONMENT": "'production'",
+                "import.meta.env.ENABLE_DEBUG": "true",
+                "import.meta.env.VERSION": "'1.0.0'"
+              }
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "define": {
+                "import.meta.env.API_URL": "'https://api.production.com'",
+                "import.meta.env.ENVIRONMENT": "'production'",
+                "import.meta.env.ENABLE_DEBUG": "false",
+                "import.meta.env.VERSION": "'1.0.0'"
+              }
             }
           },
           "defaultConfiguration": "production"

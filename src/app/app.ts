@@ -7,4 +7,10 @@ import { Main } from './shared/layouts/main/main';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {}
+export class App {
+  private readonly environment = import.meta.env.ENVIRONMENT;
+
+  constructor() {
+    console.log(`App initialized in ${this.environment} mode.`);
+  }
+}
