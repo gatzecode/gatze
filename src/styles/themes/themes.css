@@ -9,6 +9,7 @@ html.theme-green {
   --mat-sys-on-primary: light-dark(#ffffff, #052e16);
   --mat-sys-primary-container: light-dark(#bbf7d0, #15803d);
   --mat-sys-on-primary-container: light-dark(#052e16, #dcfce7);
+  --mat-sys-inverse-primary: light-dark(#86efac, #16a34a);
   --mat-sys-surface-tint: light-dark(#16a34a, #86efac);
 
   --mat-sys-secondary: light-dark(#059669, #6ee7b7);
@@ -26,6 +27,7 @@ html.theme-rose {
   --mat-sys-on-primary: light-dark(#ffffff, #4c0519);
   --mat-sys-primary-container: light-dark(#fecdd3, #be123c);
   --mat-sys-on-primary-container: light-dark(#4c0519, #ffe4e6);
+  --mat-sys-inverse-primary: light-dark(#fda4af, #e11d48);
   --mat-sys-surface-tint: light-dark(#e11d48, #fda4af);
 
   --mat-sys-secondary: light-dark(#db2777, #f9a8d4);
@@ -43,6 +45,7 @@ html.theme-orange {
   --mat-sys-on-primary: light-dark(#ffffff, #431407);
   --mat-sys-primary-container: light-dark(#fed7aa, #c2410c);
   --mat-sys-on-primary-container: light-dark(#431407, #ffedd5);
+  --mat-sys-inverse-primary: light-dark(#fdba74, #ea580c);
   --mat-sys-surface-tint: light-dark(#ea580c, #fdba74);
 
   --mat-sys-secondary: light-dark(#d97706, #fcd34d);
