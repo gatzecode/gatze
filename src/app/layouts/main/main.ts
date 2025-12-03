@@ -6,10 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { NavItemType } from '../../components/nav';
 import {
   ConfigService,
@@ -21,6 +22,7 @@ import { Settings } from '../../components/settings/settings';
 import { DenseNav } from '../../components/nav/dense/dense';
 import { ClassicNav } from '../../components/nav/classic/classic';
 import { LogoGatze } from '../../components/logo/logo';
+import { UserAccount } from '../common/user';
 
 @Component({
   selector: 'app-main',
@@ -32,8 +34,10 @@ import { LogoGatze } from '../../components/logo/logo';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatMenuModule,
     AsyncPipe,
     RouterOutlet,
+    UserAccount,
     Settings,
     LogoGatze,
     DenseNav,

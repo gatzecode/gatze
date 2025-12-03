@@ -17,20 +17,3 @@ mat-sidenav-content {
 .content-inner {
   min-height: 100%;
 }
-
-
-
-.account-item {
-  background-color: var(--mat-list-active-indicator-color, var(--mat-sys-surface-variant));
-  border-radius: var(--mat-list-active-indicator-shape, var(--mat-sys-corner-small));
-  --mat-focus-indicator-border-radius: var(
-    --mat-list-active-indicator-shape,
-    var(--mat-sys-corner-small)
-  ) !important;
-  transition: filter 0.2s ease;
-}
-
-.account-item:hover {
-  filter: brightness(0.95);
-  cursor: pointer;
-}

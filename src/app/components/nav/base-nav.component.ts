@@ -1,4 +1,4 @@
-import { computed, effect, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, effect, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
