@@ -21,7 +21,7 @@ import { BreakpointService } from '../../core/services/breakpoint.service';
 @Component({
   selector: 'layout-classic',
   templateUrl: './layout-classic.html',
-  styleUrl: './layout-classic.css',
+  styleUrls: ['../shared/layout-shared.css', './layout-classic.css'],
   imports: [
     MatToolbarModule,
     MatButtonModule,

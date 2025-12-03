@@ -21,7 +21,7 @@ import { BreakpointService } from '../../core/services/breakpoint.service';
 @Component({
   selector: 'layout-dense',
   templateUrl: './layout-dense.html',
-  styleUrl: './layout-dense.css',
+  styleUrls: ['../shared/layout-shared.css', './layout-dense.css'],
   imports: [
     MatToolbarModule,
     MatButtonModule,

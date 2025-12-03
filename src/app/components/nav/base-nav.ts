@@ -12,7 +12,7 @@ import { InternalNavItem, NavItemType } from './navigation.types';
  * Note: Subclasses must declare their own input() signals and sync them
  * with the base class signals in their constructor
  */
-export abstract class BaseNavComponent {
+export abstract class BaseNav {
   // -----------------------
   // Shared reactive state (to be synced from subclass inputs)
   // -----------------------

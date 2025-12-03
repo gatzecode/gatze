@@ -6,7 +6,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule, Router } from '@angular/router';
 import { InternalNavItem, NavItemType } from '../navigation.types';
-import { BaseNavComponent } from '../base-nav.component';
+import { BaseNav } from '../base-nav';
+import { NavItem, NavCollapsableItem } from '../shared';
 
 @Component({
   selector: 'nav-classic',
@@ -17,11 +18,13 @@ import { BaseNavComponent } from '../base-nav.component';
     MatBadgeModule,
     MatDividerModule,
     RouterModule,
+    NavItem,
+    NavCollapsableItem,
   ],
   templateUrl: './classic.html',
-  styleUrl: './classic.css',
+  styleUrls: ['../shared/nav-shared.css', './classic.css'],
 })
-export class ClassicNav extends BaseNavComponent {
+export class ClassicNav extends BaseNav {
   // -----------------------
   // Public inputs (synced to base class)
   // -----------------------

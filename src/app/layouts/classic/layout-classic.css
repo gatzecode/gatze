@@ -1,2 +1,1 @@
-/* Import shared layout styles */
-@import '../shared/layout-shared.css';
+/* Shared layout styles are imported via styleUrls in component */

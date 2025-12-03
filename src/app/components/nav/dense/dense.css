@@ -1,5 +1,4 @@
-/* Import shared navigation styles */
-@import '../shared/nav-shared.css';
+/* Shared styles are imported via styleUrls in component */
 
 mat-icon.chevron-icon {
   transition: transform 300ms ease-in-out !important;

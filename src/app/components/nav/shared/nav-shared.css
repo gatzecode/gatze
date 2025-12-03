@@ -1,7 +1,8 @@
 /* Shared Navigation Styles */
 
-/* Base navigation list item styles */
-.mat-mdc-nav-list .mat-mdc-list-item {
+.custom-list-item-hover {
+  --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-surface);
+  --mat-list-list-item-hover-state-layer-opacity: 0.08;
   border-radius: var(--mat-list-active-indicator-shape, var(--mat-sys-corner-small));
   --mat-focus-indicator-border-radius: var(
     --mat-list-active-indicator-shape,
@@ -9,13 +10,14 @@
   ) !important;
 }
 
-.custom-list-item-hover {
-  --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-surface);
-  --mat-list-list-item-hover-state-layer-opacity: 0.08;
-}
-
 .list-item--activated {
   background-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
+  opacity: 0.9;
+}
+
+/* Tree indentation for collapsable children */
+.nav-collapsable-child {
+  padding-left: 1rem !important;
 }
 
 /* Badge styles using Material 3 tokens */

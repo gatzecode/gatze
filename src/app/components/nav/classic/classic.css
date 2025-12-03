@@ -1,2 +1,1 @@
-/* Import shared navigation styles */
-@import '../shared/nav-shared.css';
+/* Styles are imported via styleUrls in component */

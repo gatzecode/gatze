@@ -8,225 +8,75 @@
 >
   <mat-nav-list class="m-0">
     <ul>
-      @for (item of internalItems(); track item.id) { @if (!item.hidden) {
-      <li class="m-[3px]">
-        @switch (item.type) { @case ('divider') {
-        <mat-divider class="my-2"></mat-divider>
-        } @case ('spacer') {
-        <div class="h-4"></div>
-        } @case ('group') {
-        <div class="group-header-container">
-          <div
-            class="group-title"
-            [class.group-title--visible]="isTemporarilyExpanded()"
-            [class.group-title--hidden]="!isTemporarilyExpanded()"
-          >
-            {{ item.title }}
-          </div>
-          <div
-            class="group-divider"
-            [class.group-divider--visible]="!isTemporarilyExpanded()"
-            [class.group-divider--hidden]="isTemporarilyExpanded()"
-          ></div>
-        </div>
-        @if (item.children && item.children.length > 0) {
-        <ul>
-          @for (child of item.children; track child.id) { @if (!child.hidden) {
-          <li>
-            <a
-              mat-list-item
-              [routerLink]="child.link"
-              [routerLinkActive]="'list-item--activated'"
-              [routerLinkActiveOptions]="{ exact: child.exactMatch ?? false }"
-              [class.opacity-50]="child.disabled"
-              [class.pointer-events-none]="child.disabled"
-              [class.cursor-default]="child.disabled"
-              [attr.title]="child.tooltip"
-              [attr.aria-disabled]="child.disabled"
-              [target]="child.externalLink ? child.target ?? '_blank' : undefined"
-              [attr.rel]="child.externalLink ? 'noopener noreferrer' : undefined"
-              class="rounded-lg transition-all duration-200 custom-list-item-hover"
-            >
-              @if (child.icon) {
-              <mat-icon
-                matListItemIcon
-                [class]="child.classes?.icon"
-                [class.mx-auto]="!isTemporarilyExpanded()"
-              >
-                {{ child.icon }}
-              </mat-icon>
+      @for (item of internalItems(); track item.id) {
+        @if (!item.hidden) {
+          <li class="m-[3px]">
+            @switch (item.type) {
+              @case ('divider') {
+                <mat-divider class="my-2"></mat-divider>
               }
-              <span
-                matListItemTitle
-                [class]="child.classes?.title"
-                [class.hidden]="!isTemporarilyExpanded()"
-              >
-                {{ child.title }}
-              </span>
+              @case ('spacer') {
+                <div class="h-4"></div>
+              }
+              @case ('group') {
+                <div class="group-header-container">
+                  <div
+                    class="group-title"
+                    [class.group-title--visible]="isTemporarilyExpanded()"
+                    [class.group-title--hidden]="!isTemporarilyExpanded()"
+                  >
+                    {{ item.title }}
+                  </div>
+                  <div
+                    class="group-divider"
+                    [class.group-divider--visible]="!isTemporarilyExpanded()"
+                    [class.group-divider--hidden]="isTemporarilyExpanded()"
+                  ></div>
+                </div>
 
-              @if (child.badge) {
-              <span
-                matListItemMeta
-                class="text-xs px-2 py-0.5 rounded-full mr-2"
-                [class]="child.badge.classes"
-                [attr.aria-label]="child.badge.title"
-                [class.hidden]="!isTemporarilyExpanded()"
-              >
-                {{ child.badge.title }}
-              </span>
+                @if (item.children && item.children.length > 0) {
+                  <ul>
+                    @for (child of item.children; track child.id) {
+                      @if (!child.hidden) {
+                        <li>
+                          <nav-item
+                            [item]="child"
+                            [centerIcon]="!isTemporarilyExpanded()"
+                            [hideText]="!isTemporarilyExpanded()"
+                            [showBadge]="isTemporarilyExpanded()"
+                          />
+                        </li>
+                      }
+                    }
+                  </ul>
+                }
               }
-            </a>
+              @case ('collapsable') {
+                @if (item.children && item.children.length > 0) {
+                  <nav-collapsable-item
+                    [item]="item"
+                    [centerIcon]="!isTemporarilyExpanded()"
+                    [hideText]="!isTemporarilyExpanded()"
+                    [hideChildren]="!isTemporarilyExpanded()"
+                    [showBadge]="isTemporarilyExpanded()"
+                    [isActive]="hasActiveChild(item)"
+                    [indentChildren]="true"
+                    (toggleExpand)="onToggleExpand(item)"
+                  />
+                }
+              }
+              @case ('basic') {
+                <nav-item
+                  [item]="item"
+                  [centerIcon]="!isTemporarilyExpanded()"
+                  [hideText]="!isTemporarilyExpanded()"
+                  [showBadge]="isTemporarilyExpanded()"
+                />
+              }
+            }
           </li>
-          } }
-        </ul>
-        } } @case ('collapsable') { @if (item.children && item.children.length > 0) {
-        <!-- Parent collapsable header -->
-        <a
-          mat-list-item
-          (click)="onToggleExpand(item)"
-          [class.opacity-50]="item.disabled"
-          [class.pointer-events-none]="item.disabled"
-          [class.cursor-default]="item.disabled"
-          [class.list-item--activated]="hasActiveChild(item)"
-          [attr.title]="item.tooltip"
-          [attr.aria-expanded]="item._expanded()"
-          class="rounded-lg transition-all duration-200 cursor-pointer"
-        >
-          @if (item.icon) {
-          <mat-icon
-            matListItemIcon
-            [class]="item.classes?.icon"
-            [class.mx-auto]="!isTemporarilyExpanded()"
-          >
-            {{ item.icon }}
-          </mat-icon>
-          }
-          <span
-            matListItemTitle
-            [class]="item.classes?.title"
-            [class.hidden]="!isTemporarilyExpanded()"
-          >
-            {{ item.title }}
-          </span>
-
-          @if (item.badge) {
-          <span
-            matListItemMeta
-            class="text-xs px-2 py-0.5 rounded-full mr-2"
-            [class]="item.badge.classes"
-            [attr.aria-label]="item.badge.title"
-            [class.hidden]="!isTemporarilyExpanded()"
-          >
-            {{ item.badge.title }}
-          </span>
-          }
-
-          <!-- chevron only visible when expanded area is open -->
-          <div matListItemMeta [class.hidden]="!isTemporarilyExpanded()">
-            <mat-icon
-              class="chevron-icon"
-              [style.transform]="item._expanded() ? 'rotate(90deg)' : 'rotate(0deg)'"
-              aria-hidden="true"
-            >
-              chevron_right
-            </mat-icon>
-          </div>
-        </a>
-
-        <!-- children: hidden while in dense-compact (not hovered) -->
-        <div
-          class="grid transition-[grid-template-rows] duration-300 ease-in-out overflow-hidden"
-          [class.grid-rows-[0fr]]="!item._expanded() || !isTemporarilyExpanded()"
-          [class.grid-rows-[1fr]]="item._expanded() && isTemporarilyExpanded()"
-        >
-          <ul class="min-h-0">
-            @for (child of item.children; track child.id) { @if (!child.hidden) {
-            <li>
-              <a
-                mat-list-item
-                [routerLink]="child.link"
-                [routerLinkActive]="'list-item--activated'"
-                [routerLinkActiveOptions]="{ exact: child.exactMatch ?? false }"
-                [class.opacity-50]="child.disabled"
-                [class.pointer-events-none]="child.disabled"
-                [class.cursor-default]="child.disabled"
-                [attr.title]="child.tooltip"
-                [attr.aria-disabled]="child.disabled"
-                [target]="child.externalLink ? child.target ?? '_blank' : undefined"
-                [attr.rel]="child.externalLink ? 'noopener noreferrer' : undefined"
-                class="rounded-lg transition-all duration-200 custom-list-item-hover"
-              >
-                @if (child.icon) {
-                <mat-icon matListItemIcon class="ml-8!" [class]="child.classes?.icon">
-                  {{ child.icon }}
-                </mat-icon>
-                }
-                <span matListItemTitle [class]="child.classes?.title">
-                  {{ child.title }}
-                </span>
-
-                @if (child.badge) {
-                <span
-                  matListItemMeta
-                  class="text-xs px-2 py-0.5 rounded-full mr-2"
-                  [class]="child.badge.classes"
-                  [attr.aria-label]="child.badge.title"
-                >
-                  {{ child.badge.title }}
-                </span>
-                }
-              </a>
-            </li>
-            } }
-          </ul>
-        </div>
-        } } @case ('basic') {
-        <a
-          mat-list-item
-          [routerLink]="item.link"
-          [routerLinkActive]="'list-item--activated'"
-          [routerLinkActiveOptions]="{ exact: item.exactMatch ?? false }"
-          [class.opacity-50]="item.disabled"
-          [class.pointer-events-none]="item.disabled"
-          [class.cursor-default]="item.disabled"
-          [attr.title]="item.tooltip"
-          [attr.aria-disabled]="item.disabled"
-          [target]="item.externalLink ? item.target ?? '_blank' : undefined"
-          [attr.rel]="item.externalLink ? 'noopener noreferrer' : undefined"
-          class="rounded-lg transition-all duration-200 custom-list-item-hover"
-        >
-          @if (item.icon) {
-          <mat-icon
-            matListItemIcon
-            [class]="item.classes?.icon"
-            [class.mx-auto]="!isTemporarilyExpanded()"
-          >
-            {{ item.icon }}
-          </mat-icon>
-          }
-          <span
-            matListItemTitle
-            [class]="item.classes?.title"
-            [class.hidden]="!isTemporarilyExpanded()"
-          >
-            {{ item.title }}
-          </span>
-
-          @if (item.badge) {
-          <span
-            matListItemMeta
-            class="text-xs px-2 py-0.5 rounded-full mr-2"
-            [class]="item.badge.classes"
-            [attr.aria-label]="item.badge.title"
-            [class.hidden]="!isTemporarilyExpanded()"
-          >
-            {{ item.badge.title }}
-          </span>
-          }
-        </a>
-        } }
-      </li>
-      } }
+        }
+      }
     </ul>
   </mat-nav-list>
 </nav>
