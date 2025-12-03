@@ -1,6 +1,6 @@
 import { WritableSignal } from '@angular/core';
 
-export type NavAppearance = 'classic' | 'compact' | 'dense' | 'thin';
+export type NavAppearance = 'classic' |'dense';
 
 export interface NavItemType {
   id: string;

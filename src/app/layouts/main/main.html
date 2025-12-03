@@ -1,6 +1,4 @@
-<mat-sidenav-container
-  class="sidenav-container bg-white dark:bg-gray-900 text-black dark:text-white"
->
+<mat-sidenav-container class="sidenav-container">
   <!-- Navigation Sidenav (Left) -->
   <mat-sidenav
     #drawer
@@ -9,18 +7,26 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    @if (effectiveLayout() === 'classic') {
-    <div navHeader class="flex justify-between items-center p-4 pb-1">
-      <app-logo [width]="40" [height]="40" [showText]="true" />
-    </div>
-    <nav-classic [navItems]="navItems" />
+    <div class="flex flex-col w-full h-full overflow-hidden">
+      @if (effectiveLayout() === 'classic') {
+      <div navHeader class="flex justify-between items-center p-2 pb-0">
+        <app-logo [width]="44" [height]="44" [showText]="true" />
+      </div>
 
-    } @else if (effectiveLayout() === 'dense') {
-    <div navHeader class="flex justify-center items-center p-4">
-      <app-logo [width]="32" [height]="32" [showText]="false" />
+      <nav-classic [navItems]="navItems" />
+
+      } @else if (effectiveLayout() === 'dense') {
+      <div navHeader class="flex justify-center items-center p-2">
+        <app-logo [width]="32" [height]="32" [showText]="false" />
+      </div>
+      <nav-dense [navItems]="navItems" #navDense />
+      }
+
+      <a mat-list-item class="flex p-1 w-full h-16 mt-auto account-item">
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        <span matListItemTitle> Account </span>
+      </a>
     </div>
-    <nav-dense [navItems]="navItems" />
-    }
   </mat-sidenav>
 
   <mat-sidenav

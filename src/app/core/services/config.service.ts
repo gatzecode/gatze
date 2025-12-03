@@ -11,7 +11,7 @@ export interface AppConfig {
 }
 
 const DEFAULT_CONFIG: AppConfig = {
-  themeColor: 'indigo',
+  themeColor: 'orange',
   themeMode: 'auto',
   layout: 'classic',
 };
@@ -23,7 +23,7 @@ export class ConfigService {
   private destroyRef = inject(DestroyRef);
 
   // Available options
-  readonly availableColors: ThemeColor[] = ['indigo', 'green', 'rose', 'orange'];
+  readonly availableColors: ThemeColor[] = ['orange', 'indigo', 'green', 'rose'];
   readonly availableModes: ThemeMode[] = ['light', 'dark', 'auto'];
   readonly availableLayouts: LayoutType[] = ['classic', 'dense'];
 

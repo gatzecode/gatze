@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, signal, WritableSignal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -86,6 +86,10 @@ export class DenseNav extends BaseNavComponent {
 
   onMouseLeave(): void {
     this.isHovering.set(false);
+  }
+
+  isExpanded(): boolean {
+    return this.isTemporarilyExpanded();
   }
 
   /**

@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full overflow-auto bg-card">
   <!-- Header -->
-  <div class="flex flex-row items-center px-6 h-17 min-h-17 text-white bg-primary">
+  <div class="flex flex-row items-center px-6 h-16 min-h-16 text-white bg-primary">
     <mat-icon class="icon-size-6 text-current">settings</mat-icon>
     <div class="ml-3 text-2xl font-semibold tracking-tight">Settings</div>
   </div>
@@ -11,39 +11,35 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
       @for (color of availableThemes(); track color) {
       <div
-        class="flex items-center justify-center px-4 py-3 rounded-full cursor-pointer ring-inset transition-all duration-short"
+        class="flex items-center justify-center px-4 py-3 rounded-full cursor-pointer ring-inset transition-all duration-short bg-gray-800"
         [class.ring-2]="configService.themeColor() === color"
-        [class.hover:bg-[#2f2ebe]]="color === 'indigo' && !configService.isDarkMode()"
-        [class.bg-[#494bd6]]="color === 'indigo' && !configService.isDarkMode()"
         [class.ring-[#2f2ebe]]="color === 'indigo' && !configService.isDarkMode()"
-        [class.hover:bg-[#15803d]]="color === 'green' && !configService.isDarkMode()"
-        [class.bg-[#16a34a]]="color === 'green' && !configService.isDarkMode()"
         [class.ring-[#15803d]]="color === 'green' && !configService.isDarkMode()"
-        [class.hover:bg-[#be123c]]="color === 'rose' && !configService.isDarkMode()"
-        [class.bg-[#e11d48]]="color === 'rose' && !configService.isDarkMode()"
         [class.ring-[#be123c]]="color === 'rose' && !configService.isDarkMode()"
-        [class.hover:bg-[#c2410c]]="color === 'orange' && !configService.isDarkMode()"
-        [class.bg-[#ea580c]]="color === 'orange' && !configService.isDarkMode()"
         [class.ring-[#c2410c]]="color === 'orange' && !configService.isDarkMode()"
-        [class.dark:hover:bg-[#e1e0ff]]="color === 'indigo' && configService.isDarkMode()"
         [class.dark:ring-[#2f2ebe]]="color === 'indigo' && configService.isDarkMode()"
-        [class.dark:bg-[#c0c1ff]]="color === 'indigo' && configService.isDarkMode()"
-        [class.dark:hover:bg-[#dcfce7]]="color === 'green' && configService.isDarkMode()"
         [class.dark:ring-[#15803d]]="color === 'green' && configService.isDarkMode()"
-        [class.dark:bg-[#86efac]]="color === 'green' && configService.isDarkMode()"
-        [class.dark:hover:bg-[#ffe4e6]]="color === 'rose' && configService.isDarkMode()"
         [class.dark:ring-[#be123c]]="color === 'rose' && configService.isDarkMode()"
-        [class.dark:bg-[#fda4af]]="color === 'rose' && configService.isDarkMode()"
-        [class.dark:hover:bg-[#ffedd5]]="color === 'orange' && configService.isDarkMode()"
         [class.dark:ring-[#c2410c]]="color === 'orange' && configService.isDarkMode()"
-        [class.dark:bg-[#fdba74]]="color === 'orange' && configService.isDarkMode()"
         (click)="onThemeChange(color)"
       >
         <div class="flex-0 w-3 h-3 rounded-full"></div>
         <div
-          class="ml-2.5 font-medium leading-5 truncate capitalize"
+          class="font-medium leading-5 truncate capitalize"
           [class.text-secondary]="configService.themeColor() !== color"
-        ></div>
+        >
+          <div
+            class="flex-0 w-3 h-3 rounded-full"
+            [class.bg-[#2f2ebe]]="color === 'indigo' && !configService.isDarkMode()"
+            [class.bg-[#15803d]]="color === 'green' && !configService.isDarkMode()"
+            [class.bg-[#be123c]]="color === 'rose' && !configService.isDarkMode()"
+            [class.bg-[#c2410c]]="color === 'orange' && !configService.isDarkMode()"
+            [class.dark:bg-[#2f2ebe]]="color === 'indigo' && configService.isDarkMode()"
+            [class.dark:bg-[#15803d]]="color === 'green' && configService.isDarkMode()"
+            [class.dark:bg-[#be123c]]="color === 'rose' && configService.isDarkMode()"
+            [class.dark:bg-[#c2410c]]="color === 'orange' && configService.isDarkMode()"
+          ></div>
+        </div>
       </div>
       }
     </div>
@@ -52,10 +48,10 @@
 
     <!-- Scheme (Dark Mode) -->
     <div class="text-md font-semibold text-secondary">Appearance</div>
-    <div class="grid grid-cols-3 gap-3 justify-items-start mt-6">
+    <div class="grid grid-cols-3 gap-5 justify-items-start mt-6">
       <!-- Auto -->
       <div
-        class="flex items-center py-3 pl-5 pr-6 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short"
+        class="flex items-center py-3 pl-3 pr-3 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short bg-gray-800"
         [class.ring-2]="configService.themeMode() === 'auto'"
         (click)="setScheme('auto')"
       >
@@ -72,7 +68,7 @@
 
       <!-- Dark -->
       <div
-        class="flex items-center py-3 pl-5 pr-6 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short"
+        class="flex items-center py-3 pl-3 pr-3 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short bg-gray-800"
         [class.ring-2]="configService.themeMode() === 'dark'"
         (click)="setScheme('dark')"
       >
@@ -89,7 +85,7 @@
 
       <!-- Light -->
       <div
-        class="flex items-center py-3 pl-5 pr-6 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short"
+        class="flex items-center py-3 pl-3 pr-3 rounded-full cursor-pointer ring-inset ring-primary bg-hover transition-all duration-short bg-gray-800"
         [class.ring-2]="configService.themeMode() === 'light'"
         (click)="setScheme('light')"
       >
@@ -109,7 +105,7 @@
 
     <!-- Layout -->
     <div class="text-md font-semibold text-secondary">Navigation Layout</div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+    <div class="grid grid-cols-2 sm:grid-cols-2 gap-3 mt-6">
       <!-- Classic -->
       <div class="flex flex-col cursor-pointer" (click)="onLayoutChange('classic')">
         <div
@@ -144,35 +140,6 @@
         </div>
       </div>
 
-      <!-- Compact (Coming soon) -->
-      <div class="flex flex-col cursor-not-allowed opacity-50">
-        <div
-          class="flex h-20 rounded-md overflow-hidden border-2 border-outline"
-        >
-          <div class="w-5 bg-gray-100 dark:bg-gray-800">
-            <div class="w-3 h-3 mt-2 mx-auto rounded-sm bg-gray-300 dark:bg-gray-700"></div>
-            <div class="flex flex-col items-center w-full mt-2 space-y-1">
-              <div class="w-3 h-2.5 rounded-sm bg-gray-300 dark:bg-gray-700"></div>
-              <div class="w-3 h-2.5 rounded-sm bg-gray-300 dark:bg-gray-700"></div>
-              <div class="w-3 h-2.5 rounded-sm bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-          </div>
-          <div class="flex flex-col flex-auto border-l border-outline">
-            <div class="h-3 bg-gray-100 dark:bg-gray-800">
-              <div class="flex items-center justify-end h-full mr-1.5">
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-              </div>
-            </div>
-            <div class="flex flex-auto border-t border-outline bg-gray-50 dark:bg-gray-900"></div>
-          </div>
-        </div>
-        <div class="mt-2 text-md font-medium text-center text-secondary">
-          Compact <span class="text-xs">(Coming soon)</span>
-        </div>
-      </div>
-
       <!-- Dense -->
       <div class="flex flex-col cursor-pointer" (click)="onLayoutChange('dense')">
         <div
@@ -203,37 +170,6 @@
           [class.!text-primary]="currentLayout() === 'dense'"
         >
           Dense
-        </div>
-      </div>
-
-      <!-- Thin (Coming soon) -->
-      <div class="flex flex-col cursor-not-allowed opacity-50">
-        <div
-          class="flex h-20 rounded-md overflow-hidden border-2 border-outline"
-        >
-          <div class="w-3 bg-gray-100 dark:bg-gray-800">
-            <div class="w-1.5 h-1.5 mt-2 mx-auto rounded-sm bg-gray-300 dark:bg-gray-700"></div>
-            <div class="flex flex-col items-center w-full mt-2 space-y-1">
-              <div class="w-1.5 h-1.5 rounded-full  dark:bg-gray-700 bg-gray-300"></div>
-              <div class="w-1.5 h-1.5 rounded-full  dark:bg-gray-700 bg-gray-300"></div>
-              <div class="w-1.5 h-1.5 rounded-full  dark:bg-gray-700 bg-gray-300"></div>
-              <div class="w-1.5 h-1.5 rounded-full  dark:bg-gray-700 bg-gray-300"></div>
-              <div class="w-1.5 h-1.5 rounded-full  dark:bg-gray-700 bg-gray-300"></div>
-            </div>
-          </div>
-          <div class="flex flex-col flex-auto border-l border-outline">
-            <div class="h-3 bg-gray-100 dark:bg-gray-800">
-              <div class="flex items-center justify-end h-full mr-1.5">
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                <div class="w-1 h-1 ml-1 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-              </div>
-            </div>
-            <div class="flex flex-auto border-t border-outline bg-gray-50 dark:bg-gray-900"></div>
-          </div>
-        </div>
-        <div class="mt-2 text-md font-medium text-center text-secondary">
-          Thin <span class="text-xs">(Coming soon)</span>
         </div>
       </div>
     </div>

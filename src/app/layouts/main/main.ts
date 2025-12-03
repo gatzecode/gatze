@@ -76,16 +76,41 @@ export class Main {
   // Navigation items
   protected readonly navItems: NavItemType[] = [
     {
-      id: 'dashboard',
-      title: 'Dashboard',
-      icon: 'dashboard',
-      link: '/dashboard',
-      type: 'basic',
-      exactMatch: true,
+      id: 'divider-0',
+      type: 'divider',
     },
     {
-      id: 'divider-1',
-      type: 'divider',
+      id: 'spacer-1',
+      type: 'spacer',
+    },
+    {
+      id: 'users-group',
+      title: 'Users',
+      icon: 'admin_panel_settings',
+      type: 'group',
+      children: [
+        {
+          id: 'users-all',
+          title: 'All Users',
+          icon: 'person',
+          link: '/users',
+          type: 'basic',
+        },
+        {
+          id: 'users-roles',
+          title: 'Roles & Permissions',
+          icon: 'shield',
+          link: '/users/roles',
+          type: 'basic',
+        },
+        {
+          id: 'users-teams',
+          title: 'Teams',
+          icon: 'groups',
+          link: '/users/teams',
+          type: 'basic',
+        },
+      ],
     },
     {
       id: 'products',
@@ -120,6 +145,19 @@ export class Main {
         },
       ],
     },
+    {
+      id: 'divider-1',
+      type: 'divider',
+    },
+    {
+      id: 'dashboard',
+      title: 'Dashboard',
+      icon: 'dashboard',
+      link: '/dashboard',
+      type: 'basic',
+      exactMatch: true,
+    },
+
     {
       id: 'orders',
       title: 'Orders',
@@ -165,51 +203,6 @@ export class Main {
       type: 'divider',
     },
     {
-      id: 'spacer-1',
-      type: 'spacer',
-    },
-    {
-      id: 'users-group',
-      title: 'Users',
-      icon: 'admin_panel_settings',
-      type: 'group',
-      children: [
-        {
-          id: 'users-all',
-          title: 'All Users',
-          icon: 'person',
-          link: '/users',
-          type: 'basic',
-        },
-        {
-          id: 'users-roles',
-          title: 'Roles & Permissions',
-          icon: 'shield',
-          link: '/users/roles',
-          type: 'basic',
-        },
-        {
-          id: 'users-teams',
-          title: 'Teams',
-          icon: 'groups',
-          link: '/users/teams',
-          type: 'basic',
-        },
-      ],
-    },
-    {
-      id: 'divider-3',
-      type: 'divider',
-    },
-    {
-      id: 'reports',
-      title: 'Reports',
-      subtitle: 'View analytics',
-      icon: 'assessment',
-      link: '/reports',
-      type: 'basic',
-    },
-    {
       id: 'settings',
       title: 'Settings',
       icon: 'settings',
@@ -244,6 +237,14 @@ export class Main {
           type: 'basic',
         },
       ],
+    },
+    {
+      id: 'reports',
+      title: 'Reports',
+      subtitle: 'View analytics',
+      icon: 'assessment',
+      link: '/reports',
+      type: 'basic',
     },
     {
       id: 'help',

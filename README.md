@@ -117,9 +117,7 @@ Compact navigation with intelligent state preservation:
 
 The architecture supports four navigation appearances defined in `NavAppearance` type:
 - `classic`: Implemented (ClassicNav)
-- `compact`: Planned
 - `dense`: Implemented (DenseNav)
-- `thin`: Planned
 
 **Switching between navigation variants** is as simple as changing the `currentLayout` signal in MainComponent - all components share the same `NavItemType` interface.
 
