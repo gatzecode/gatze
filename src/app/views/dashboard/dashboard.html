@@ -54,9 +54,15 @@
           </div>
           <div class="shrink-0">
             <div
-              class="w-12 h-12 rounded-full flex items-center justify-center bg-primary/10 dark:bg-primary/20"
+              class="w-14 h-14 rounded-xl flex items-center justify-center shadow-professional"
+              [ngClass]="{
+                'bg-blue-50 dark:bg-blue-950/30': stat.color === 'text-blue-600',
+                'bg-green-50 dark:bg-green-950/30': stat.color === 'text-green-600',
+                'bg-orange-50 dark:bg-orange-950/30': stat.color === 'text-orange-600',
+                'bg-purple-50 dark:bg-purple-950/30': stat.color === 'text-purple-600'
+              }"
             >
-              <mat-icon [class]="stat.color">{{ stat.icon }}</mat-icon>
+              <mat-icon [class]="stat.color" class="!text-2xl">{{ stat.icon }}</mat-icon>
             </div>
           </div>
         </div>

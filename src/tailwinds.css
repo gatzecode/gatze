@@ -67,6 +67,35 @@
   --color-gray-900: light-dark(#fafafa, #18181b);
 
   /* ============================================
+     PROFESSIONAL COLOR PALETTE - For stats and highlights
+     ============================================ */
+
+  /* Blue shades for revenue/sales */
+  --color-blue-50: light-dark(#eff6ff, #172554);
+  --color-blue-600: light-dark(#2563eb, #3b82f6);
+  --color-blue-950: light-dark(#172554, #eff6ff);
+
+  /* Green shades for positive metrics */
+  --color-green-50: light-dark(#f0fdf4, #14532d);
+  --color-green-600: light-dark(#16a34a, #22c55e);
+  --color-green-950: light-dark(#14532d, #f0fdf4);
+
+  /* Orange shades for warnings/activity */
+  --color-orange-50: light-dark(#fff7ed, #7c2d12);
+  --color-orange-600: light-dark(#ea580c, #fb923c);
+  --color-orange-950: light-dark(#7c2d12, #fff7ed);
+
+  /* Purple shades for engagement */
+  --color-purple-50: light-dark(#faf5ff, #581c87);
+  --color-purple-600: light-dark(#9333ea, #a855f7);
+  --color-purple-950: light-dark(#581c87, #faf5ff);
+
+  /* Red shades for errors/alerts */
+  --color-red-50: light-dark(#fef2f2, #7f1d1d);
+  --color-red-600: light-dark(#dc2626, #ef4444);
+  --color-red-950: light-dark(#7f1d1d, #fef2f2);
+
+  /* ============================================
      ANIMATION & TRANSITIONS - Material Design Motion
      ============================================ */
 

@@ -96,6 +96,165 @@ strong, b {
   letter-spacing: 0.05em;
 }
 
+/* ============================================
+   PROFESSIONAL SHADOWS & ELEVATION
+   ============================================ */
+
+/* Subtle shadow for cards and surfaces */
+.shadow-professional {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.05),
+    0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+/* Medium elevation for hover states */
+.shadow-professional-md {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* High elevation for modals and important elements */
+.shadow-professional-lg {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.08),
+    0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+/* Extra large shadow for dialogs */
+.shadow-professional-xl {
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+/* Inner shadow for depth */
+.shadow-professional-inner {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Material Design cards - enhanced shadows */
+mat-card {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.05),
+    0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+mat-card:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  transform: translateY(-2px);
+  border-color: var(--mat-sys-outline);
+}
+
+/* Toolbar shadow enhancement */
+mat-toolbar {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.08),
+    0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+  backdrop-filter: blur(8px);
+  background-color: rgba(var(--mat-sys-surface), 0.95) !important;
+}
+
+/* ============================================
+   PROFESSIONAL BACKGROUNDS
+   ============================================ */
+
+/* Main content area with subtle gradient */
+.content-scroll {
+  background:
+    linear-gradient(
+      to bottom,
+      var(--mat-sys-surface-container-lowest),
+      var(--mat-sys-surface-container-low)
+    );
+}
+
+/* Alternative: Pattern background for more corporate look */
+.content-scroll::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 35px, currentColor 35px, currentColor 37px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, currentColor 35px, currentColor 37px);
+  pointer-events: none;
+}
+
+/* Glassmorphism effect for elevated surfaces */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   PROFESSIONAL BUTTONS & INTERACTIVE ELEMENTS
+   ============================================ */
+
+/* Enhanced Material buttons */
+.mat-mdc-raised-button {
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+.mat-mdc-raised-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.mat-mdc-raised-button:active {
+  transform: translateY(0);
+}
+
+/* Professional icon buttons */
+.mat-mdc-icon-button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.mat-mdc-icon-button:hover {
+  background-color: var(--mat-sys-surface-container-highest) !important;
+  transform: scale(1.05);
+}
+
+/* Table styling improvements */
+.mat-mdc-table {
+  background-color: transparent !important;
+}
+
+.mat-mdc-row:hover {
+  background-color: var(--mat-sys-surface-container) !important;
+  transition: background-color 0.2s ease;
+}
+
+.mat-mdc-header-row {
+  background-color: var(--mat-sys-surface-container-low) !important;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600 !important;
+  letter-spacing: 0.025em !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  color: var(--mat-sys-on-surface-variant) !important;
+}
+
+/* Divider enhancements */
+mat-divider {
+  border-top-color: var(--mat-sys-outline-variant) !important;
+}
+
 .mat-mdc-text-field-wrapper .mdc-notched-outline .mdc-notched-outline__notch {
   border-left-width: 0 !important;
   border-right-width: 0 !important;

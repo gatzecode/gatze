@@ -1,4 +1,4 @@
-/* Shared Layout Styles */
+/* Shared Layout Styles - Professional Edition */
 
 .sidenav-container {
   height: 100vh;
@@ -7,6 +7,12 @@
 
 .sidenav {
   width: fit-content !important;
+  /* Professional sidebar with subtle shadow and border */
+  box-shadow:
+    1px 0 0 0 var(--mat-sys-outline-variant),
+    4px 0 12px -4px rgba(0, 0, 0, 0.05);
+  background-color: var(--mat-sys-surface-container) !important;
+  border-right: 1px solid var(--mat-sys-outline-variant);
 }
 
 mat-sidenav-content {
@@ -14,8 +20,18 @@ mat-sidenav-content {
   flex-direction: column;
   height: 100%;
   overflow: hidden !important;
+  position: relative;
 }
 
+/* Content area with professional styling */
 .content-inner {
   min-height: 100%;
+  position: relative;
+}
+
+/* Toolbar enhancement */
+mat-toolbar {
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
