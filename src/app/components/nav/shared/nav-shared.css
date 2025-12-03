@@ -1,6 +1,6 @@
 /* Shared Navigation Styles */
 
-.custom-list-item-hover {
+.custom-list-item {
   --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-surface);
   --mat-list-list-item-hover-state-layer-opacity: 0.08;
   border-radius: var(--mat-list-active-indicator-shape, var(--mat-sys-corner-small));

@@ -27,7 +27,7 @@ import { InternalNavItem } from '../navigation.types';
       [attr.aria-disabled]="item().disabled"
       [target]="item().externalLink ? item().target ?? '_blank' : undefined"
       [attr.rel]="item().externalLink ? 'noopener noreferrer' : undefined"
-      [class]="'rounded-lg transition-all duration-200 custom-list-item-hover ' + (item().classes?.wrapper || '')"
+      [class]="'rounded-lg transition-all duration-200 custom-list-item ' + (item().classes?.wrapper || '')"
     >
       @if (item().icon) {
         <mat-icon

@@ -25,7 +25,7 @@ import { InternalNavItem } from '../navigation.types';
       [class.list-item--activated]="isActive()"
       [attr.title]="item().tooltip"
       [attr.aria-expanded]="item()._expanded()"
-      class="rounded-lg transition-all duration-200 cursor-pointer"
+      class="custom-list-item"
     >
       @if (item().icon) {
         <mat-icon
@@ -91,7 +91,7 @@ import { InternalNavItem } from '../navigation.types';
                 [attr.aria-disabled]="child.disabled"
                 [target]="child.externalLink ? child.target ?? '_blank' : undefined"
                 [attr.rel]="child.externalLink ? 'noopener noreferrer' : undefined"
-                class="rounded-lg transition-all duration-200 custom-list-item-hover"
+                class="custom-list-item"
               >
                 @if (child.icon) {
                   <mat-icon
