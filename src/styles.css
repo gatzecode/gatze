@@ -1,20 +1,31 @@
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
 html,
 body {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  /* Professional typography settings */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures and contextual alternates */
+  font-feature-settings: 'liga' 1, 'calt' 1;
 }
 
-/* Typography Hierarchy - Professional Scale */
-h1, h2, h3, h4, h5, h6 {
+/* ============================================
+   TYPOGRAPHY HIERARCHY
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
-  letter-spacing: -0.02em; /* Tighter tracking for headlines */
+  letter-spacing: -0.02em;
   line-height: 1.2;
   margin: 0;
 }
@@ -27,59 +38,50 @@ h1 {
 
 h2 {
   font-size: 1.875rem; /* 30px */
-  font-weight: 600;
 }
 
 h3 {
   font-size: 1.5rem; /* 24px */
-  font-weight: 600;
 }
 
 h4 {
   font-size: 1.25rem; /* 20px */
-  font-weight: 600;
 }
 
 h5 {
   font-size: 1.125rem; /* 18px */
-  font-weight: 600;
 }
 
 h6 {
   font-size: 1rem; /* 16px */
-  font-weight: 600;
 }
 
-/* Body text improvements */
 p {
-  line-height: 1.6; /* Better readability */
+  line-height: 1.6;
   margin: 0;
 }
 
-/* Small text */
 small {
   font-size: 0.875rem; /* 14px */
   line-height: 1.5;
 }
 
-/* Professional emphasis */
-strong, b {
-  font-weight: 600; /* Use semibold instead of bold */
+strong,
+b {
+  font-weight: 600;
 }
 
-/* Subtle text */
+/* Typography utilities */
 .text-subtle {
   font-weight: 300;
   opacity: 0.8;
 }
 
-/* Professional number display */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1; /* Tabular numbers for better alignment */
+  font-feature-settings: 'tnum' 1;
 }
 
-/* Tracking utilities for professional look */
 .tracking-tight {
   letter-spacing: -0.03em;
 }
@@ -97,96 +99,60 @@ strong, b {
 }
 
 /* ============================================
-   PROFESSIONAL SHADOWS & ELEVATION
+   CONTENT AREA & BACKGROUNDS
    ============================================ */
 
-/* Subtle shadow for cards and surfaces */
-.shadow-professional {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.05),
-    0 1px 2px 0 rgba(0, 0, 0, 0.02);
-}
-
-/* Medium elevation for hover states */
-.shadow-professional-md {
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.07),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-/* High elevation for modals and important elements */
-.shadow-professional-lg {
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.08),
-    0 4px 6px -2px rgba(0, 0, 0, 0.03);
-}
-
-/* Extra large shadow for dialogs */
-.shadow-professional-xl {
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.08),
-    0 10px 10px -5px rgba(0, 0, 0, 0.02);
-}
-
-/* Inner shadow for depth */
-.shadow-professional-inner {
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
-}
-
-/* Material Design cards - enhanced shadows */
-mat-card {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.05),
-    0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 12px !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-mat-card:hover {
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.07),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
-  transform: translateY(-2px);
-  border-color: var(--mat-sys-outline);
-}
-
-/* Toolbar shadow enhancement */
-mat-toolbar {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.08),
-    0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
-  backdrop-filter: blur(8px);
-  background-color: rgba(var(--mat-sys-surface), 0.95) !important;
-}
-
-/* ============================================
-   PROFESSIONAL BACKGROUNDS
-   ============================================ */
-
-/* Main content area with subtle gradient */
 .content-scroll {
-  background:
-    linear-gradient(
-      to bottom,
-      var(--mat-sys-surface-container-lowest),
-      var(--mat-sys-surface-container-low)
-    );
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mat-sys-primary) 3%, var(--mat-sys-surface-container-lowest)),
+    color-mix(in srgb, var(--mat-sys-primary) 5%, var(--mat-sys-surface-container-low))
+  );
 }
 
-/* Alternative: Pattern background for more corporate look */
+/* Optional pattern overlay */
 .content-scroll::before {
   content: '';
   position: absolute;
   inset: 0;
   opacity: 0.015;
-  background-image:
-    repeating-linear-gradient(45deg, transparent, transparent 35px, currentColor 35px, currentColor 37px),
-    repeating-linear-gradient(-45deg, transparent, transparent 35px, currentColor 35px, currentColor 37px);
+  color: var(--mat-sys-primary);
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 35px,
+      currentColor 35px,
+      currentColor 37px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 35px,
+      currentColor 35px,
+      currentColor 37px
+    );
   pointer-events: none;
 }
 
-/* Glassmorphism effect for elevated surfaces */
+/* Scrollbar styling */
+.content-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--mat-sys-primary) 20%, transparent);
+  border-radius: 4px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--mat-sys-primary) 30%, transparent);
+}
+
+/* Glassmorphism utility */
 .glass-effect {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px) saturate(180%);
@@ -194,31 +160,42 @@ mat-toolbar {
 }
 
 /* ============================================
-   PROFESSIONAL BUTTONS & INTERACTIVE ELEMENTS
+   MATERIAL DESIGN CARDS
    ============================================ */
 
-/* Enhanced Material buttons */
+mat-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+mat-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  transform: translateY(-2px);
+  border-color: var(--mat-sys-outline);
+}
+
+/* ============================================
+   BUTTONS & INTERACTIVE ELEMENTS
+   ============================================ */
+
 .mat-mdc-raised-button {
   font-weight: 500 !important;
   letter-spacing: 0.025em !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
 .mat-mdc-raised-button:hover {
   transform: translateY(-1px);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
 .mat-mdc-raised-button:active {
   transform: translateY(0);
 }
 
-/* Professional icon buttons */
 .mat-mdc-icon-button {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
@@ -228,7 +205,10 @@ mat-toolbar {
   transform: scale(1.05);
 }
 
-/* Table styling improvements */
+/* ============================================
+   TABLES
+   ============================================ */
+
 .mat-mdc-table {
   background-color: transparent !important;
 }
@@ -250,10 +230,9 @@ mat-toolbar {
   color: var(--mat-sys-on-surface-variant) !important;
 }
 
-/* Divider enhancements */
-mat-divider {
-  border-top-color: var(--mat-sys-outline-variant) !important;
-}
+/* ============================================
+   FORM FIELDS
+   ============================================ */
 
 .mat-mdc-text-field-wrapper .mdc-notched-outline .mdc-notched-outline__notch {
   border-left-width: 0 !important;
@@ -261,37 +240,27 @@ mat-divider {
   padding: 0 !important;
 }
 
-/* Mantener validación de errores */
 .mat-form-field-invalid .mdc-notched-outline__notch {
   border-color: var(--mat-sys-error) !important;
 }
 
-.content-scroll {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+/* ============================================
+   DIVIDERS
+   ============================================ */
+
+mat-divider {
+  border-top-color: var(--mat-sys-outline-variant) !important;
 }
 
-.content-scroll::-webkit-scrollbar {
-  width: 10px;
-}
-
-.content-scroll::-webkit-scrollbar-thumb {
-  background: rgba(90, 3, 3, 0.2);
-  border-radius: 4px;
-}
-
-.content-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 12, 12, 0.3);
-}
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
 
 .spinner {
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%); /* IE 9 */
-  -webkit-transform: translate(-50%, -50%); /* Safari */
-  transform: translate(-50%, -50%); /* Standard syntax */
+  transform: translate(-50%, -50%);
   width: 70px;
   height: 70px;
 }
@@ -302,40 +271,24 @@ mat-divider {
   background-color: #333;
   border-radius: 100%;
   display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
 .spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
 .spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%,
-  80%,
-  100% {
-    -webkit-transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1);
-  }
 }
 
 @keyframes sk-bouncedelay {
   0%,
   80%,
   100% {
-    -webkit-transform: scale(0);
     transform: scale(0);
   }
   40% {
-    -webkit-transform: scale(1);
     transform: scale(1);
   }
 }

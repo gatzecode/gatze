@@ -1,18 +1,10 @@
-/* Shared Layout Styles - Professional Edition */
+/* ============================================
+   LAYOUT STRUCTURE
+   ============================================ */
 
 .sidenav-container {
   height: 100vh;
   overflow: hidden;
-}
-
-.sidenav {
-  width: fit-content !important;
-  /* Professional sidebar with subtle shadow and border */
-  box-shadow:
-    1px 0 0 0 var(--mat-sys-outline-variant),
-    4px 0 12px -4px rgba(0, 0, 0, 0.05);
-  background-color: var(--mat-sys-surface-container) !important;
-  border-right: 1px solid var(--mat-sys-outline-variant);
 }
 
 mat-sidenav-content {
@@ -23,15 +15,24 @@ mat-sidenav-content {
   position: relative;
 }
 
-/* Content area with professional styling */
 .content-inner {
   min-height: 100%;
   position: relative;
 }
 
-/* Toolbar enhancement */
+.sidenav {
+  width: fit-content !important;
+  background-color: var(--mat-sys-surface-container) !important;
+  /* Solo borde derecho sutil */
+  box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   TOOLBAR
+   ============================================ */
+
 mat-toolbar {
-  position: relative;
-  z-index: 10;
-  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container) !important;
+  /* Solo borde inferior sutil */
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
 }

@@ -9,29 +9,30 @@
   >
     <div class="flex flex-col w-full h-full overflow-hidden">
       <!-- Header -->
-      <div navHeader class="logo-header-container" [class.logo-header-container--centered]="!isNavExpanded()">
+      <div
+        navHeader
+        class="logo-header-container"
+        [class.logo-header-container--centered]="!isNavExpanded()"
+      >
         <app-branding [width]="40" [height]="40" [showText]="isNavExpanded()" />
-      </div>    
-
-      <mat-divider />
+      </div>
 
       <!-- Dense Navigation -->
       <nav-dense [navItems]="navItems()" #navDense />
 
       <!-- User Account Section -->
-      <div class="user-account-container bg-surface-soft" [class.user-account-container--centered]="!isNavExpanded()">
+      <div
+        class="user-account-container bg-surface-soft"
+        [class.user-account-container--centered]="!isNavExpanded()"
+      >
         <user-account class="cursor-pointer user-account-icon" />
         <div
           class="user-account-info"
           [class.user-account-info--visible]="isNavExpanded()"
           [class.user-account-info--hidden]="!isNavExpanded()"
         >
-          <div class="user-account-name">
-            Brian Hughes
-          </div>
-          <div class="user-account-email">
-            brian.hughes&#64;company.com
-          </div>
+          <div class="user-account-name">Brian Hughes</div>
+          <div class="user-account-email">brian.hughes&#64;company.com</div>
         </div>
       </div>
     </div>
@@ -58,7 +59,7 @@
 
   <!-- Main Content -->
   <mat-sidenav-content>
-    <mat-toolbar class="shadow-sm z-50">
+    <mat-toolbar class="z-50">
       <button type="button" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
