@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, viewChild, computed } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -52,6 +52,15 @@ export class LayoutDense {
   layoutChange = output<LayoutType>();
   themeChange = output<ThemeColor>();
   schemeChange = output<ThemeMode>();
+
+  // ViewChild to access nav component
+  navDense = viewChild<DenseNav>('navDense');
+
+  // Computed to check if nav is expanded
+  isNavExpanded = computed(() => {
+    const nav = this.navDense();
+    return nav ? nav.isExpanded() : false;
+  });
 
   // Observable for responsive behavior
   isHandset$: Observable<boolean> = this.breakpointObserver

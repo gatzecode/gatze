@@ -9,15 +9,9 @@
   /* ============================================
      DARK MODE CONFIGURATION
      ============================================ */
-  
-  /* Opción 1: Usar 'class' para control manual con la clase .dark */
+
+  /* Option 1: Use 'class' for manual control with the .dark class */
   --dark: .dark;
-  
-  /* Opción 2: Usar 'media' para respetar preferencia del sistema */
-  /* --dark: media; */
-  
-  /* Opción 3: Usar selector personalizado */
-  /* --dark: .dark; */
 
   /* ============================================
      THEME COLORS - Mapeados desde Material Design 3
@@ -30,14 +24,14 @@
   --color-surface-dark: var(--mat-sys-surface);
   --color-surface-container-dark: var(--mat-sys-surface-container);
 
-  /* Texto */
+  /* Text */
   --color-text: var(--mat-sys-on-surface);
   --color-on-surface: var(--mat-sys-on-surface);
   --color-on-surface-dark: var(--mat-sys-on-surface);
   --color-on-surface-variant: var(--mat-sys-on-surface-variant);
   --color-muted: var(--mat-sys-on-surface-variant);
 
-  /* Primario */
+  /* Primary */
   --color-primary: var(--mat-sys-primary);
   --color-primary-dark: var(--mat-sys-primary);
   --color-on-primary: var(--mat-sys-on-primary);
@@ -57,10 +51,10 @@
   --color-on-error: var(--mat-sys-on-error);
 
   /* ============================================
-     GRAY SCALE - Para componentes neutros
+     GRAY SCALE
      ============================================ */
 
-  /* Grises claros (modo light) y oscuros (modo dark) */
+  /* (Light mode) and (dark mode) */
   --color-gray-50: light-dark(#09090b, #fafafa);
   --color-gray-100: light-dark(#18181b, #f4f4f5);
   --color-gray-200: light-dark(#27272a, #e4e4e7);
@@ -92,13 +86,13 @@
    UTILITY CLASSES PERSONALIZADAS (Opcional)
    ============================================ */
 
-/* Puedes agregar utilities personalizadas si lo necesitas */
+/* You can add custom utilities if needed.*/
 @layer utilities {
   .surface {
     background-color: var(--color-surface);
     color: var(--color-text);
   }
-  
+
   .surface-container {
     background-color: var(--mat-sys-surface-container);
     color: var(--color-text);
