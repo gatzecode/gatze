@@ -10,11 +10,6 @@
   ) !important;
 }
 
-.list-item--activated {
-  background-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
-  opacity: 0.9;
-}
-
 /* Tree indentation for collapsable children */
 .nav-collapsable-child {
   padding-left: 1rem !important;
@@ -48,4 +43,8 @@
 
 .chevron-icon {
   transition: transform 0.25s ease-in-out;
+}
+
+.list-item--activated {
+  background-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
 }

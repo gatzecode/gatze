@@ -8,7 +8,7 @@
   <div class="flex flex-col p-6">
     <!-- Theme Color -->
     <div class="text-md font-semibold text-secondary">Theme Color</div>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+    <div class="grid grid-cols-4 sm:grid-cols-4 gap-4 mt-6">
       @for (color of availableThemes(); track color) {
       <div
         class="flex items-center justify-center px-4 py-3 rounded-full cursor-pointer ring-inset transition-all duration-short bg-gray-800"
@@ -29,7 +29,7 @@
           [class.text-secondary]="configService.themeColor() !== color"
         >
           <div
-            class="flex-0 w-3 h-3 rounded-full"
+            class="flex-0 w-4 h-4 rounded-full"
             [class.bg-[#2f2ebe]]="color === 'indigo' && !configService.isDarkMode()"
             [class.bg-[#15803d]]="color === 'green' && !configService.isDarkMode()"
             [class.bg-[#be123c]]="color === 'rose' && !configService.isDarkMode()"

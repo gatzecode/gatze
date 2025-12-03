@@ -1,0 +1,259 @@
+/* ============================================
+   ANGULAR MATERIAL OVERRIDES
+   Custom styles for Material components
+   ============================================ */
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+mat-card {
+  box-shadow: var(--mat-sys-level1) !important;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--mat-sys-corner-medium) !important;
+  transition: box-shadow var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-standard),
+    transform var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-emphasized),
+    border-color var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-icon-button {
+   font-size: initial !important;
+}
+
+mat-card:hover {
+  box-shadow: var(--mat-sys-level2) !important;
+  border-color: var(--mat-sys-outline);
+}
+
+.mat-mdc-card-outlined {
+  box-shadow: none !important;
+  border-width: 1px;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button {
+  font-weight: var(--mat-sys-medium-font-weight) !important;
+  letter-spacing: 0.025em !important;
+  transition: transform var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-standard),
+    box-shadow var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-raised-button {
+  box-shadow: var(--mat-sys-level1) !important;
+}
+
+.mat-mdc-raised-button:hover:not(:disabled) {
+  box-shadow: var(--mat-sys-level2) !important;
+}
+
+/* Icon buttons */
+.mat-mdc-icon-button {
+  position: relative;
+  transition: transform var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-emphasized) !important;
+}
+
+.mat-mdc-icon-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity var(--mat-sys-motion-duration-short);
+}
+
+.mat-mdc-icon-button:hover::before {
+  opacity: var(--mat-sys-hover-state-layer-opacity);
+}
+
+.mat-mdc-icon-button:hover {
+  transform: scale(1.05);
+}
+
+.mat-mdc-icon-button:active {
+  transform: scale(0.95);
+}
+
+/* Disabled state */
+.mat-mdc-button:disabled,
+.mat-mdc-raised-button:disabled,
+.mat-mdc-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+.mat-mdc-table {
+  background-color: transparent !important;
+  border-radius: var(--mat-sys-corner-medium);
+  overflow: hidden;
+}
+
+.mat-mdc-header-row {
+  background-color: var(--mat-sys-surface-container-low) !important;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.mat-mdc-header-cell {
+  font-weight: var(--mat-sys-semibold-font-weight) !important;
+  letter-spacing: 0.025em !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  color: var(--mat-sys-on-surface-variant) !important;
+  padding: 12px !important;
+}
+
+.mat-mdc-row {
+  transition: background-color var(--mat-sys-motion-duration-short);
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover {
+  background-color: var(--mat-sys-surface-container) !important;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: color-mix(in srgb, var(--mat-sys-surface-container-lowest) 50%, transparent);
+}
+
+.mat-mdc-cell {
+  padding: 12px !important;
+}
+
+/* ============================================
+   FORM FIELDS
+   ============================================ */
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline {
+  border-width: 2px !important;
+}
+
+.mat-mdc-form-field.mat-form-field-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ============================================
+   CHIPS
+   ============================================ */
+
+.mat-mdc-chip {
+  transition: all var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--mat-sys-level1);
+}
+
+/* ============================================
+   DIVIDERS
+   ============================================ */
+
+mat-divider {
+  border-top-color: var(--mat-sys-outline-variant) !important;
+  opacity: 0.6;
+}
+
+/* ============================================
+   TOOLTIPS
+   ============================================ */
+
+.mat-mdc-tooltip {
+  font-size: 0.75rem !important;
+  padding: 8px 12px !important;
+  border-radius: var(--mat-sys-corner-small) !important;
+  box-shadow: var(--mat-sys-level2) !important;
+}
+
+/* ============================================
+   SNACKBAR
+   ============================================ */
+
+.mat-mdc-snack-bar-container {
+  border-radius: var(--mat-sys-corner-medium) !important;
+  box-shadow: var(--mat-sys-level3) !important;
+}
+
+/* ============================================
+   DIALOGS
+   ============================================ */
+
+.mat-mdc-dialog-container {
+  border-radius: var(--mat-sys-corner-large) !important;
+  box-shadow: var(--mat-sys-level3) !important;
+}
+
+/* ============================================
+   SIDENAV
+   ============================================ */
+
+.sidenav {
+  width: fit-content !important;
+  background-color: var(--mat-sys-surface-container) !important;
+  border-right: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant) 50%, transparent);
+}
+
+/* ============================================
+   TOOLBAR
+   ============================================ */
+
+mat-toolbar {
+  background-color: var(--mat-sys-surface-container) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mat-sys-outline-variant) 50%, transparent);
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.mat-mdc-tab-group {
+  border-radius: var(--mat-sys-corner-medium);
+}
+
+.mat-mdc-tab:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-primary) var(--mat-sys-hover-state-layer-opacity),
+    transparent
+  );
+}
+
+/* ============================================
+   PROGRESS BAR & SPINNER
+   ============================================ */
+
+.mat-mdc-progress-bar {
+  border-radius: var(--mat-sys-corner-full);
+}
+
+.mat-mdc-progress-spinner {
+  color: var(--mat-sys-primary);
+}
+
+/* ============================================
+   MENU
+   ============================================ */
+
+.mat-mdc-menu-panel {
+  border-radius: var(--mat-sys-corner-medium) !important;
+  box-shadow: var(--mat-sys-level2) !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: var(--mat-sys-surface-container-high) !important;
+}

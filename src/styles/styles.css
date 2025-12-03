@@ -1,0 +1,15 @@
+/* Variables y tokens */
+@import './tokens/theme-tokens.css';
+
+/* Base */
+@import './base/reset.css';
+@import './base/tailwind.config.css';
+
+/* Layout */
+@import './layout/layout.css';
+
+/* Material overrides */
+@import './material/material-overrides.css';
+
+/* Themes */
+@import './themes/themes.css';

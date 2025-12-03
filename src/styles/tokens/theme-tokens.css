@@ -1,0 +1,156 @@
+/* ============================================
+   THEME TOKENS - Single Source of Truth
+   Solo definiciones de variables, sin estilos
+   ============================================ */
+
+html {
+  color-scheme: light;
+
+  /* ============================================
+     MATERIAL DESIGN 3 - COLOR SYSTEM
+     ============================================ */
+
+  /* Primary */
+  --mat-sys-primary: light-dark(#494bd6, #c0c1ff);
+  --mat-sys-on-primary: light-dark(#ffffff, #1000a9);
+  --mat-sys-primary-container: light-dark(#e1e0ff, #2f2ebe);
+  --mat-sys-on-primary-container: light-dark(#07006c, #e1e0ff);
+  --mat-sys-inverse-primary: light-dark(#c0c1ff, #494bd6);
+
+  /* Secondary */
+  --mat-sys-secondary: light-dark(#575992, #c0c1ff);
+  --mat-sys-on-secondary: light-dark(#ffffff, #292a60);
+  --mat-sys-secondary-container: light-dark(#e1e0ff, #404178);
+  --mat-sys-on-secondary-container: light-dark(#13144a, #e1e0ff);
+
+  /* Tertiary */
+  --mat-sys-tertiary: light-dark(#9a2e9c, #ffaaf7);
+  --mat-sys-on-tertiary: light-dark(#ffffff, #5a005d);
+  --mat-sys-tertiary-container: light-dark(#ffd6f7, #7e0a81);
+  --mat-sys-on-tertiary-container: light-dark(#37003a, #ffd6f7);
+
+  /* Surfaces */
+  --mat-sys-background: light-dark(#fcf8ff, #13131b);
+  --mat-sys-on-background: light-dark(#1b1b23, #e4e1ed);
+  --mat-sys-surface: light-dark(#fcf8ff, #13131b);
+  --mat-sys-surface-dim: light-dark(#dbd8e4, #13131b);
+  --mat-sys-surface-bright: light-dark(#fcf8ff, #393841);
+  --mat-sys-surface-container-lowest: light-dark(#ffffff, #0d0d15);
+  --mat-sys-surface-container-low: light-dark(#f5f2fe, #1b1b23);
+  --mat-sys-surface-container: light-dark(#efecf8, #1f1f27);
+  --mat-sys-surface-container-high: light-dark(#e9e6f3, #292932);
+  --mat-sys-surface-container-highest: light-dark(#e4e1ed, #34343d);
+  --mat-sys-on-surface: light-dark(#1b1b23, #e4e1ed);
+  --mat-sys-surface-variant: light-dark(#e3e0f3, #464554);
+  --mat-sys-on-surface-variant: light-dark(#464554, #c7c4d7);
+
+  /* Outline */
+  --mat-sys-outline: light-dark(#767586, #908fa0);
+  --mat-sys-outline-variant: light-dark(#c7c4d7, #464554);
+
+  /* Error */
+  --mat-sys-error: light-dark(#ba1a1a, #ffb4ab);
+  --mat-sys-on-error: light-dark(#ffffff, #690005);
+  --mat-sys-error-container: light-dark(#ffdad6, #93000a);
+  --mat-sys-on-error-container: light-dark(#410002, #ffdad6);
+
+  /* Utility */
+  --mat-sys-shadow: light-dark(#000000, #000000);
+  --mat-sys-scrim: light-dark(#000000, #000000);
+  --mat-sys-surface-tint: light-dark(#494bd6, #c0c1ff);
+  --mat-sys-inverse-surface: light-dark(#303038, #e4e1ed);
+  --mat-sys-inverse-on-surface: light-dark(#f2effb, #303038);
+
+  /* ============================================
+     TYPOGRAPHY SYSTEM
+     ============================================ */
+
+  --mat-sys-brand-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mat-sys-plain-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mat-sys-bold-font-weight: 700;
+  --mat-sys-semibold-font-weight: 600;
+  --mat-sys-medium-font-weight: 500;
+  --mat-sys-regular-font-weight: 400;
+  --mat-sys-light-font-weight: 300;
+
+  /* ============================================
+     ELEVATION SYSTEM
+     ============================================ */
+
+  --mat-sys-umbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 80%);
+  --mat-sys-penumbra-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 86%);
+  --mat-sys-ambient-color: color-mix(in srgb, var(--mat-sys-shadow), transparent 88%);
+
+  --mat-sys-level0: 0px 0px 0px 0px var(--mat-sys-umbra-color);
+  --mat-sys-level1: 0px 2px 1px -1px var(--mat-sys-umbra-color),
+    0px 1px 1px 0px var(--mat-sys-penumbra-color), 0px 1px 3px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level2: 0px 3px 3px -2px var(--mat-sys-umbra-color),
+    0px 3px 4px 0px var(--mat-sys-penumbra-color), 0px 1px 8px 0px var(--mat-sys-ambient-color);
+  --mat-sys-level3: 0px 3px 5px -1px var(--mat-sys-umbra-color),
+    0px 6px 10px 0px var(--mat-sys-penumbra-color), 0px 1px 18px 0px var(--mat-sys-ambient-color);
+
+  /* ============================================
+     SHAPE SYSTEM
+     ============================================ */
+
+  --mat-sys-corner-extra-small: 4px;
+  --mat-sys-corner-small: 8px;
+  --mat-sys-corner-medium: 12px;
+  --mat-sys-corner-large: 16px;
+  --mat-sys-corner-extra-large: 28px;
+  --mat-sys-corner-full: 9999px;
+
+  /* ============================================
+     MOTION SYSTEM
+     ============================================ */
+
+  --mat-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --mat-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --mat-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --mat-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --mat-sys-motion-duration-short: 200ms;
+  --mat-sys-motion-duration-medium: 300ms;
+  --mat-sys-motion-duration-long: 400ms;
+
+  /* ============================================
+     STATE SYSTEM
+     ============================================ */
+
+  --mat-sys-hover-state-layer-opacity: 0.08;
+  --mat-sys-focus-state-layer-opacity: 0.12;
+  --mat-sys-pressed-state-layer-opacity: 0.12;
+  --mat-sys-dragged-state-layer-opacity: 0.16;
+
+  /* ============================================
+     COMPONENT TOKENS
+     ============================================ */
+
+  /* Sidenav */
+  --mat-sidenav-container-background-color: var(--mat-sys-surface);
+  --mat-sidenav-container-text-color: var(--mat-sys-on-surface);
+  --mat-sidenav-content-background-color: var(--mat-sys-surface-container-low);
+  --mat-sidenav-scrim-color: color-mix(in srgb, var(--mat-sys-shadow) 40%, transparent);
+
+  /* Toolbar */
+  --mat-toolbar-container-background-color: var(--mat-sys-surface);
+  --mat-toolbar-container-text-color: var(--mat-sys-on-surface);
+  --mat-toolbar-container-height: 64px;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   ============================================ */
+
+@media (prefers-contrast: more) {
+  html {
+    --mat-sys-primary: light-dark(#0e009d, #f1eeff);
+    --mat-sys-on-primary: light-dark(#ffffff, #000000);
+    --mat-sys-outline: light-dark(#2b2b39, #f1eeff);
+    --mat-sys-on-surface: light-dark(#000000, #ffffff);
+    /* Continuar con más variables de alto contraste según necesidad */
+  }
+}

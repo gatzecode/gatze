@@ -1,0 +1,55 @@
+/* ============================================
+   THEME VARIANTS
+   Solo sobrescribe colores primarios y secundarios
+   ============================================ */
+
+/* GREEN THEME */
+html.theme-green {
+  --mat-sys-primary: light-dark(#16a34a, #86efac);
+  --mat-sys-on-primary: light-dark(#ffffff, #052e16);
+  --mat-sys-primary-container: light-dark(#bbf7d0, #15803d);
+  --mat-sys-on-primary-container: light-dark(#052e16, #dcfce7);
+  --mat-sys-surface-tint: light-dark(#16a34a, #86efac);
+
+  --mat-sys-secondary: light-dark(#059669, #6ee7b7);
+  --mat-sys-on-secondary: light-dark(#ffffff, #064e3b);
+  --mat-sys-secondary-container: light-dark(#a7f3d0, #047857);
+  --mat-sys-on-secondary-container: light-dark(#064e3b, #d1fae5);
+
+  --mat-sys-tertiary: light-dark(#0891b2, #67e8f9);
+  --mat-sys-on-tertiary: light-dark(#ffffff, #164e63);
+}
+
+/* ROSE THEME */
+html.theme-rose {
+  --mat-sys-primary: light-dark(#e11d48, #fda4af);
+  --mat-sys-on-primary: light-dark(#ffffff, #4c0519);
+  --mat-sys-primary-container: light-dark(#fecdd3, #be123c);
+  --mat-sys-on-primary-container: light-dark(#4c0519, #ffe4e6);
+  --mat-sys-surface-tint: light-dark(#e11d48, #fda4af);
+
+  --mat-sys-secondary: light-dark(#db2777, #f9a8d4);
+  --mat-sys-on-secondary: light-dark(#ffffff, #500724);
+  --mat-sys-secondary-container: light-dark(#fce7f3, #9f1239);
+  --mat-sys-on-secondary-container: light-dark(#500724, #fce7f3);
+
+  --mat-sys-tertiary: light-dark(#9333ea, #e9d5ff);
+  --mat-sys-on-tertiary: light-dark(#ffffff, #3b0764);
+}
+
+/* ORANGE THEME */
+html.theme-orange {
+  --mat-sys-primary: light-dark(#ea580c, #fdba74);
+  --mat-sys-on-primary: light-dark(#ffffff, #431407);
+  --mat-sys-primary-container: light-dark(#fed7aa, #c2410c);
+  --mat-sys-on-primary-container: light-dark(#431407, #ffedd5);
+  --mat-sys-surface-tint: light-dark(#ea580c, #fdba74);
+
+  --mat-sys-secondary: light-dark(#d97706, #fcd34d);
+  --mat-sys-on-secondary: light-dark(#ffffff, #451a03);
+  --mat-sys-secondary-container: light-dark(#fef3c7, #b45309);
+  --mat-sys-on-secondary-container: light-dark(#451a03, #fef9c3);
+
+  --mat-sys-tertiary: light-dark(#dc2626, #fca5a5);
+  --mat-sys-on-tertiary: light-dark(#ffffff, #450a0a);
+}
