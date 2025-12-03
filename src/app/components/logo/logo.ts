@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-logo',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <a class="flex items-center w-full" href="/">
       <svg

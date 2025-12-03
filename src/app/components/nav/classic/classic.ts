@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, effect, input } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,15 +12,14 @@ import { NavItem, NavCollapsableItem } from '../shared';
 @Component({
   selector: 'nav-classic',
   imports: [
-    CommonModule,
     MatListModule,
     MatIconModule,
     MatBadgeModule,
     MatDividerModule,
     RouterModule,
     NavItem,
-    NavCollapsableItem,
-  ],
+    NavCollapsableItem
+],
   templateUrl: './classic.html',
   styleUrls: ['../shared/nav-shared.css', './classic.css'],
 })

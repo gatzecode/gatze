@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -12,7 +12,7 @@ interface User {
 
 @Component({
   selector: 'user-account',
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, MatDividerModule],
+  imports: [MatButtonModule, MatIconModule, MatMenuModule, MatDividerModule],
   template: `
     <button mat-icon-button [matMenuTriggerFor]="userActions">
       <mat-icon>account_circle</mat-icon>

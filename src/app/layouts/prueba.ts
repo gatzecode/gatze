@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ interface NavLink {
 @Component({
   selector: 'app-simple-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <mat-nav-list aria-label="Navegación principal">
       <ul>
@@ -59,7 +59,7 @@ export class SimpleNavComponent {
 @Component({
   selector: 'app-sectioned-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <mat-nav-list aria-label="Navegación con secciones">
       <!-- Sección Principal -->
@@ -144,7 +144,7 @@ interface NavLinkWithBadge extends NavLink {
 @Component({
   selector: 'app-advanced-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <mat-nav-list aria-label="Navegación avanzada">
       <ul>
@@ -249,7 +249,7 @@ export class AdvancedNavComponent {
 @Component({
   selector: 'app-auto-active-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <mat-nav-list aria-label="Navegación con activación automática">
       <ul>
@@ -320,7 +320,7 @@ interface NavLinkExpandable extends NavLink {
 @Component({
   selector: 'app-expandable-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <mat-nav-list aria-label="Navegación expandible">
       <ul>
@@ -476,7 +476,7 @@ interface NavLinkExpandable extends NavLink {
 @Component({
   selector: 'app-expandable-nav1',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <nav class="sidebar">
       <!-- Navigation Links -->
@@ -720,7 +720,7 @@ interface MenuLink {
 @Component({
   selector: 'app-compact-menu',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, MatButtonModule],
+  imports: [MatListModule, MatIconModule, MatButtonModule],
   template: `
     <mat-nav-list dense>
       @for (link of links; track link.route) {

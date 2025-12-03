@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { InternalNavItem } from '../navigation.types';
 @Component({
   selector: 'nav-item',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatListModule, MatIconModule],
+  imports: [RouterModule, MatListModule, MatIconModule],
   styleUrls: ['./nav-shared.css'],
   template: `
     <a
