@@ -1,13 +1,10 @@
 import { Component, inject, input, output } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
@@ -19,6 +16,7 @@ import {
   ThemeMode,
   LayoutType,
 } from '../../core/services/config.service';
+import { BreakpointService } from '../../core/services/breakpoint.service';
 
 @Component({
   selector: 'layout-classic',
@@ -39,7 +37,7 @@ import {
   ],
 })
 export class LayoutClassic {
-  private breakpointObserver = inject(BreakpointObserver);
+  private breakpointService = inject(BreakpointService);
 
   // Inputs
   navItems = input.required<NavItemType[]>();
@@ -54,10 +52,5 @@ export class LayoutClassic {
   schemeChange = output<ThemeMode>();
 
   // Observable for responsive behavior
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  isHandset$ = this.breakpointService.isHandset$;
 }

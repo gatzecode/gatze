@@ -1,7 +1,4 @@
 import { Component, inject, computed } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
 import { NavItemType } from '../../components/nav';
 import {
   ConfigService,
@@ -9,6 +6,7 @@ import {
   ThemeMode,
   LayoutType,
 } from '../../core/services/config.service';
+import { BreakpointService } from '../../core/services/breakpoint.service';
 import { LayoutClassic } from '../classic/layout-classic';
 import { LayoutDense } from '../dense/layout-dense';
 
@@ -19,14 +17,11 @@ import { LayoutDense } from '../dense/layout-dense';
   imports: [LayoutClassic, LayoutDense],
 })
 export class Main {
-  private breakpointObserver = inject(BreakpointObserver);
+  private breakpointService = inject(BreakpointService);
   protected configService = inject(ConfigService);
 
-  // Convert handset detection to signal
-  private isHandset = toSignal(
-    this.breakpointObserver.observe(Breakpoints.Handset).pipe(map((result) => result.matches)),
-    { initialValue: false }
-  );
+  // Get handset detection from service
+  private isHandset = this.breakpointService.isHandset;
 
   /**
    * Effective layout based on device type
