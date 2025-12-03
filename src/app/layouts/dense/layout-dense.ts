@@ -13,7 +13,7 @@ import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { DenseNav } from '../../components/nav/dense/dense';
 import { LogoGatze } from '../../components/logo/logo';
-import { UserAccount } from '../common/user';
+import { UserAccount } from '../../components/user-account/user-account';
 import {
   ThemeColor,
   ThemeMode,

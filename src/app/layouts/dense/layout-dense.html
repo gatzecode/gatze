@@ -9,30 +9,28 @@
   >
     <div class="flex flex-col w-full h-full overflow-hidden">
       <!-- Logo Header -->
-      <div navHeader class="flex items-center p-2" [class.justify-center]="!isNavExpanded()">
-        <app-logo [width]="32" [height]="32" [showText]="isNavExpanded()" />
+      <div navHeader class="logo-header-container" [class.logo-header-container--centered]="!isNavExpanded()">
+        <app-logo [width]="40" [height]="40" [showText]="isNavExpanded()" />
       </div>
 
       <!-- Dense Navigation -->
       <nav-dense [navItems]="navItems()" #navDense />
 
       <!-- User Account Section -->
-      <div class="flex p-2 w-full h-16 mt-auto" [class.justify-center]="!isNavExpanded()">
-        <user-account class="cursor-pointer" />
-        @if (isNavExpanded()) {
-        <div class="flex flex-col w-full ml-2 overflow-hidden">
-          <div
-            class="w-full whitespace-nowrap text-ellipsis overflow-hidden leading-normal text-current opacity-80"
-          >
+      <div class="user-account-container" [class.user-account-container--centered]="!isNavExpanded()">
+        <user-account class="cursor-pointer user-account-icon" />
+        <div
+          class="user-account-info"
+          [class.user-account-info--visible]="isNavExpanded()"
+          [class.user-account-info--hidden]="!isNavExpanded()"
+        >
+          <div class="user-account-name">
             Brian Hughes
           </div>
-          <div
-            class="w-full mt-0.5 whitespace-nowrap text-sm text-ellipsis overflow-hidden leading-normal text-current opacity-50"
-          >
+          <div class="user-account-email">
             brian.hughes&#64;company.com
           </div>
         </div>
-        }
       </div>
     </div>
   </mat-sidenav>

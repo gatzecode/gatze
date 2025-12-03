@@ -14,16 +14,22 @@
         <mat-divider class="my-2"></mat-divider>
         } @case ('spacer') {
         <div class="h-4"></div>
-        } @case ('group') { @if (isTemporarilyExpanded()) {
-        <div
-          class="px-2 pb-2 text-xs font-semibold uppercase tracking-wider"
-          style="color: var(--mat-sys-primary)"
-        >
-          {{ item.title }}
+        } @case ('group') {
+        <div class="group-header-container">
+          <div
+            class="group-title"
+            [class.group-title--visible]="isTemporarilyExpanded()"
+            [class.group-title--hidden]="!isTemporarilyExpanded()"
+          >
+            {{ item.title }}
+          </div>
+          <div
+            class="group-divider"
+            [class.group-divider--visible]="!isTemporarilyExpanded()"
+            [class.group-divider--hidden]="isTemporarilyExpanded()"
+          ></div>
         </div>
-        } @else {
-        <div class="group-divider"></div>
-        } @if (item.children && item.children.length > 0) {
+        @if (item.children && item.children.length > 0) {
         <ul>
           @for (child of item.children; track child.id) { @if (!child.hidden) {
           <li>

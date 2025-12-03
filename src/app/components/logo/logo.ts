@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <a class="flex items-center w-full" href="/">
       <svg
-        class="fill-current"
+        class="fill-current logo-icon"
         [attr.width]="width()"
         [attr.height]="height()"
         xmlns="http://www.w3.org/2000/svg"
@@ -19,12 +19,42 @@ import { CommonModule } from '@angular/common';
         />
       </svg>
 
-      @if (showText()) {
-      <span class="ml-2 text-sm font-bold">{{ text() }}</span>
-      }
+      <span
+        class="logo-text font-semibold text-lg tracking-wide"
+        [class.logo-text--visible]="showText()"
+        [class.logo-text--hidden]="!showText()"
+      >
+        {{ text() }}
+      </span>
     </a>
   `,
-  styles: [],
+  styles: [`
+    .logo-icon {
+      transition: all 300ms ease-in-out;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      white-space: nowrap;
+      overflow: hidden;
+      transition: opacity 250ms ease-in-out,
+                  max-width 250ms ease-in-out,
+                  margin 250ms ease-in-out;
+    }
+
+    .logo-text--visible {
+      opacity: 1;
+      max-width: 200px;
+      margin-left: 0.75rem;
+    }
+
+    .logo-text--hidden {
+      opacity: 0;
+      max-width: 0;
+      margin-left: 0;
+      pointer-events: none;
+    }
+  `],
 })
 export class LogoGatze {
   // Input properties

@@ -24,9 +24,7 @@ export class Main {
 
   // Convert handset detection to signal
   private isHandset = toSignal(
-    this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-      map((result) => result.matches)
-    ),
+    this.breakpointObserver.observe(Breakpoints.Handset).pipe(map((result) => result.matches)),
     { initialValue: false }
   );
 
@@ -49,10 +47,6 @@ export class Main {
 
   // Navigation items
   protected readonly navItems: NavItemType[] = [
-    {
-      id: 'divider-0',
-      type: 'divider',
-    },
     {
       id: 'spacer-1',
       type: 'spacer',

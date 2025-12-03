@@ -16,13 +16,62 @@ mat-icon.chevron-icon {
   transition: transform 300ms ease-in-out !important;
 }
 
+/* Group header container - maintains consistent height */
+.group-header-container {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Group title */
+.group-title {
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mat-sys-primary);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+}
+
+.group-title--visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.group-title--hidden {
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
+  position: absolute;
+}
+
 /* Group divider - thicker and shorter */
 .group-divider {
   height: 3px;
   background-color: var(--mat-sys-outline-variant);
   border-radius: 2px;
-  margin: 8px auto;
   width: 24px;
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  margin: 0 auto;
+}
+
+.group-divider--visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.group-divider--hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
 }
 
 .custom-list-item-hover {
