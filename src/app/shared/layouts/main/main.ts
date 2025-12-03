@@ -43,7 +43,18 @@ export class Main {
 
   // Navigation items
   protected readonly navItems: NavItemType[] = [
-    
+    {
+      id: 'dashboard',
+      title: 'Dashboard',
+      icon: 'dashboard',
+      link: '/dashboard',
+      type: 'basic',
+      exactMatch: true,
+    },    
+    {
+      id: 'spacer-0',
+      type: 'spacer',
+    },
     {
       id: 'users-group',
       title: 'Users',
@@ -110,15 +121,6 @@ export class Main {
       id: 'divider-1',
       type: 'divider',
     },
-    {
-      id: 'dashboard',
-      title: 'Dashboard',
-      icon: 'dashboard',
-      link: '/dashboard',
-      type: 'basic',
-      exactMatch: true,
-    },
-
     {
       id: 'orders',
       title: 'Orders',

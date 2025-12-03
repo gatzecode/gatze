@@ -59,7 +59,7 @@ import { InternalNavItem } from '../navigation.types';
       <!-- Chevron only visible when text is shown -->
       <div matListItemMeta [class.hidden]="hideText()">
         <mat-icon
-          class="chevron-icon"
+          class="chevron-icon mt-1"
           [style.transform]="item()._expanded() ? 'rotate(90deg)' : 'rotate(0deg)'"
           aria-hidden="true"
         >
