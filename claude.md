@@ -401,9 +401,9 @@ The logo adapts to the application's theme colors:
 
 ## Component Implementation
 
-### LogoComponent
+### AppBranding Component
 
-Located in `src/app/components/logo/logo.component.ts`
+Located in `src/app/shared/components/app-branding/app-branding.ts`
 
 **Features:**
 - Standalone Angular component
@@ -425,17 +425,17 @@ Located in `src/app/components/logo/logo.component.ts`
 
 Full logo with text:
 ```html
-<app-logo [width]="48" [height]="48" [showText]="true" />
+<app-branding [width]="48" [height]="48" [showText]="true" />
 ```
 
 Icon only (no text):
 ```html
-<app-logo [width]="32" [height]="32" [showText]="false" />
+<app-branding [width]="32" [height]="32" [showText]="false" />
 ```
 
 Custom text:
 ```html
-<app-logo [width]="64" [height]="64" text="My Brand" />
+<app-branding [width]="64" [height]="64" text="My Brand" />
 ```
 
 ### Integration Points
@@ -489,9 +489,10 @@ The logo features a subtle hover effect:
 ```
 src/
 ├── app/
-│   └── components/
-│       └── logo/
-│           └── logo.component.ts       # Angular component
+│   └── shared/
+│       └── components/
+│           └── app-branding/
+│               └── app-branding.ts     # Angular component
 └── assets/
     └── logo/
         ├── gatze-logo.svg              # Full resolution

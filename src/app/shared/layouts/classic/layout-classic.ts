@@ -9,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { ClassicNav } from '../../components/nav/classic/classic';
-import { AppIdentity } from '../../components/app-identity/app-identity';
+import { AppBranding } from '../../components/app-branding/app-branding';
 import { UserAccount } from '../../components/user-account/user-account';
 import { BreakpointService } from '@app/core/services/breakpoint.service';
 import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
@@ -28,7 +28,7 @@ import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.ser
     RouterOutlet,
     UserAccount,
     Settings,
-    AppIdentity,
+    AppBranding,
     ClassicNav,
   ],
 })

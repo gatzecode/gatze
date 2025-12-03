@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-identity',
+  selector: 'app-branding',
   imports: [],
   template: `
     <a class="flex items-center w-full" href="./">
@@ -55,7 +55,7 @@ import { Component, input } from '@angular/core';
     `,
   ],
 })
-export class AppIdentity {
+export class AppBranding {
   // Input properties
   width = input<string | number>('12');
   height = input<string | number>('12');
