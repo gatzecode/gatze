@@ -448,12 +448,200 @@ Located in `src/app/core/services/localstorege.service.ts`, provides a wrapper f
   - Initial bundle: 500kB warning, 1MB error
   - Component styles: 4kB warning, 8kB error
 
-**Environment Variables:**
-Configured via `define` in angular.json:
-- `import.meta.env.API_URL`
-- `import.meta.env.ENVIRONMENT`
-- `import.meta.env.ENABLE_DEBUG`
-- `import.meta.env.VERSION`
+### Environment Variables (Angular 21)
+
+Angular 21 introduces a new approach for environment variables using the `define` property in `angular.json`. This replaces the traditional `environment.ts` files with a more modern, build-time variable replacement system.
+
+**Key Changes from Previous Versions:**
+- ❌ No more `environment.ts` and `environment.prod.ts` files
+- ❌ No more `fileReplacements` in angular.json
+- ✅ Uses `import.meta.env` instead of importing environment objects
+- ✅ Variables defined directly in `angular.json` per configuration
+- ✅ Build-time replacement (variables are constants, not runtime values)
+
+**Configuration in angular.json:**
+
+Variables are defined in the `define` property within each build configuration:
+
+```json
+{
+  "projects": {
+    "gatze": {
+      "architect": {
+        "build": {
+          "configurations": {
+            "production": {
+              "define": {
+                "import.meta.env.API_URL": "'https://api.production.com'",
+                "import.meta.env.ENVIRONMENT": "'production'",
+                "import.meta.env.ENABLE_DEBUG": "false",
+                "import.meta.env.VERSION": "'1.0.0'"
+              }
+            },
+            "development": {
+              "define": {
+                "import.meta.env.API_URL": "'http://localhost:3000'",
+                "import.meta.env.ENVIRONMENT": "'development'",
+                "import.meta.env.ENABLE_DEBUG": "true",
+                "import.meta.env.VERSION": "'1.0.0-dev'"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Important Syntax Rules:**
+
+1. **String values must be wrapped in single quotes inside double quotes:**
+   ```json
+   "import.meta.env.API_URL": "'https://api.com'"  ✅ Correct
+   "import.meta.env.API_URL": "https://api.com"    ❌ Wrong
+   ```
+
+2. **Boolean and number values don't need quotes:**
+   ```json
+   "import.meta.env.ENABLE_DEBUG": "true"   ✅ Correct (boolean)
+   "import.meta.env.PORT": "3000"           ✅ Correct (number)
+   "import.meta.env.ENABLE_DEBUG": "'true'" ❌ Wrong (string "true")
+   ```
+
+3. **Variable names must start with `import.meta.env.`:**
+   ```json
+   "import.meta.env.API_URL": "..."  ✅ Correct
+   "API_URL": "..."                  ❌ Wrong (won't work)
+   ```
+
+**Usage in TypeScript:**
+
+Access environment variables using `import.meta.env`:
+
+```typescript
+// src/app/app.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<h1>Welcome to {{ appName }}</h1>`
+})
+export class App {
+  // Access environment variables
+  private apiUrl = import.meta.env.API_URL;
+  private environment = import.meta.env.ENVIRONMENT;
+  private debugEnabled = import.meta.env.ENABLE_DEBUG;
+  private version = import.meta.env.VERSION;
+
+  constructor() {
+    console.log(`App running in ${this.environment} mode`);
+    console.log(`API URL: ${this.apiUrl}`);
+    console.log(`Debug enabled: ${this.debugEnabled}`);
+    console.log(`Version: ${this.version}`);
+  }
+}
+```
+
+**Type Safety (Optional):**
+
+For better TypeScript support, create a type definition file:
+
+```typescript
+// src/env.d.ts
+interface ImportMeta {
+  readonly env: {
+    readonly API_URL: string;
+    readonly ENVIRONMENT: 'development' | 'production';
+    readonly ENABLE_DEBUG: boolean;
+    readonly VERSION: string;
+  }
+}
+```
+
+**Current Environment Variables:**
+
+This application uses the following environment variables:
+
+| Variable | Type | Description | Production Value | Development Value |
+|----------|------|-------------|------------------|-------------------|
+| `API_URL` | string | Backend API endpoint | `'https://api.production.com'` | `'https://api.production.com'` |
+| `ENVIRONMENT` | string | Current environment name | `'production'` | `'production'` |
+| `ENABLE_DEBUG` | boolean | Enable debug logging | `true` | `false` |
+| `VERSION` | string | Application version | `'1.0.0'` | `'1.0.0'` |
+
+**Build Commands:**
+
+```bash
+# Development build (uses development configuration)
+ng build --configuration=development
+
+# Production build (uses production configuration)
+ng build --configuration=production
+ng build  # production is default
+```
+
+**Serve Commands:**
+
+```bash
+# Development server (uses development configuration)
+ng serve
+ng serve --configuration=development
+
+# Production-like server (uses production configuration)
+ng serve --configuration=production
+```
+
+**Benefits of the New Approach:**
+
+1. **Simpler Configuration:** No need for separate environment files
+2. **Type Safety:** Variables are checked at compile time
+3. **Better Performance:** Build-time replacement, no runtime overhead
+4. **No File Replacement:** Cleaner angular.json without fileReplacements
+5. **Standard Compliance:** Uses web standard `import.meta` instead of custom imports
+6. **Better Tree Shaking:** Unused variables are eliminated during build
+
+**Migration from Old Environment Files:**
+
+If migrating from Angular versions < 17:
+
+**Before (Old Approach):**
+```typescript
+// src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000'
+};
+
+// Usage
+import { environment } from './environments/environment';
+console.log(environment.apiUrl);
+```
+
+**After (Angular 21):**
+```typescript
+// No environment file needed!
+
+// Usage
+console.log(import.meta.env.API_URL);
+```
+
+**Limitations:**
+
+1. **Build-time only:** Variables cannot be changed at runtime
+2. **No dynamic values:** Cannot use JavaScript expressions
+3. **No object spreading:** Each variable must be defined individually
+4. **Requires rebuild:** Changing variables requires a new build
+
+**Best Practices:**
+
+1. ✅ Use uppercase with underscores for variable names: `API_URL`, `ENABLE_DEBUG`
+2. ✅ Keep development and production configurations in sync (same variable names)
+3. ✅ Use TypeScript types for better autocomplete and type checking
+4. ✅ Document all environment variables in README
+5. ✅ Use meaningful defaults for optional variables
+6. ❌ Don't commit sensitive values (API keys, secrets) to version control
+7. ❌ Don't use environment variables for feature flags (use a proper feature flag system)
 
 **Global Stylesheets:**
 1. `src/styles.css` - Global application styles
@@ -605,4 +793,4 @@ export const appConfig: ApplicationConfig = {
 
 ## License
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
