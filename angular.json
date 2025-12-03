@@ -22,9 +22,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/theme.css",
-              "src/tailwinds.css"
+              "src/styles/styles.css"
             ]
           },
           "configurations": {
