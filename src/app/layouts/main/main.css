@@ -1,19 +1,4 @@
-.sidenav-container {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.sidenav {
-  width: fit-content !important;
-}
-
-mat-sidenav-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden !important;
-}
-
-.content-inner {
-  min-height: 100%;
-}
+/*
+ * Main layout orchestrator styles
+ * Most styles are now in the individual layout components
+ */

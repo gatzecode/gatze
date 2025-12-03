@@ -1,0 +1,80 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Navigation Sidenav (Left) -->
+  <mat-sidenav
+    #drawer
+    class="sidenav overflow-hidden [--mat-sidenav-container-shape:0] rounded-none!"
+    fixedInViewport
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="flex flex-col w-full h-full overflow-hidden">
+      <!-- Logo Header -->
+      <div navHeader class="flex justify-between items-center p-2 pb-0">
+        <app-logo [width]="44" [height]="44" [showText]="true" />
+      </div>
+
+      <!-- Classic Navigation -->
+      <nav-classic [navItems]="navItems()" />
+
+      <!-- User Account Section -->
+      <div class="flex p-2 w-full h-16 mt-auto">
+        <user-account class="cursor-pointer" />
+        <div class="flex flex-col w-full ml-2 overflow-hidden">
+          <div
+            class="w-full whitespace-nowrap text-ellipsis overflow-hidden leading-normal text-current opacity-80"
+          >
+            Brian Hughes
+          </div>
+          <div
+            class="w-full mt-0.5 whitespace-nowrap text-sm text-ellipsis overflow-hidden leading-normal text-current opacity-50"
+          >
+            brian.hughes&#64;company.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <!-- Settings Sidenav (Right) -->
+  <mat-sidenav
+    #settings
+    class="overflow-hidden [--mat-sidenav-container-shape:0] rounded-none!"
+    position="end"
+    mode="over"
+  >
+    <app-settings
+      #settingsPanel
+      [class]="'theme-' + themeColor()"
+      [currentLayout]="currentLayout()"
+      [availableLayouts]="availableLayouts()"
+      [availableThemes]="availableThemes()"
+      (layoutChange)="layoutChange.emit($event)"
+      (themeChange)="themeChange.emit($event)"
+      (schemeChange)="schemeChange.emit($event)"
+    />
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <mat-toolbar class="shadow-sm z-50">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="flex-1"></span>
+
+      <!-- Settings Button -->
+      <button mat-icon-button (click)="settings.open()" aria-label="Open settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content-scroll">
+      <div class="content-inner">
+        <div class="mx-auto">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

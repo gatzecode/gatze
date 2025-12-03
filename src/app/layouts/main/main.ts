@@ -1,16 +1,7 @@
-import { Component, inject, viewChild, computed } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { NavItemType } from '../../components/nav';
 import {
   ConfigService,
@@ -18,47 +9,26 @@ import {
   ThemeMode,
   LayoutType,
 } from '../../core/services/config.service';
-import { Settings } from '../../components/settings/settings';
-import { DenseNav } from '../../components/nav/dense/dense';
-import { ClassicNav } from '../../components/nav/classic/classic';
-import { LogoGatze } from '../../components/logo/logo';
-import { UserAccount } from '../common/user';
+import { LayoutClassic } from '../classic/layout-classic';
+import { LayoutDense } from '../dense/layout-dense';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.html',
   styleUrl: './main.css',
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatMenuModule,
-    AsyncPipe,
-    RouterOutlet,
-    UserAccount,
-    Settings,
-    LogoGatze,
-    DenseNav,
-    ClassicNav,
-  ],
+  imports: [LayoutClassic, LayoutDense],
 })
 export class Main {
   private breakpointObserver = inject(BreakpointObserver);
   protected configService = inject(ConfigService);
 
-  // ViewChild for settings drawer
-  settingsPanel = viewChild.required<Settings>('settingsPanel');
-
-  // Observable for backward compatibility
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map((result) => result.matches),
-    shareReplay()
+  // Convert handset detection to signal
+  private isHandset = toSignal(
+    this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+      map((result) => result.matches)
+    ),
+    { initialValue: false }
   );
-
-  // Convert to signal for reactive layout switching
-  private isHandset = toSignal(this.isHandset$, { initialValue: false });
 
   /**
    * Effective layout based on device type
