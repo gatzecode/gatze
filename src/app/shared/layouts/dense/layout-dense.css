@@ -37,10 +37,8 @@
   width: 100%;
   margin-left: 0.5rem;
   overflow: hidden;
-  transition: opacity 300ms ease-in-out,
-              transform 300ms ease-in-out,
-              max-width 300ms ease-in-out,
-              margin 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out, max-width 300ms ease-in-out,
+    margin 300ms ease-in-out;
 }
 
 .user-account-info--visible {

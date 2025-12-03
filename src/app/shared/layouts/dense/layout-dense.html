@@ -8,10 +8,10 @@
     [opened]="(isHandset$ | async) === false"
   >
     <div class="flex flex-col w-full h-full overflow-hidden">
-      <!-- Logo Header -->
+      <!-- Header -->
       <div navHeader class="logo-header-container" [class.logo-header-container--centered]="!isNavExpanded()">
-        <app-logo [width]="40" [height]="40" [showText]="isNavExpanded()" />
-      </div>
+        <app-identity [width]="40" [height]="40" [showText]="isNavExpanded()" />
+      </div>    
 
       <!-- Dense Navigation -->
       <nav-dense [navItems]="navItems()" #navDense />

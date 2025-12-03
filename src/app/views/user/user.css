@@ -1,0 +1,18 @@
+/* Dashboard Styles */
+
+/* Stats cards hover effect */
+mat-card.hover\:shadow-lg {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Chart bars animation */
+.bg-primary.rounded-t {
+  transition: height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .mat-mdc-table {
+    font-size: 0.875rem;
+  }
+}

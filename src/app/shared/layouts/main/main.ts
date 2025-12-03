@@ -1,14 +1,15 @@
 import { Component, inject, computed } from '@angular/core';
 import { NavItemType } from '../../components/nav';
-import {
-  ConfigService,
-  ThemeColor,
-  ThemeMode,
-  LayoutType,
-} from '../../core/services/config.service';
-import { BreakpointService } from '../../core/services/breakpoint.service';
+
 import { LayoutClassic } from '../classic/layout-classic';
 import { LayoutDense } from '../dense/layout-dense';
+import { BreakpointService } from '@app/core/services/breakpoint.service';
+import {
+  ConfigService,
+  LayoutType,
+  ThemeColor,
+  ThemeMode,
+} from '@app/core/services/config.service';
 
 @Component({
   selector: 'app-main',
@@ -42,10 +43,7 @@ export class Main {
 
   // Navigation items
   protected readonly navItems: NavItemType[] = [
-    {
-      id: 'spacer-1',
-      type: 'spacer',
-    },
+    
     {
       id: 'users-group',
       title: 'Users',

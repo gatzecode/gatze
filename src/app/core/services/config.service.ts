@@ -1,4 +1,5 @@
 import { Injectable, signal, effect, computed, DestroyRef, inject } from '@angular/core';
+import { LocalStorageService } from './localstorege.service';
 
 export type ThemeColor = 'indigo' | 'green' | 'rose' | 'orange';
 export type ThemeMode = 'light' | 'dark' | 'auto';
@@ -21,6 +22,7 @@ const DEFAULT_CONFIG: AppConfig = {
 })
 export class ConfigService {
   private destroyRef = inject(DestroyRef);
+  private storage = inject(LocalStorageService);
 
   // Available options
   readonly availableColors: ThemeColor[] = ['orange', 'indigo', 'green', 'rose'];
@@ -138,35 +140,23 @@ export class ConfigService {
   // ==========================================
 
   private loadFromStorage(): void {
-    try {
-      const savedColor = localStorage.getItem('app-theme-color') as ThemeColor;
-      const savedMode = localStorage.getItem('app-theme-mode') as ThemeMode;
-      const savedLayout = localStorage.getItem('app-layout') as LayoutType;
+    const saved = this.storage.get<AppConfig>('app-config', DEFAULT_CONFIG);
 
-      if (savedColor && this.availableColors.includes(savedColor)) {
-        this.themeColor.set(savedColor);
-      }
+    if (saved.themeColor && this.availableColors.includes(saved.themeColor)) {
+      this.themeColor.set(saved.themeColor);
+    }
 
-      if (savedMode && this.availableModes.includes(savedMode)) {
-        this.themeMode.set(savedMode);
-      }
+    if (saved.themeMode && this.availableModes.includes(saved.themeMode)) {
+      this.themeMode.set(saved.themeMode);
+    }
 
-      if (savedLayout && this.availableLayouts.includes(savedLayout)) {
-        this.layout.set(savedLayout);
-      }
-    } catch (error) {
-      console.warn('Failed to load app configuration from localStorage:', error);
+    if (saved.layout && this.availableLayouts.includes(saved.layout)) {
+      this.layout.set(saved.layout);
     }
   }
 
   private saveToStorage(): void {
-    try {
-      localStorage.setItem('app-theme-color', this.themeColor());
-      localStorage.setItem('app-theme-mode', this.themeMode());
-      localStorage.setItem('app-layout', this.layout());
-    } catch (error) {
-      console.warn('Failed to save app configuration to localStorage:', error);
-    }
+    this.storage.set<AppConfig>('app-config', this.config());
   }
 
   private applyTheme(): void {

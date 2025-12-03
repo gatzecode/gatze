@@ -1,11 +1,10 @@
 import { Component, input } from '@angular/core';
 
-
 @Component({
-  selector: 'app-logo',
+  selector: 'app-identity',
   imports: [],
   template: `
-    <a class="flex items-center w-full" href="/">
+    <a class="flex items-center w-full" href="./">
       <svg
         class="fill-current logo-icon"
         [attr.width]="width()"
@@ -28,35 +27,35 @@ import { Component, input } from '@angular/core';
       </span>
     </a>
   `,
-  styles: [`
-    .logo-icon {
-      transition: all 300ms ease-in-out;
-      flex-shrink: 0;
-    }
+  styles: [
+    `
+      .logo-icon {
+        transition: all 300ms ease-in-out;
+        flex-shrink: 0;
+      }
 
-    .logo-text {
-      white-space: nowrap;
-      overflow: hidden;
-      transition: opacity 250ms ease-in-out,
-                  max-width 250ms ease-in-out,
-                  margin 250ms ease-in-out;
-    }
+      .logo-text {
+        white-space: nowrap;
+        overflow: hidden;
+        transition: opacity 250ms ease-in-out, max-width 250ms ease-in-out, margin 250ms ease-in-out;
+      }
 
-    .logo-text--visible {
-      opacity: 1;
-      max-width: 200px;
-      margin-left: 0.75rem;
-    }
+      .logo-text--visible {
+        opacity: 1;
+        max-width: 200px;
+        margin-left: 0.75rem;
+      }
 
-    .logo-text--hidden {
-      opacity: 0;
-      max-width: 0;
-      margin-left: 0;
-      pointer-events: none;
-    }
-  `],
+      .logo-text--hidden {
+        opacity: 0;
+        max-width: 0;
+        margin-left: 0;
+        pointer-events: none;
+      }
+    `,
+  ],
 })
-export class LogoGatze {
+export class AppIdentity {
   // Input properties
   width = input<string | number>('12');
   height = input<string | number>('12');

@@ -8,7 +8,7 @@ import {
   ThemeColor,
   ThemeMode,
   LayoutType,
-} from '../../core/services/config.service';
+} from '@app/core/services/config.service';
 
 @Component({
   selector: 'app-settings',

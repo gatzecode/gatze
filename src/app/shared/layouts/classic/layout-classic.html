@@ -8,16 +8,18 @@
     [opened]="(isHandset$ | async) === false"
   >
     <div class="flex flex-col w-full h-full overflow-hidden">
-      <!-- Logo Header -->
-      <div navHeader class="flex justify-between items-center p-2 pb-0">
-        <app-logo [width]="44" [height]="44" [showText]="true" />
+      <!-- Header -->
+      <div navHeader class="flex justify-between items-center p-3">
+        <app-identity [width]="44" [height]="44" [showText]="true" />
       </div>
+
+      <mat-divider />
 
       <!-- Classic Navigation -->
       <nav-classic [navItems]="navItems()" />
 
       <!-- User Account Section -->
-      <div class="flex p-2 w-full h-16 mt-auto">
+      <div class="flex p-3 w-full h-16 mt-auto">
         <user-account class="cursor-pointer" />
         <div class="flex flex-col w-full ml-2 overflow-hidden">
           <div
