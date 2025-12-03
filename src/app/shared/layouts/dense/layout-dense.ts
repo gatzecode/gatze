@@ -6,13 +6,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
+
+import { BreakpointService } from '@app/core/services/breakpoint.service';
+import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
+import { Languages } from '@app/shared/components/languages/languages';
+
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { DenseNav } from '../../components/nav/dense/dense';
 import { AppBranding } from '../../components/app-branding/app-branding';
 import { UserAccount } from '../../components/user-account/user-account';
-import { BreakpointService } from '@app/core/services/breakpoint.service';
-import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
 
 @Component({
   selector: 'layout-dense',
@@ -30,6 +33,7 @@ import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.ser
     Settings,
     AppBranding,
     DenseNav,
+    Languages,
   ],
 })
 export class LayoutDense {

@@ -1,20 +1,24 @@
 import { Injectable, signal, effect, computed, DestroyRef, inject } from '@angular/core';
 import { LocalStorageService } from './localstorege.service';
+import { AvailableLangs, TranslocoService } from '@jsverse/transloco';
 
 export type ThemeColor = 'indigo' | 'green' | 'rose' | 'orange';
 export type ThemeMode = 'light' | 'dark' | 'auto';
 export type LayoutType = 'classic' | 'dense';
+export type LangCode = 'es' | 'en';
 
 export interface AppConfig {
   themeColor: ThemeColor;
   themeMode: ThemeMode;
   layout: LayoutType;
+  lang: LangCode;
 }
 
 const DEFAULT_CONFIG: AppConfig = {
   themeColor: 'orange',
   themeMode: 'auto',
   layout: 'classic',
+  lang: 'es',
 };
 
 @Injectable({
@@ -23,16 +27,19 @@ const DEFAULT_CONFIG: AppConfig = {
 export class ConfigService {
   private destroyRef = inject(DestroyRef);
   private storage = inject(LocalStorageService);
+  private translocoService = inject(TranslocoService);
 
   // Available options
   readonly availableColors: ThemeColor[] = ['orange', 'indigo', 'green', 'rose'];
   readonly availableModes: ThemeMode[] = ['light', 'dark', 'auto'];
   readonly availableLayouts: LayoutType[] = ['classic', 'dense'];
+  readonly availableLangs = signal<AvailableLangs>([]);
 
   // Configuration signals
   readonly themeColor = signal<ThemeColor>(DEFAULT_CONFIG.themeColor);
   readonly themeMode = signal<ThemeMode>(DEFAULT_CONFIG.themeMode);
   readonly layout = signal<LayoutType>(DEFAULT_CONFIG.layout);
+  readonly langCode = signal<LangCode>(DEFAULT_CONFIG.lang);
 
   // System preference tracking
   private systemPrefersDark = signal<boolean>(false);
@@ -51,6 +58,7 @@ export class ConfigService {
     themeColor: this.themeColor(),
     themeMode: this.themeMode(),
     layout: this.layout(),
+    lang: this.langCode(),
   }));
 
   constructor() {
@@ -59,6 +67,9 @@ export class ConfigService {
 
     // Initialize system preference detection
     this.initSystemPreferenceDetection();
+
+    // Initialize Transloco integration
+    this.initTransloco();
 
     // Apply theme whenever any relevant signal changes
     effect(() => {
@@ -87,6 +98,14 @@ export class ConfigService {
    */
   setThemeMode(mode: ThemeMode): void {
     this.themeMode.set(mode);
+  }
+
+  /**
+   * Set lang code (es, en)
+   */
+  setActiveLang(lang: LangCode): void {
+    this.langCode.set(lang);
+    this.translocoService.setActiveLang(lang);
   }
 
   /**
@@ -191,6 +210,20 @@ export class ConfigService {
     // Cleanup on destroy
     this.destroyRef.onDestroy(() => {
       mediaQuery.removeEventListener('change', listener);
+    });
+  }
+
+  private initTransloco(): void {
+    // Get available languages from Transloco
+    this.availableLangs.set(this.translocoService.getAvailableLangs());
+
+    // Set initial language from saved config
+    this.translocoService.setActiveLang(this.langCode());
+
+    // Sync Transloco changes back to config
+    // This ensures config stays in sync if language changes from other sources
+    this.translocoService.langChanges$.subscribe((lang) => {
+      this.langCode.set(lang as LangCode);
     });
   }
 }

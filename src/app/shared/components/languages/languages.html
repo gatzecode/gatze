@@ -1,0 +1,16 @@
+<!-- Button -->
+<button mat-icon-button [matMenuTriggerFor]="languages">
+  {{ flagCodes[activeLang()] }}
+</button>
+
+<!-- Language menu -->
+<mat-menu [xPosition]="'before'" #languages="matMenu">
+  @for (lang of availableLangs(); track trackByFn($index, lang)) {
+  <button mat-menu-item (click)="setActiveLang(lang.toString())">
+    <span class="flex items-center">
+      {{ flagCodes[lang.toString()] }}
+      <span class="ml-3">{{ `${lang}` | transloco }}</span>
+    </span>
+  </button>
+  }
+</mat-menu>

@@ -9,11 +9,12 @@ import {
   ThemeMode,
   LayoutType,
 } from '@app/core/services/config.service';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-settings',
 
-  imports: [MatIconModule, MatButtonModule, MatDividerModule],
+  imports: [MatIconModule, MatButtonModule, MatDividerModule, TranslocoModule],
   templateUrl: './settings.html',
   styleUrls: ['./settings.css'],
 })

@@ -1,0 +1,20 @@
+{
+    "en": "English",
+    "es": "Spanish",
+    "common": {
+        "welcome": "Welcome to Gatze!",
+        "login": "Login",
+        "logout": "Logout"
+    },
+    "settings": {
+        "title": "Settings",
+        "themeColor": "Theme Color",
+        "appearance": "Appearance",
+        "auto": "Auto",
+        "dark": "Dark",
+        "light": "Light",
+        "navigationLayout": "Navigation Layout",
+        "classic": "Classic",
+        "dense": "Dense"
+    }
+}
