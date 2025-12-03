@@ -84,22 +84,20 @@
   border-radius: 8px; /* opcional */
 }
 
-/* Overlay para hacerlo más transparente */
 .bg-surface-soft::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: var(--mat-sys-background); /* fondo base del tema */
-  opacity: 0.35; /* transparencia base (ajústalo si quieres 0.25 a 0.45) */
+  background-color: var(--mat-sys-background);
+  opacity: 0.35;
   pointer-events: none;
   transition: opacity 0.18s ease;
 }
 
-/* Hover: sube suavemente el brillo Y baja un poco más la transparencia */
 .bg-surface-soft:hover {
   filter: brightness(1.04);
 }
 
 .bg-surface-soft:hover::after {
-  opacity: 0.2; /* hace que resalte un poco más en hover */
+  opacity: 0.2;
 }
