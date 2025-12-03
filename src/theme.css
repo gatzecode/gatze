@@ -75,11 +75,13 @@ html {
   /* TYPOGRAPHY SYSTEM VARIABLES */
 
   /* Typography variables. Only used in the different typescale system variables. */
-  --mat-sys-brand-font-family: Roboto; /* The font-family to use for brand text. */
-  --mat-sys-plain-font-family: Roboto; /* The font-family to use for plain text. */
+  --mat-sys-brand-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* The font-family to use for brand text. */
+  --mat-sys-plain-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* The font-family to use for plain text. */
   --mat-sys-bold-font-weight: 700; /* The font-weight to use for bold text. */
+  --mat-sys-semibold-font-weight: 600; /* The font-weight to use for semibold text (new for better hierarchy). */
   --mat-sys-medium-font-weight: 500; /* The font-weight to use for medium text. */
   --mat-sys-regular-font-weight: 400; /* The font-weight to use for regular text. */
+  --mat-sys-light-font-weight: 300; /* The font-weight to use for light text (new for subtle text). */
 
   /* Typescale variables. */
   /* Warning: Risk of reduced fidelity from using the composite typography tokens (ex. --mat-sys-body-large) since

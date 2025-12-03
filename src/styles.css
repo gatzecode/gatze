@@ -3,6 +3,97 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  /* Professional typography settings */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures and contextual alternates */
+}
+
+/* Typography Hierarchy - Professional Scale */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em; /* Tighter tracking for headlines */
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+}
+
+/* Body text improvements */
+p {
+  line-height: 1.6; /* Better readability */
+  margin: 0;
+}
+
+/* Small text */
+small {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+}
+
+/* Professional emphasis */
+strong, b {
+  font-weight: 600; /* Use semibold instead of bold */
+}
+
+/* Subtle text */
+.text-subtle {
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+/* Professional number display */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1; /* Tabular numbers for better alignment */
+}
+
+/* Tracking utilities for professional look */
+.tracking-tight {
+  letter-spacing: -0.03em;
+}
+
+.tracking-tighter {
+  letter-spacing: -0.05em;
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
 }
 
 .mat-mdc-text-field-wrapper .mdc-notched-outline .mdc-notched-outline__notch {
