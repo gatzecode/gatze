@@ -20,4 +20,6 @@
     (themeChange)="setTheme($event)"
     (schemeChange)="setThemeMode($event)"
   />
+} @else if (effectiveLayout() === 'empty') {
+  <layout-empty />
 }

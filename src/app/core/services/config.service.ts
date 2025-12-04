@@ -4,7 +4,7 @@ import { AvailableLangs, TranslocoService } from '@jsverse/transloco';
 
 export type ThemeColor = 'indigo' | 'green' | 'rose' | 'orange';
 export type ThemeMode = 'light' | 'dark' | 'auto';
-export type LayoutType = 'classic' | 'dense';
+export type LayoutType = 'classic' | 'dense' | 'empty';
 export type LangCode = 'es' | 'en';
 
 export interface AppConfig {

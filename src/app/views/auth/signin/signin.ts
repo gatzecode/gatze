@@ -14,14 +14,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-dashuser',
+  selector: 'app-login',
   imports: [
     CommonModule,
     RouterLink,
     FormsModule,
+    TranslocoModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,12 +32,15 @@ import { RouterLink } from '@angular/router';
     MatIconModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatCardModule,
   ],
-  templateUrl: './user.html',
-  styleUrl: './user.css',
+  templateUrl: './signin.html',
+  styleUrl: './signin.css',
 })
-export class DashUser implements OnInit {
+export class SignIn implements OnInit {
   @ViewChild('signInNgForm') signInNgForm!: NgForm;
+
+  appName: string = 'JsVerse';
 
   alert: { type: any; message: string } = {
     type: 'success',
@@ -43,7 +49,7 @@ export class DashUser implements OnInit {
   signInForm!: UntypedFormGroup;
   showAlert: boolean = false;
 
-  constructor(private _formBuilder: UntypedFormBuilder) {}
+  constructor(private _formBuilder: UntypedFormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     // Create the form
@@ -84,6 +90,8 @@ export class DashUser implements OnInit {
         message: 'Sign in successful!',
       };
       this.showAlert = true;
+
+      this.router.navigate(['/dashboard']);
     }, 2000);
   }
 }

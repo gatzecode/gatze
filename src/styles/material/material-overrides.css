@@ -17,7 +17,7 @@ mat-card {
 }
 
 .mat-mdc-icon-button {
-   font-size: initial !important;
+  font-size: initial !important;
 }
 
 mat-card:hover {
@@ -122,12 +122,12 @@ mat-card:hover {
   background-color: var(--mat-sys-surface-container) !important;
 }
 
-.mat-mdc-row:nth-child(even) {
+/* .mat-mdc-row:nth-child(even) {
   background-color: color-mix(in srgb, var(--mat-sys-surface-container-lowest) 50%, transparent);
-}
+} */
 
 .mat-mdc-cell {
-  padding: 12px !important;
+  padding: 10px !important;
 }
 
 /* ============================================
@@ -138,13 +138,15 @@ mat-card:hover {
   width: 100%;
 }
 
-.mat-mdc-form-field.mat-focused .mdc-notched-outline {
-  border-width: 2px !important;
+.mat-mdc-text-field-wrapper .mdc-notched-outline .mdc-notched-outline__notch {
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  padding: 0 !important;
 }
 
-.mat-mdc-form-field.mat-form-field-disabled {
-  opacity: 0.6;
-  pointer-events: none;
+/* Mantener validación de errores */
+.mat-form-field-invalid .mdc-notched-outline__notch {
+  border-color: var(--mat-sys-error) !important;
 }
 
 /* ============================================

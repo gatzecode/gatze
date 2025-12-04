@@ -3,6 +3,7 @@ import { NavItemType } from '../../components/nav';
 
 import { LayoutClassic } from '../classic/layout-classic';
 import { LayoutDense } from '../dense/layout-dense';
+import { LayoutEmpty } from '../empty/layout-empty';
 import { BreakpointService } from '@app/core/services/breakpoint.service';
 import {
   ConfigService,
@@ -15,7 +16,7 @@ import {
   selector: 'app-main',
   templateUrl: './main.html',
   styleUrl: './main.css',
-  imports: [LayoutClassic, LayoutDense],
+  imports: [LayoutClassic, LayoutDense, LayoutEmpty],
 })
 export class Main {
   private breakpointService = inject(BreakpointService);
