@@ -81,49 +81,101 @@ private configService = inject(ConfigService);
 ```
 gatze/
 ├── src/
-│   ├── app/
-│   │   ├── core/                      # Core singleton services
-│   │   │   └── services/
-│   │   │       ├── config.service.ts         # Theme & layout configuration
-│   │   │       ├── breakpoint.service.ts     # Responsive breakpoint detection
-│   │   │       └── localstorege.service.ts   # LocalStorage wrapper
-│   │   │
-│   │   ├── shared/                    # Shared components & layouts
-│   │   │   ├── components/
-│   │   │   │   ├── nav/              # Navigation system
-│   │   │   │   │   ├── base-nav.ts          # Abstract base class
-│   │   │   │   │   ├── classic/             # Classic nav layout
-│   │   │   │   │   ├── dense/               # Dense nav layout
-│   │   │   │   │   └── navigation.types.ts  # Type definitions
-│   │   │   │   ├── settings/                # Settings panel
-│   │   │   │   ├── user-account/            # User account component
-│   │   │   │   └── app-branding/            # App branding
-│   │   │   │
-│   │   │   └── layouts/              # Layout containers
-│   │   │       ├── main/             # Main layout orchestrator
-│   │   │       ├── classic/          # Classic layout wrapper
-│   │   │       └── dense/            # Dense layout wrapper
-│   │   │
-│   │   ├── views/                     # Feature views/pages
-│   │   │   ├── dashboard/            # Dashboard page
-│   │   │   ├── product/              # Product management
-│   │   │   └── user/                 # User management
-│   │   │
-│   │   ├── app.ts                     # Root component
-│   │   ├── app.config.ts              # Application configuration
-│   │   └── app.routes.ts              # Route definitions
-│   │
-│   ├── assets/                        # Static assets
-│   ├── styles.css                     # Global styles
-│   ├── theme.css                      # Material Design 3 theme
-│   ├── tailwinds.css                  # Tailwind configuration
-│   └── main.ts                        # Application entry point
-│
-├── public/                            # Static files served as-is
-├── angular.json                       # Angular workspace configuration
-├── package.json                       # Dependencies and scripts
-├── tsconfig.json                      # TypeScript configuration
-└── postcss.config.json               # PostCSS configuration
+│   ├── app
+│   ├── app.config.ts
+│   ├── app.css
+│   ├── app.html
+│   ├── app.routes.ts
+│   ├── app.ts
+│   ├── core
+│   │   └── services
+│   │       ├── breakpoint.service.ts
+│   │       ├── config.service.ts
+│   │       └── localstorege.service.ts
+│   ├── shared
+│   │   ├── components
+│   │   │   ├── app-branding
+│   │   │   │   └── app-branding.ts
+│   │   │   ├── languages
+│   │   │   │   ├── languages.html
+│   │   │   │   └── languages.ts
+│   │   │   ├── nav
+│   │   │   │   ├── base-nav.ts
+│   │   │   │   ├── classic
+│   │   │   │   │   ├── classic.css
+│   │   │   │   │   ├── classic.html
+│   │   │   │   │   └── classic.ts
+│   │   │   │   ├── dense
+│   │   │   │   │   ├── dense.css
+│   │   │   │   │   ├── dense.html
+│   │   │   │   │   └── dense.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── navigation.types.ts
+│   │   │   │   └── shared
+│   │   │   │       ├── index.ts
+│   │   │   │       ├── nav-collapsable-item.ts
+│   │   │   │       ├── nav-item.ts
+│   │   │   │       └── nav-shared.css
+│   │   │   ├── settings
+│   │   │   │   ├── settings.css
+│   │   │   │   ├── settings.html
+│   │   │   │   └── settings.ts
+│   │   │   └── user-account
+│   │   │       └── user-account.ts
+│   │   └── layouts
+│   │       ├── classic
+│   │       │   ├── layout-classic.css
+│   │       │   ├── layout-classic.html
+│   │       │   └── layout-classic.ts
+│   │       ├── dense
+│   │       │   ├── layout-dense.css
+│   │       │   ├── layout-dense.html
+│   │       │   └── layout-dense.ts
+│   │       ├── empty
+│   │       │   ├── layout-empty.css
+│   │       │   ├── layout-empty.html
+│   │       │   └── layout-empty.ts
+│   │       ├── main
+│   │       │   ├── main.css
+│   │       │   ├── main.html
+│   │       │   └── main.ts
+│   │       └── shared
+│   │           └── layout-shared.css
+│   ├── transloco-loader.ts
+│   └── views
+│       ├── auth
+│       │   └── signin
+│       │       ├── signin.css
+│       │       ├── signin.html
+│       │       └── signin.ts
+│       ├── dashboard
+│       │   ├── dashboard.css
+│       │   ├── dashboard.html
+│       │   └── dashboard.ts
+│       └── product
+│           ├── product.css
+│           ├── product-dialog.ts
+│           ├── product.html
+│           ├── product.service.ts
+│           ├── product.ts
+│           └── product.types.ts
+├── env.d.ts
+├── index.html
+├── main.ts
+└── styles
+    ├── base
+    │   ├── reset.css
+    │   └── tailwind.config.css
+    ├── layout
+    │   └── layout.css
+    ├── material
+    │   └── material-overrides.css
+    ├── README.md
+    ├── styles.css
+    ├── themes
+    │   └── themes.css
+    └── tokens
+        └── theme-tokens.css
 ```
 
 ### Directory Purposes
