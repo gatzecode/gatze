@@ -9,50 +9,38 @@
   <div class="panel-content">
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
       <div class="form-fields">
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="firstName" placeholder="Nombre">
-          <mat-icon matPrefix>person</mat-icon>
-          @if (searchForm.get('firstName')?.invalid && searchForm.get('firstName')?.touched) {
-            <mat-error>{{ getErrorMessage('firstName') }}</mat-error>
-          }
-        </mat-form-field>
+        <div class="field-group">
+          <label class="field-label">Nombre Completo</label>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="fullName" placeholder="Nombre y apellidos">
+            <mat-icon matPrefix>person</mat-icon>
+            @if (searchForm.get('fullName')?.invalid && searchForm.get('fullName')?.touched) {
+              <mat-error>{{ getErrorMessage('fullName') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Apellido Paterno</mat-label>
-          <input matInput formControlName="lastName" placeholder="Apellido">
-          <mat-icon matPrefix>person</mat-icon>
-          @if (searchForm.get('lastName')?.invalid && searchForm.get('lastName')?.touched) {
-            <mat-error>{{ getErrorMessage('lastName') }}</mat-error>
-          }
-        </mat-form-field>
+        <div class="field-group">
+          <label class="field-label">Número de Cuenta</label>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="accountNumber" placeholder="Cuenta">
+            <mat-icon matPrefix>account_balance_wallet</mat-icon>
+            @if (searchForm.get('accountNumber')?.invalid && searchForm.get('accountNumber')?.touched) {
+              <mat-error>{{ getErrorMessage('accountNumber') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Apellido Materno</mat-label>
-          <input matInput formControlName="secondLastName" placeholder="Apellido">
-          <mat-icon matPrefix>person</mat-icon>
-          @if (searchForm.get('secondLastName')?.invalid && searchForm.get('secondLastName')?.touched) {
-            <mat-error>{{ getErrorMessage('secondLastName') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Número de Cuenta</mat-label>
-          <input matInput formControlName="accountNumber" placeholder="Cuenta">
-          <mat-icon matPrefix>account_balance_wallet</mat-icon>
-          @if (searchForm.get('accountNumber')?.invalid && searchForm.get('accountNumber')?.touched) {
-            <mat-error>{{ getErrorMessage('accountNumber') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Número de Tarjeta</mat-label>
-          <input matInput formControlName="cardNumber" placeholder="16 dígitos" maxlength="16">
-          <mat-icon matPrefix>credit_card</mat-icon>
-          @if (searchForm.get('cardNumber')?.invalid && searchForm.get('cardNumber')?.touched) {
-            <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
-          }
-        </mat-form-field>
+        <div class="field-group">
+          <label class="field-label">Número de Tarjeta</label>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="cardNumber" placeholder="16 dígitos" maxlength="16">
+            <mat-icon matPrefix>credit_card</mat-icon>
+            @if (searchForm.get('cardNumber')?.invalid && searchForm.get('cardNumber')?.touched) {
+              <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
         <mat-checkbox formControlName="additionalsOnly" color="primary" class="full-width-checkbox">
           Solo Tarjetas Adicionales

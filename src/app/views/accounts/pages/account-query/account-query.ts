@@ -1,9 +1,9 @@
-import { Component, signal, effect, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, signal, effect, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 // Material imports
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,13 +46,14 @@ import { Account } from '../../../../core/models';
     .sidenav {
       width: 350px;
       border-right: 1px solid #E5E7EB;
-      background-color: #FAFAFA;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .main-content {
       padding: 1.5rem;
       height: 100%;
       overflow-y: auto;
+      transition: margin-left 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .page-header {
@@ -61,13 +62,11 @@ import { Account } from '../../../../core/models';
       align-items: center;
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 2px solid #E5E7EB;
     }
 
     .header-info h1 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #111827;
       margin: 0;
       display: flex;
       align-items: center;
@@ -76,8 +75,19 @@ import { Account } from '../../../../core/models';
 
     .header-info p {
       font-size: 0.875rem;
-      color: #6B7280;
       margin: 0.25rem 0 0 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .filters-button {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
     }
 
     .content-section {
@@ -87,6 +97,13 @@ import { Account } from '../../../../core/models';
     @media (max-width: 768px) {
       .sidenav {
         width: 280px;
+        position: absolute;
+        z-index: 100;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .filters-button span {
+        display: none;
       }
     }
   `]
@@ -95,6 +112,12 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
   private readonly accountsState = inject(AccountsStateService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
+
+  // Sidenav reference
+  @ViewChild('searchSidenav') searchSidenav!: MatSidenav;
+
+  // Sidenav state
+  readonly searchSidenavOpen = signal<boolean>(this.getStoredSidenavState());
 
   // Computed from state
   readonly selectedAccount = this.accountsState.selectedAccount;
@@ -118,6 +141,20 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Load initial data when component initializes
     this.accountsState.loadInitialData();
+  }
+
+  toggleSearchSidenav(): void {
+    this.searchSidenavOpen.update(value => !value);
+    this.storeSidenavState(this.searchSidenavOpen());
+  }
+
+  private getStoredSidenavState(): boolean {
+    const stored = localStorage.getItem('searchSidenavOpen');
+    return stored !== null ? stored === 'true' : true;
+  }
+
+  private storeSidenavState(isOpen: boolean): void {
+    localStorage.setItem('searchSidenavOpen', isOpen.toString());
   }
 
   ngOnDestroy(): void {

@@ -9,6 +9,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 
+// Pipes
+import { MaskCardPipe } from '../../../../shared/pipes/mask-card.pipe';
+
 // Services and models
 import { AccountsStateService } from '../../services/accounts-state.service';
 import { Account } from '../../../../core/models';
@@ -23,7 +26,8 @@ import { Account } from '../../../../core/models';
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MaskCardPipe
   ],
   templateUrl: './accounts-table.html',
   styles: [`

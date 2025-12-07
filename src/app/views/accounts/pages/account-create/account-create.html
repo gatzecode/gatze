@@ -30,42 +30,48 @@
           </div>
 
           <form [formGroup]="accountForm" class="form-grid">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Número de Cuenta</mat-label>
-              <input
-                matInput
-                formControlName="accountNumber"
-                placeholder="10 dígitos"
-                maxlength="10">
-              <mat-icon matPrefix>account_balance</mat-icon>
-              <mat-hint>Identificador único de la cuenta</mat-hint>
-              @if (accountForm.get('accountNumber')?.invalid && accountForm.get('accountNumber')?.touched) {
-                <mat-error>{{ getErrorMessage(accountForm, 'accountNumber') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group full-width">
+              <label class="field-label">Número de Cuenta</label>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  formControlName="accountNumber"
+                  placeholder="10 dígitos"
+                  maxlength="10">
+                <mat-icon matPrefix>account_balance</mat-icon>
+                <mat-hint>Identificador único de la cuenta</mat-hint>
+                @if (accountForm.get('accountNumber')?.invalid && accountForm.get('accountNumber')?.touched) {
+                  <mat-error>{{ getErrorMessage(accountForm, 'accountNumber') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Tipo de Cuenta</mat-label>
-              <mat-select formControlName="accountType">
-                <mat-option value="CREDIT">Crédito</mat-option>
-                <mat-option value="DEBIT">Débito</mat-option>
-              </mat-select>
-              <mat-icon matPrefix>category</mat-icon>
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Tipo de Cuenta</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="accountType">
+                  <mat-option value="CREDIT">Crédito</mat-option>
+                  <mat-option value="DEBIT">Débito</mat-option>
+                </mat-select>
+                <mat-icon matPrefix>category</mat-icon>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Límite de Crédito</mat-label>
-              <input
-                matInput
-                type="number"
-                formControlName="creditLimit"
-                placeholder="50000">
-              <span matPrefix>$&nbsp;</span>
-              <span matSuffix>MXN</span>
-              @if (accountForm.get('creditLimit')?.invalid && accountForm.get('creditLimit')?.touched) {
-                <mat-error>{{ getErrorMessage(accountForm, 'creditLimit') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Límite de Crédito</label>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="number"
+                  formControlName="creditLimit"
+                  placeholder="50000">
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>MXN</span>
+                @if (accountForm.get('creditLimit')?.invalid && accountForm.get('creditLimit')?.touched) {
+                  <mat-error>{{ getErrorMessage(accountForm, 'creditLimit') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
           </form>
 
           <div class="wizard-actions">
@@ -93,154 +99,188 @@
             <!-- Personal Information -->
             <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Datos Personales</h4>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Nombre(s)</mat-label>
-              <input matInput formControlName="firstName" required>
-              <mat-icon matPrefix>badge</mat-icon>
-              @if (cardholderForm.get('firstName')?.invalid && cardholderForm.get('firstName')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'firstName') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Nombre(s)</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="firstName" required>
+                <mat-icon matPrefix>badge</mat-icon>
+                @if (cardholderForm.get('firstName')?.invalid && cardholderForm.get('firstName')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'firstName') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Apellido Paterno</mat-label>
-              <input matInput formControlName="lastName" required>
-              <mat-icon matPrefix>badge</mat-icon>
-              @if (cardholderForm.get('lastName')?.invalid && cardholderForm.get('lastName')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'lastName') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Apellido Paterno</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="lastName" required>
+                <mat-icon matPrefix>badge</mat-icon>
+                @if (cardholderForm.get('lastName')?.invalid && cardholderForm.get('lastName')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'lastName') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Apellido Materno</mat-label>
-              <input matInput formControlName="secondLastName">
-              <mat-icon matPrefix>badge</mat-icon>
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Apellido Materno</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="secondLastName">
+                <mat-icon matPrefix>badge</mat-icon>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Fecha de Nacimiento</mat-label>
-              <input matInput [matDatepicker]="birthPicker" formControlName="birthDate" required>
-              <mat-icon matPrefix>cake</mat-icon>
-              <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
-              <mat-datepicker #birthPicker></mat-datepicker>
-              @if (cardholderForm.get('birthDate')?.invalid && cardholderForm.get('birthDate')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'birthDate') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Fecha de Nacimiento</label>
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="birthPicker" formControlName="birthDate" required>
+                <mat-icon matPrefix>cake</mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+                <mat-datepicker #birthPicker></mat-datepicker>
+                @if (cardholderForm.get('birthDate')?.invalid && cardholderForm.get('birthDate')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'birthDate') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>RFC</mat-label>
-              <input matInput formControlName="rfc" required maxlength="13" class="uppercase">
-              <mat-icon matPrefix>assignment_ind</mat-icon>
-              @if (cardholderForm.get('rfc')?.invalid && cardholderForm.get('rfc')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'rfc') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">RFC</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="rfc" required maxlength="13" class="uppercase">
+                <mat-icon matPrefix>assignment_ind</mat-icon>
+                @if (cardholderForm.get('rfc')?.invalid && cardholderForm.get('rfc')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'rfc') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>CURP</mat-label>
-              <input matInput formControlName="curp" required maxlength="18" class="uppercase">
-              <mat-icon matPrefix>fingerprint</mat-icon>
-              @if (cardholderForm.get('curp')?.invalid && cardholderForm.get('curp')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'curp') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">CURP</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="curp" required maxlength="18" class="uppercase">
+                <mat-icon matPrefix>fingerprint</mat-icon>
+                @if (cardholderForm.get('curp')?.invalid && cardholderForm.get('curp')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'curp') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
             <!-- Contact Information -->
             <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Contacto</h4>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Teléfono Celular</mat-label>
-              <input matInput formControlName="cellPhone" required maxlength="10">
-              <mat-icon matPrefix>smartphone</mat-icon>
-              @if (cardholderForm.get('cellPhone')?.invalid && cardholderForm.get('cellPhone')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'cellPhone') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Teléfono Celular</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="cellPhone" required maxlength="10">
+                <mat-icon matPrefix>smartphone</mat-icon>
+                @if (cardholderForm.get('cellPhone')?.invalid && cardholderForm.get('cellPhone')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'cellPhone') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Correo Electrónico</mat-label>
-              <input matInput formControlName="email" required type="email">
-              <mat-icon matPrefix>email</mat-icon>
-              @if (cardholderForm.get('email')?.invalid && cardholderForm.get('email')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'email') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Correo Electrónico</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="email" required type="email">
+                <mat-icon matPrefix>email</mat-icon>
+                @if (cardholderForm.get('email')?.invalid && cardholderForm.get('email')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'email') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
             <!-- Address/Tax Information -->
             <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Domicilio Fiscal</h4>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Calle</mat-label>
-              <input matInput formControlName="street" required>
-              <mat-icon matPrefix>signpost</mat-icon>
-              @if (cardholderForm.get('street')?.invalid && cardholderForm.get('street')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'street') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Número Exterior</mat-label>
-              <input matInput formControlName="exteriorNumber" required>
-              <mat-icon matPrefix>tag</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Número Interior</mat-label>
-              <input matInput formControlName="interiorNumber">
-              <mat-icon matPrefix>meeting_room</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Código Postal</mat-label>
-              <input matInput formControlName="zipCode" required maxlength="5">
-              <mat-icon matPrefix>markunread_mailbox</mat-icon>
-              @if (cardholderForm.get('zipCode')?.invalid && cardholderForm.get('zipCode')?.touched) {
-                <mat-error>{{ getErrorMessage(cardholderForm, 'zipCode') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Colonia</mat-label>
-              <input matInput formControlName="neighborhood" required>
-              <mat-icon matPrefix>location_city</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Municipio/Alcaldía</mat-label>
-              <input matInput formControlName="municipality" required>
-              <mat-icon matPrefix>apartment</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName="state" required>
-                @for (state of states; track state) {
-                  <mat-option [value]="state">{{ state }}</mat-option>
+            <div class="field-group full-width">
+              <label class="field-label">Calle</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="street" required>
+                <mat-icon matPrefix>signpost</mat-icon>
+                @if (cardholderForm.get('street')?.invalid && cardholderForm.get('street')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'street') }}</mat-error>
                 }
-              </mat-select>
-              <mat-icon matPrefix>map</mat-icon>
-            </mat-form-field>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Régimen Fiscal</mat-label>
-              <mat-select formControlName="taxRegime" required>
-                @for (regime of taxRegimes; track regime.value) {
-                  <mat-option [value]="regime.value">{{ regime.label }}</mat-option>
-                }
-              </mat-select>
-              <mat-icon matPrefix>account_balance</mat-icon>
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Número Exterior</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="exteriorNumber" required>
+                <mat-icon matPrefix>tag</mat-icon>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Uso de CFDI</mat-label>
-              <mat-select formControlName="cfdiUse" required>
-                @for (use of cfdiUses; track use.value) {
-                  <mat-option [value]="use.value">{{ use.label }}</mat-option>
+            <div class="field-group">
+              <label class="field-label">Número Interior</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="interiorNumber">
+                <mat-icon matPrefix>meeting_room</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Código Postal</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="zipCode" required maxlength="5">
+                <mat-icon matPrefix>markunread_mailbox</mat-icon>
+                @if (cardholderForm.get('zipCode')?.invalid && cardholderForm.get('zipCode')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardholderForm, 'zipCode') }}</mat-error>
                 }
-              </mat-select>
-              <mat-icon matPrefix>receipt</mat-icon>
-            </mat-form-field>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Colonia</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="neighborhood" required>
+                <mat-icon matPrefix>location_city</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Municipio/Alcaldía</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="municipality" required>
+                <mat-icon matPrefix>apartment</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Estado</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="state" required>
+                  @for (state of states; track state) {
+                    <mat-option [value]="state">{{ state }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>map</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group full-width">
+              <label class="field-label">Régimen Fiscal</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="taxRegime" required>
+                  @for (regime of taxRegimes; track regime.value) {
+                    <mat-option [value]="regime.value">{{ regime.label }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>account_balance</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="field-group full-width">
+              <label class="field-label">Uso de CFDI</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="cfdiUse" required>
+                  @for (use of cfdiUses; track use.value) {
+                    <mat-option [value]="use.value">{{ use.label }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>receipt</mat-icon>
+              </mat-form-field>
+            </div>
           </form>
 
           <div class="wizard-actions">
@@ -265,40 +305,48 @@
           </div>
 
           <form [formGroup]="cardForm" class="form-grid">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Número de Tarjeta</mat-label>
-              <input matInput formControlName="cardNumber" required maxlength="16">
-              <mat-icon matPrefix>credit_card</mat-icon>
-              <mat-hint>16 dígitos</mat-hint>
-              @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
-                <mat-error>{{ getErrorMessage(cardForm, 'cardNumber') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group full-width">
+              <label class="field-label">Número de Tarjeta</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="cardNumber" required maxlength="16">
+                <mat-icon matPrefix>credit_card</mat-icon>
+                <mat-hint>16 dígitos</mat-hint>
+                @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
+                  <mat-error>{{ getErrorMessage(cardForm, 'cardNumber') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Marca</mat-label>
-              <mat-select formControlName="manufacturer" required>
-                <mat-option value="VISA">VISA</mat-option>
-                <mat-option value="MASTERCARD">Mastercard</mat-option>
-                <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
-              </mat-select>
-              <mat-icon matPrefix>payment</mat-icon>
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Marca</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="manufacturer" required>
+                  <mat-option value="VISA">VISA</mat-option>
+                  <mat-option value="MASTERCARD">Mastercard</mat-option>
+                  <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
+                </mat-select>
+                <mat-icon matPrefix>payment</mat-icon>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Fecha de Expiración</mat-label>
-              <input matInput [matDatepicker]="expirationPicker" formControlName="expiration" required>
-              <mat-icon matPrefix>event</mat-icon>
-              <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
-              <mat-datepicker #expirationPicker></mat-datepicker>
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Fecha de Expiración</label>
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="expirationPicker" formControlName="expiration" required>
+                <mat-icon matPrefix>event</mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                <mat-datepicker #expirationPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombre en Tarjeta (Opcional)</mat-label>
-              <input matInput formControlName="embossName" maxlength="26" class="uppercase">
-              <mat-icon matPrefix>text_fields</mat-icon>
-              <mat-hint>Máx 26 caracteres. Se generará automáticamente si se deja vacío</mat-hint>
-            </mat-form-field>
+            <div class="field-group full-width">
+              <label class="field-label">Nombre en Tarjeta (Opcional)</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="embossName" maxlength="26" class="uppercase">
+                <mat-icon matPrefix>text_fields</mat-icon>
+                <mat-hint>Máx 26 caracteres. Se generará automáticamente si se deja vacío</mat-hint>
+              </mat-form-field>
+            </div>
 
             <div class="full-width">
               <h4 class="text-sm font-semibold text-gray-700 mb-3">Métodos de Acceso</h4>
@@ -399,7 +447,7 @@
             <h4 class="font-semibold text-indigo-600 mb-2">Tarjeta Principal</h4>
             <div class="summary-item">
               <span class="summary-label">Número:</span>
-              <span class="summary-value font-mono">{{ cardForm.value.cardNumber }}</span>
+              <span class="summary-value font-mono">{{ cardForm.value.cardNumber | maskCard }}</span>
             </div>
             <div class="summary-item">
               <span class="summary-label">Marca:</span>

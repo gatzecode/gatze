@@ -27,6 +27,9 @@ import {
   cardNumberValidator
 } from '../../../../shared/utils/validators';
 
+// Pipes
+import { MaskCardPipe } from '../../../../shared/pipes/mask-card.pipe';
+
 // Models and Services
 import { Account, Cardholder, Card } from '../../../../core/models';
 import { AccountsService } from '../../../../core/services/accounts.service';
@@ -49,7 +52,8 @@ import { AccountsStateService } from '../../services/accounts-state.service';
     MatProgressSpinnerModule,
     MatDividerModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MaskCardPipe
   ],
   templateUrl: './account-create.html',
   styles: [`
@@ -118,6 +122,19 @@ import { AccountsStateService } from '../../services/accounts-state.service';
 
     .full-width {
       grid-column: 1 / -1;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-left: 0.25rem;
     }
 
     .wizard-actions {

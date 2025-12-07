@@ -1,37 +1,52 @@
-<mat-sidenav-container class="sidenav-container">
-  <!-- Search Sidenav -->
-  <mat-sidenav mode="side" opened class="sidenav">
-    <app-search-panel />
-  </mat-sidenav>
+<div class="w-full min-h-screen p-4 sm:p-6 lg:p-8">
+  <mat-sidenav-container class="">
+    <!-- Search Sidenav -->
+    <mat-sidenav
+      #searchSidenav
+      mode="side"
+      position="end"
+      [opened]="searchSidenavOpen()"
+    >
+      <app-search-panel />
+    </mat-sidenav>
 
-  <!-- Main Content -->
-  <mat-sidenav-content class="main-content">
-    <!-- Page Header -->
-    <div class="page-header">
-      <div class="header-info">
-        <h1>
-          <mat-icon class="text-indigo-600">credit_card</mat-icon>
-          Cuentas de Crédito
-        </h1>
-        <p>Consulta y gestión de cuentas de crédito</p>
+    <!-- Main Content -->
+    <mat-sidenav-content class="main-content">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="header-info">
+          <h1>
+            <mat-icon>credit_card</mat-icon>
+            Cuentas de Crédito
+          </h1>
+          <p>Consulta y gestión de cuentas de crédito</p>
+        </div>
+        <div class="header-actions">
+          <button
+            mat-stroked-button
+            (click)="toggleSearchSidenav()"
+            matTooltip="Filtros de búsqueda"
+            class="filters-button"
+          >
+            <mat-icon>{{ searchSidenavOpen() ? 'filter_list_off' : 'filter_list' }}</mat-icon>
+            Filtros
+          </button>
+          <button mat-raised-button color="primary" (click)="onCreateAccount()">
+            <mat-icon>add_business</mat-icon>
+            Nueva Cuenta
+          </button>
+        </div>
       </div>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onCreateAccount()">
-        <mat-icon>add_business</mat-icon>
-        Nueva Cuenta
-      </button>
-    </div>
 
-    <!-- Accounts Table -->
-    <div class="content-section">
-      <app-accounts-table (accountSelected)="onAccountSelected($event)" />
-    </div>
+      <!-- Accounts Table -->
+      <div class="content-section">
+        <app-accounts-table (accountSelected)="onAccountSelected($event)" />
+      </div>
 
-    <!-- Detail Panel -->
-    <div class="content-section">
-      <app-detail-panel />
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <!-- Detail Panel -->
+      <div class="content-section">
+        <app-detail-panel />
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

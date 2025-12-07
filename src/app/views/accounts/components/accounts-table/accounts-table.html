@@ -23,7 +23,7 @@
         <td mat-cell *matCellDef="let account">
           <div class="flex items-center gap-2">
             <mat-icon class="text-indigo-500 text-base">credit_card</mat-icon>
-            <span class="card-number">{{ formatCardNumber(account.card) }}</span>
+            <span class="card-number">{{ account.card | maskCard }}</span>
           </div>
         </td>
       </ng-container>

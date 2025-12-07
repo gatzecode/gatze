@@ -51,108 +51,122 @@ export interface CardDialogData {
       <mat-dialog-content>
         <form [formGroup]="cardForm" class="card-form">
           <!-- Card Number -->
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Número de Tarjeta</mat-label>
-            <input
-              matInput
-              formControlName="cardNumber"
-              maxlength="16"
-              placeholder="16 dígitos"
-              [readonly]="isEditMode()">
-            <mat-icon matPrefix>credit_card</mat-icon>
-            @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
-              <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Card Type -->
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Tipo de Tarjeta</mat-label>
-            <mat-select formControlName="type" [disabled]="isEditMode()">
-              <mat-option value="PRINCIPAL">Principal</mat-option>
-              <mat-option value="ADDITIONAL">Adicional</mat-option>
-            </mat-select>
-            <mat-icon matPrefix>category</mat-icon>
-            @if (cardForm.get('type')?.invalid && cardForm.get('type')?.touched) {
-              <mat-error>{{ getErrorMessage('type') }}</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Cardholder Name -->
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Nombre del Tarjetahabiente</mat-label>
-            <input
-              matInput
-              formControlName="cardholder"
-              maxlength="100"
-              placeholder="Nombre completo">
-            <mat-icon matPrefix>person</mat-icon>
-            @if (cardForm.get('cardholder')?.invalid && cardForm.get('cardholder')?.touched) {
-              <mat-error>{{ getErrorMessage('cardholder') }}</mat-error>
-            }
-          </mat-form-field>
-
-          <div class="form-row">
-            <!-- Manufacturer -->
+          <div class="field-group full-width">
+            <label class="field-label">Número de Tarjeta</label>
             <mat-form-field appearance="outline">
-              <mat-label>Marca</mat-label>
-              <mat-select formControlName="manufacturer">
-                <mat-option value="VISA">VISA</mat-option>
-                <mat-option value="MASTERCARD">Mastercard</mat-option>
-                <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
-              </mat-select>
-              <mat-icon matPrefix>payment</mat-icon>
-              @if (cardForm.get('manufacturer')?.invalid && cardForm.get('manufacturer')?.touched) {
-                <mat-error>{{ getErrorMessage('manufacturer') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- Expiration Date -->
-            <mat-form-field appearance="outline">
-              <mat-label>Fecha de Expiración</mat-label>
               <input
                 matInput
-                [matDatepicker]="expirationPicker"
-                formControlName="expiration">
-              <mat-icon matPrefix>event</mat-icon>
-              <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
-              <mat-datepicker #expirationPicker></mat-datepicker>
-              @if (cardForm.get('expiration')?.invalid && cardForm.get('expiration')?.touched) {
-                <mat-error>{{ getErrorMessage('expiration') }}</mat-error>
+                formControlName="cardNumber"
+                maxlength="16"
+                placeholder="16 dígitos"
+                [readonly]="isEditMode()">
+              <mat-icon matPrefix>credit_card</mat-icon>
+              @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
+                <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Card Type -->
+          <div class="field-group full-width">
+            <label class="field-label">Tipo de Tarjeta</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="type" [disabled]="isEditMode()">
+                <mat-option value="PRINCIPAL">Principal</mat-option>
+                <mat-option value="ADDITIONAL">Adicional</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>category</mat-icon>
+              @if (cardForm.get('type')?.invalid && cardForm.get('type')?.touched) {
+                <mat-error>{{ getErrorMessage('type') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Cardholder Name -->
+          <div class="field-group full-width">
+            <label class="field-label">Nombre del Tarjetahabiente</label>
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                formControlName="cardholder"
+                maxlength="100"
+                placeholder="Nombre completo">
+              <mat-icon matPrefix>person</mat-icon>
+              @if (cardForm.get('cardholder')?.invalid && cardForm.get('cardholder')?.touched) {
+                <mat-error>{{ getErrorMessage('cardholder') }}</mat-error>
               }
             </mat-form-field>
           </div>
 
           <div class="form-row">
+            <!-- Manufacturer -->
+            <div class="field-group">
+              <label class="field-label">Marca</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="manufacturer">
+                  <mat-option value="VISA">VISA</mat-option>
+                  <mat-option value="MASTERCARD">Mastercard</mat-option>
+                  <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
+                </mat-select>
+                <mat-icon matPrefix>payment</mat-icon>
+                @if (cardForm.get('manufacturer')?.invalid && cardForm.get('manufacturer')?.touched) {
+                  <mat-error>{{ getErrorMessage('manufacturer') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Expiration Date -->
+            <div class="field-group">
+              <label class="field-label">Fecha de Expiración</label>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  [matDatepicker]="expirationPicker"
+                  formControlName="expiration">
+                <mat-icon matPrefix>event</mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                <mat-datepicker #expirationPicker></mat-datepicker>
+                @if (cardForm.get('expiration')?.invalid && cardForm.get('expiration')?.touched) {
+                  <mat-error>{{ getErrorMessage('expiration') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-row">
             <!-- Credit Limit -->
-            <mat-form-field appearance="outline">
-              <mat-label>Límite de Crédito</mat-label>
-              <input
-                matInput
-                type="number"
-                formControlName="creditLimit"
-                placeholder="0.00">
-              <span matPrefix>$&nbsp;</span>
-              <span matSuffix>MXN</span>
-              @if (cardForm.get('creditLimit')?.invalid && cardForm.get('creditLimit')?.touched) {
-                <mat-error>{{ getErrorMessage('creditLimit') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Límite de Crédito</label>
+              <mat-form-field appearance="outline">
+                <input
+                  matInput
+                  type="number"
+                  formControlName="creditLimit"
+                  placeholder="0.00">
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>MXN</span>
+                @if (cardForm.get('creditLimit')?.invalid && cardForm.get('creditLimit')?.touched) {
+                  <mat-error>{{ getErrorMessage('creditLimit') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
             <!-- Status -->
-            <mat-form-field appearance="outline">
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName="status">
-                <mat-option value="ACTIVE">Activa</mat-option>
-                <mat-option value="BLOCKED">Bloqueada</mat-option>
-                <mat-option value="CANCELLED">Cancelada</mat-option>
-                <mat-option value="EXPIRED">Expirada</mat-option>
-              </mat-select>
-              <mat-icon matPrefix>info</mat-icon>
-              @if (cardForm.get('status')?.invalid && cardForm.get('status')?.touched) {
-                <mat-error>{{ getErrorMessage('status') }}</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-group">
+              <label class="field-label">Estado</label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="status">
+                  <mat-option value="ACTIVE">Activa</mat-option>
+                  <mat-option value="BLOCKED">Bloqueada</mat-option>
+                  <mat-option value="CANCELLED">Cancelada</mat-option>
+                  <mat-option value="EXPIRED">Expirada</mat-option>
+                </mat-select>
+                <mat-icon matPrefix>info</mat-icon>
+                @if (cardForm.get('status')?.invalid && cardForm.get('status')?.touched) {
+                  <mat-error>{{ getErrorMessage('status') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
           </div>
 
           <!-- Access Methods -->
@@ -236,6 +250,19 @@ export interface CardDialogData {
 
     .full-width {
       width: 100%;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-left: 0.25rem;
     }
 
     .section-title {

@@ -72,6 +72,19 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
       gap: 1rem;
     }
 
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-left: 0.25rem;
+    }
+
     mat-form-field {
       width: 100%;
     }
@@ -118,9 +131,7 @@ export class SearchPanelComponent implements OnInit {
 
   private initForm(): void {
     this.searchForm = this.fb.group({
-      firstName: ['', [Validators.maxLength(100)]],
-      lastName: ['', [Validators.maxLength(100)]],
-      secondLastName: ['', [Validators.maxLength(100)]],
+      fullName: ['', [Validators.maxLength(300)]],
       accountNumber: ['', [Validators.pattern(/^\d+$/)]],
       cardNumber: ['', [cardNumberValidator()]],
       additionalsOnly: [false]
@@ -148,7 +159,18 @@ export class SearchPanelComponent implements OnInit {
     this.accountsState.setSearching(true);
     this.accountsState.clearError();
 
-    const criteria = this.searchForm.value;
+    // Split fullName into firstName, lastName, secondLastName
+    const fullName = this.searchForm.value.fullName?.trim() || '';
+    const nameParts = fullName.split(/\s+/).filter((part: string) => part);
+
+    const criteria = {
+      firstName: nameParts[0] || '',
+      lastName: nameParts[1] || '',
+      secondLastName: nameParts[2] || '',
+      accountNumber: this.searchForm.value.accountNumber,
+      cardNumber: this.searchForm.value.cardNumber,
+      additionalsOnly: this.searchForm.value.additionalsOnly
+    };
 
     this.accountsService.searchAccounts(criteria).subscribe({
       next: (accounts) => {
@@ -164,9 +186,7 @@ export class SearchPanelComponent implements OnInit {
 
   onClear(): void {
     this.searchForm.reset({
-      firstName: '',
-      lastName: '',
-      secondLastName: '',
+      fullName: '',
       accountNumber: '',
       cardNumber: '',
       additionalsOnly: false

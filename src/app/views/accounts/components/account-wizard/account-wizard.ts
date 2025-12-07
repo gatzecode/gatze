@@ -25,6 +25,9 @@ import {
   cardNumberValidator
 } from '../../../../shared/utils/validators';
 
+// Pipes
+import { MaskCardPipe } from '../../../../shared/pipes/mask-card.pipe';
+
 // Models
 import { Account, Cardholder, Card } from '../../../../core/models';
 
@@ -50,7 +53,8 @@ export interface NewAccountData {
     MatIconModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    MaskCardPipe
   ],
   templateUrl: './account-wizard.html',
   styles: [`
@@ -76,6 +80,19 @@ export interface NewAccountData {
 
     .full-width {
       grid-column: 1 / -1;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-left: 0.25rem;
     }
 
     .wizard-actions {

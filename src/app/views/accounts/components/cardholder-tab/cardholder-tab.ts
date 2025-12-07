@@ -54,6 +54,19 @@ import {
       grid-column: 1 / -1;
     }
 
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-left: 0.25rem;
+    }
+
     ::ng-deep .mat-expansion-panel {
       box-shadow: none !important;
       border: 1px solid #E5E7EB;
