@@ -35,8 +35,18 @@ export const routes: Routes = [
       },
       {
         path: 'administration/credit-accounts',
-        loadComponent: () => import('./views/accounts/pages/account-query/account-query').then((m) => m.AccountQueryComponent),
-        title: 'Credit Accounts',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./views/accounts/pages/account-query/account-query').then((m) => m.AccountQueryComponent),
+            title: 'Credit Accounts',
+          },
+          {
+            path: 'new',
+            loadComponent: () => import('./views/accounts/pages/account-create/account-create').then((m) => m.AccountCreateComponent),
+            title: 'Create Credit Account',
+          },
+        ],
       },
     ],
   },

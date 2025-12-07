@@ -1,33 +1,37 @@
-<div class="page-container">
-  <!-- Page Header -->
-  <div class="page-header">
-    <div class="flex justify-between items-start">
-      <div>
-        <h1 class="page-title">
-          <mat-icon class="inline-block align-middle mr-2 text-indigo-600">credit_card</mat-icon>
-          Consulta de Cuentas de Crédito
+<mat-sidenav-container class="sidenav-container">
+  <!-- Search Sidenav -->
+  <mat-sidenav mode="side" opened class="sidenav">
+    <app-search-panel />
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content class="main-content">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-info">
+        <h1>
+          <mat-icon class="text-indigo-600">credit_card</mat-icon>
+          Cuentas de Crédito
         </h1>
-        <p class="page-subtitle">
-          Buscar y gestionar información de cuentas de crédito y tarjetahabientes
-        </p>
+        <p>Consulta y gestión de cuentas de crédito</p>
       </div>
       <button
         mat-raised-button
         color="primary"
-        (click)="onCreateAccount()"
-        class="new-account-button">
+        (click)="onCreateAccount()">
         <mat-icon>add_business</mat-icon>
         Nueva Cuenta
       </button>
     </div>
-  </div>
 
-  <!-- Content -->
-  <div class="content-wrapper">
-    <!-- Search Panel -->
-    <app-search-panel (accountSelected)="onAccountSelected($event)" />
+    <!-- Accounts Table -->
+    <div class="content-section">
+      <app-accounts-table (accountSelected)="onAccountSelected($event)" />
+    </div>
 
     <!-- Detail Panel -->
-    <app-detail-panel />
-  </div>
-</div>
+    <div class="content-section">
+      <app-detail-panel />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,12 +1,14 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Account, Cardholder, Card } from '../../../core/models';
 import { AccountsService } from '../../../core/services/accounts.service';
+import { MockDataService } from '../../../core/services/mock-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsStateService {
   private readonly accountsService = inject(AccountsService);
+  private readonly mockDataService = inject(MockDataService);
 
   // Private writable signals
   private readonly accountsSignal = signal<Account[]>([]);
@@ -216,6 +218,14 @@ export class AccountsStateService {
   }
 
   /**
+   * Load initial accounts data
+   */
+  loadInitialData(): void {
+    const initialAccounts = this.mockDataService.getInitialAccounts();
+    this.setAccounts(initialAccounts);
+  }
+
+  /**
    * Clear search results but keep selected account
    */
   clearSearch(): void {
@@ -286,27 +296,37 @@ export class AccountsStateService {
     this.setLoading(true);
     this.clearError();
 
-    // Load cardholder data
-    this.accountsService.getCardholderByAccount(accountNumber).subscribe({
-      next: (cardholder) => {
-        this.cardholderSignal.set(cardholder);
-      },
-      error: (error) => {
-        this.setError('Error loading cardholder data: ' + error.message);
-        this.setLoading(false);
-      }
-    });
+    // Try to load from mock data first
+    const mockCardholder = this.mockDataService.getCardholderByAccountNumber(accountNumber);
+    const mockCards = this.mockDataService.getCardsByAccountNumber(accountNumber);
 
-    // Load cards data
-    this.accountsService.getCardsByAccount(accountNumber).subscribe({
-      next: (cards) => {
-        this.cardsSignal.set(cards);
-        this.setLoading(false);
-      },
-      error: (error) => {
-        this.setError('Error loading cards data: ' + error.message);
-        this.setLoading(false);
-      }
-    });
+    if (mockCardholder && mockCards.length > 0) {
+      // Use mock data
+      this.cardholderSignal.set(mockCardholder);
+      this.cardsSignal.set(mockCards);
+      this.setLoading(false);
+    } else {
+      // Load from API
+      this.accountsService.getCardholderByAccount(accountNumber).subscribe({
+        next: (cardholder) => {
+          this.cardholderSignal.set(cardholder);
+        },
+        error: (error: any) => {
+          this.setError('Error loading cardholder data: ' + error.message);
+          this.setLoading(false);
+        }
+      });
+
+      this.accountsService.getCardsByAccount(accountNumber).subscribe({
+        next: (cards) => {
+          this.cardsSignal.set(cards);
+          this.setLoading(false);
+        },
+        error: (error: any) => {
+          this.setError('Error loading cards data: ' + error.message);
+          this.setLoading(false);
+        }
+      });
+    }
   }
 }

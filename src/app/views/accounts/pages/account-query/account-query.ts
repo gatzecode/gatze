@@ -1,18 +1,18 @@
-import { Component, signal, effect, inject, OnDestroy } from '@angular/core';
+import { Component, signal, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 // Material imports
-import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Components
 import { SearchPanelComponent } from '../../components/search-panel/search-panel';
 import { DetailPanelComponent } from '../../components/detail-panel/detail-panel';
-import { AccountWizardComponent, NewAccountData } from '../../components/account-wizard/account-wizard';
+import { AccountsTableComponent } from '../../components/accounts-table/accounts-table';
 
 // Services and models
 import { AccountsStateService } from '../../services/accounts-state.service';
@@ -23,61 +23,78 @@ import { Account } from '../../../../core/models';
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatIconModule,
     MatButtonModule,
-    MatDividerModule,
-    MatDialogModule,
+    MatToolbarModule,
     SearchPanelComponent,
-    DetailPanelComponent
+    DetailPanelComponent,
+    AccountsTableComponent
   ],
   templateUrl: './account-query.html',
   styles: [`
     :host {
       display: block;
+      height: 100%;
+    }
+
+    .sidenav-container {
+      height: calc(100vh - 64px);
+    }
+
+    .sidenav {
+      width: 350px;
+      border-right: 1px solid #E5E7EB;
+      background-color: #FAFAFA;
+    }
+
+    .main-content {
       padding: 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
+      height: 100%;
+      overflow-y: auto;
     }
 
     .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #E5E7EB;
+    }
+
+    .header-info h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-info p {
+      font-size: 0.875rem;
+      color: #6B7280;
+      margin: 0.25rem 0 0 0;
+    }
+
+    .content-section {
       margin-bottom: 2rem;
     }
 
-    .page-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-subtitle {
-      font-size: 1rem;
-      color: #6B7280;
-    }
-
-    .content-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
     @media (max-width: 768px) {
-      :host {
-        padding: 1rem;
-      }
-
-      .page-title {
-        font-size: 1.5rem;
+      .sidenav {
+        width: 280px;
       }
     }
   `]
 })
-export class AccountQueryComponent implements OnDestroy {
+export class AccountQueryComponent implements OnInit, OnDestroy {
   private readonly accountsState = inject(AccountsStateService);
   private readonly snackBar = inject(MatSnackBar);
-  private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
 
   // Computed from state
   readonly selectedAccount = this.accountsState.selectedAccount;
@@ -96,46 +113,23 @@ export class AccountQueryComponent implements OnDestroy {
         }, 100);
       }
     });
+  }
 
-    // Effect to log when account is selected
-    effect(() => {
-      const account = this.selectedAccount();
-      if (account) {
-        console.log('Account selected:', account);
-      }
-    });
+  ngOnInit(): void {
+    // Load initial data when component initializes
+    this.accountsState.loadInitialData();
   }
 
   ngOnDestroy(): void {
-    // Clean up state when component is destroyed
-    this.accountsState.reset();
+    // Don't reset - keep data for navigation
   }
 
   onAccountSelected(account: Account): void {
     this.accountsState.selectAccount(account);
-    this.showInfo(`Selected account: ${account.accountNumber}`);
   }
 
   onCreateAccount(): void {
-    const dialogRef = this.dialog.open(AccountWizardComponent, {
-      width: '900px',
-      maxWidth: '95vw',
-      disableClose: true,
-      autoFocus: false
-    });
-
-    dialogRef.afterClosed().subscribe((result: NewAccountData) => {
-      if (result) {
-        // Add the new account to state
-        this.accountsState.createAccount(result.account, result.cardholder, result.card);
-        this.showSuccess(`Cuenta ${result.account.accountNumber} creada exitosamente`);
-
-        // Automatically select the new account
-        setTimeout(() => {
-          this.accountsState.selectAccount(result.account);
-        }, 500);
-      }
-    });
+    this.router.navigate(['/administration/credit-accounts/new']);
   }
 
   private showSuccess(message: string): void {

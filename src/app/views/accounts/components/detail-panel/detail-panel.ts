@@ -116,7 +116,7 @@ export class DetailPanelComponent {
 
   readonly canSave = computed(() => {
     const tab = this.cardholderTab();
-    if (!tab) return false;
+    if (!tab || !tab.cardholderForm) return false;
     return tab.hasChanges() && tab.cardholderForm.valid;
   });
 

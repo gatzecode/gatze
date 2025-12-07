@@ -39,61 +39,56 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
   styles: [`
     :host {
       display: block;
+      height: 100%;
     }
 
-    .search-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+    .search-panel {
+      padding: 1.5rem;
+    }
+
+    .panel-header {
       margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #E5E7EB;
     }
 
-    .form-actions {
+    .panel-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111827;
       display: flex;
-      gap: 0.75rem;
-      justify-content: flex-end;
-      margin-top: 1rem;
-    }
-
-    .results-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
-      padding: 0.5rem 0;
+      gap: 0.5rem;
+      margin: 0;
     }
 
-    .results-table {
+    .panel-content {
+      overflow-y: auto;
+    }
+
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    mat-form-field {
       width: 100%;
-      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-      border-radius: 0.5rem;
-      overflow: hidden;
     }
 
-    .mat-mdc-table {
-      background: white;
+    .full-width-checkbox {
+      margin: 0.5rem 0;
     }
 
-    .mat-mdc-row {
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .mat-mdc-row:hover {
-      background-color: #EEF2FF;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 3rem;
-      color: #6B7280;
-    }
-
-    .loading-container {
+    .action-buttons {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .full-width {
+      width: 100%;
     }
   `]
 })

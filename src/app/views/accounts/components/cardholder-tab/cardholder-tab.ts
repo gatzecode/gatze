@@ -238,7 +238,7 @@ export class CardholderTabComponent implements OnInit {
 
   // Check if form has changes
   hasChanges(): boolean {
-    return this.cardholderForm.dirty;
+    return this.cardholderForm?.dirty ?? false;
   }
 
   // Get current form value as Cardholder object
