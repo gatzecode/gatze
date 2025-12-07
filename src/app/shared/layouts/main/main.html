@@ -1,25 +1,27 @@
 @if (effectiveLayout() === 'classic') {
-  <layout-classic
-    [navItems]="navItems"
-    [currentLayout]="effectiveLayout()"
-    [availableLayouts]="configService.availableLayouts"
-    [availableThemes]="configService.availableColors"
-    [themeColor]="configService.themeColor()"
-    (layoutChange)="setLayout($event)"
-    (themeChange)="setTheme($event)"
-    (schemeChange)="setThemeMode($event)"
-  />
+<layout-classic
+  [user]="user"
+  [navItems]="navItems"
+  [currentLayout]="effectiveLayout()"
+  [availableLayouts]="configService.availableLayouts"
+  [availableThemes]="configService.availableColors"
+  [themeColor]="configService.themeColor()"
+  (layoutChange)="setLayout($event)"
+  (themeChange)="setTheme($event)"
+  (schemeChange)="setThemeMode($event)"
+/>
 } @else if (effectiveLayout() === 'dense') {
-  <layout-dense
-    [navItems]="navItems"
-    [currentLayout]="effectiveLayout()"
-    [availableLayouts]="configService.availableLayouts"
-    [availableThemes]="configService.availableColors"
-    [themeColor]="configService.themeColor()"
-    (layoutChange)="setLayout($event)"
-    (themeChange)="setTheme($event)"
-    (schemeChange)="setThemeMode($event)"
-  />
+<layout-dense
+  [user]="user"
+  [navItems]="navItems"
+  [currentLayout]="effectiveLayout()"
+  [availableLayouts]="configService.availableLayouts"
+  [availableThemes]="configService.availableColors"
+  [themeColor]="configService.themeColor()"
+  (layoutChange)="setLayout($event)"
+  (themeChange)="setTheme($event)"
+  (schemeChange)="setThemeMode($event)"
+/>
 } @else if (effectiveLayout() === 'empty') {
-  <layout-empty />
+<layout-empty />
 }

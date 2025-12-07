@@ -9,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { BreakpointService } from '@app/core/services/breakpoint.service';
 import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
+import { User } from '@app/core/models';
 import { Languages } from '@app/shared/components/languages/languages';
 
 import { NavItemType } from '../../components/nav';
@@ -45,6 +46,7 @@ export class LayoutDense {
   availableLayouts = input.required<LayoutType[]>();
   availableThemes = input.required<ThemeColor[]>();
   themeColor = input.required<ThemeColor>();
+  user = input.required<User>();
 
   // Outputs
   layoutChange = output<LayoutType>();

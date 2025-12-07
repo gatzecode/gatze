@@ -6,14 +6,17 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
+
+import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
+import { User } from '@app/core/models';
+import { Languages } from '@app/shared/components/languages/languages';
+
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { ClassicNav } from '../../components/nav/classic/classic';
 import { AppBranding } from '../../components/app-branding/app-branding';
 import { UserAccount } from '../../components/user-account/user-account';
 import { BreakpointService } from '@app/core/services/breakpoint.service';
-import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
-import { Languages } from "@app/shared/components/languages/languages";
 
 @Component({
   selector: 'layout-classic',
@@ -31,8 +34,8 @@ import { Languages } from "@app/shared/components/languages/languages";
     Settings,
     AppBranding,
     ClassicNav,
-    Languages
-],
+    Languages,
+  ],
 })
 export class LayoutClassic {
   private breakpointService = inject(BreakpointService);
@@ -43,6 +46,7 @@ export class LayoutClassic {
   availableLayouts = input.required<LayoutType[]>();
   availableThemes = input.required<ThemeColor[]>();
   themeColor = input.required<ThemeColor>();
+  user = input.required<User>();
 
   // Outputs
   layoutChange = output<LayoutType>();

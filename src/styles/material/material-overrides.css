@@ -7,27 +7,8 @@
    CARDS
    ============================================ */
 
-mat-card {
-  box-shadow: var(--mat-sys-level1) !important;
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: var(--mat-sys-corner-medium) !important;
-  transition: box-shadow var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-standard),
-    transform var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-emphasized),
-    border-color var(--mat-sys-motion-duration-medium) var(--mat-sys-motion-easing-standard) !important;
-}
-
 .mat-mdc-icon-button {
   font-size: initial !important;
-}
-
-mat-card:hover {
-  box-shadow: var(--mat-sys-level2) !important;
-  border-color: var(--mat-sys-outline);
-}
-
-.mat-mdc-card-outlined {
-  box-shadow: none !important;
-  border-width: 1px;
 }
 
 /* ============================================
@@ -177,9 +158,6 @@ mat-divider {
 
 .mat-mdc-tooltip {
   font-size: 0.75rem !important;
-  padding: 8px 12px !important;
-  border-radius: var(--mat-sys-corner-small) !important;
-  box-shadow: var(--mat-sys-level2) !important;
 }
 
 /* ============================================
@@ -191,29 +169,9 @@ mat-divider {
   box-shadow: var(--mat-sys-level3) !important;
 }
 
-/* CROWN System - Custom snackbar styles */
-.success-snackbar {
-  --mdc-snackbar-container-color: #16a34a;
-  --mat-snack-bar-button-color: #ffffff;
-  --mdc-snackbar-supporting-text-color: #ffffff;
-}
-
-.error-snackbar {
-  --mdc-snackbar-container-color: #dc2626;
-  --mat-snack-bar-button-color: #ffffff;
-  --mdc-snackbar-supporting-text-color: #ffffff;
-}
-
-.info-snackbar {
-  --mdc-snackbar-container-color: #0891b2;
-  --mat-snack-bar-button-color: #ffffff;
-  --mdc-snackbar-supporting-text-color: #ffffff;
-}
-
 /* ============================================
    DIALOGS
    ============================================ */
-
 
 /* ============================================
    SIDENAV

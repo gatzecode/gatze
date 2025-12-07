@@ -11,6 +11,7 @@ import {
   ThemeColor,
   ThemeMode,
 } from '@app/core/services/config.service';
+import { User } from '@app/core/models';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +22,12 @@ import {
 export class Main {
   private breakpointService = inject(BreakpointService);
   protected configService = inject(ConfigService);
+
+  // Todo load from auth service
+  user: User = {
+    email: 'direccion.juridica@grupohgc.com',
+    name: 'María Teresa',
+  };
 
   // Get handset detection from service
   private isHandset = this.breakpointService.isHandset;

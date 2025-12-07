@@ -17,6 +17,7 @@ import { CardsTabComponent } from '../cards-tab/cards-tab';
 
 // Services
 import { AccountsStateService } from '../../services/accounts-state.service';
+import { MaskCardPipe } from '@app/shared/pipes/mask-card.pipe';
 
 @Component({
   selector: 'app-detail-panel',
@@ -32,64 +33,52 @@ import { AccountsStateService } from '../../services/accounts-state.service';
     MatDividerModule,
     MatTooltipModule,
     CardholderTabComponent,
-    CardsTabComponent
+    CardsTabComponent,
+    MaskCardPipe,
   ],
   templateUrl: './detail-panel.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .account-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
+      .account-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: color-mix(
+          in srgb,
+          var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary)) 84%,
+          transparent
+        );
+        color: var(--mat-sys-on-surface);
+        border-radius: 0.5rem 0.5rem 0 0;
+      }
 
-    .account-info {
-      flex: 1;
-    }
+      .account-info {
+        flex: 1;
+      }
 
-    .account-number {
-      font-size: 0.875rem;
-      opacity: 0.9;
-      margin-bottom: 0.25rem;
-    }
+      .account-number {
+        font-size: 0.875rem;
+        opacity: 0.9;
+        margin-bottom: 0.25rem;
+      }
 
-    .cardholder-name {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
+      .cardholder-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
 
-    .card-number {
-      font-family: 'Courier New', monospace;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    ::ng-deep .mat-mdc-tab-labels {
-      background-color: #F9FAFB;
-      border-bottom: 1px solid #E5E7EB;
-    }
-
-    ::ng-deep .mat-mdc-tab-label {
-      color: #6B7280;
-    }
-
-    ::ng-deep .mat-mdc-tab-label-active {
-      color: #6366F1;
-    }
-  `]
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+    `,
+  ],
 })
 export class DetailPanelComponent {
   private readonly accountsState = inject(AccountsStateService);
@@ -163,7 +152,7 @@ export class DetailPanelComponent {
         cardholderTabComponent.cardholderForm.patchValue({
           personalData: cardholder.personalData,
           contactData: cardholder.contactData,
-          taxData: cardholder.taxData
+          taxData: cardholder.taxData,
         });
         cardholderTabComponent.cardholderForm.markAsPristine();
         this.showInfo('Changes cancelled');
@@ -176,7 +165,7 @@ export class DetailPanelComponent {
       duration: 3000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['success-snackbar']
+      panelClass: ['success-snackbar'],
     });
   }
 
@@ -185,7 +174,7 @@ export class DetailPanelComponent {
       duration: 5000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['error-snackbar']
+      panelClass: ['error-snackbar'],
     });
   }
 
@@ -194,14 +183,7 @@ export class DetailPanelComponent {
       duration: 2000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['info-snackbar']
+      panelClass: ['info-snackbar'],
     });
-  }
-
-  /**
-   * Format card number with spaces
-   */
-  formatCardNumber(cardNumber: string): string {
-    return cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
   }
 }

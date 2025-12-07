@@ -2,31 +2,39 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'maskCard',
-  standalone: true
+  standalone: true,
 })
 export class MaskCardPipe implements PipeTransform {
-  transform(cardNumber: string | null | undefined, maskChar: string = '•', visibleDigits: number = 4): string {
+  transform(
+    cardNumber: string | null | undefined,
+    maskChar: string = '•',
+    visibleStart: number = 6,
+    visibleEnd: number = 4
+  ): string {
     if (!cardNumber) {
       return '';
     }
 
-    // Remove any spaces or dashes
+    // Eliminar espacios o guiones
     const cleanNumber = cardNumber.toString().replace(/[\s-]/g, '');
 
-    // If the number is too short, just return it masked
-    if (cleanNumber.length <= visibleDigits) {
+    // Si es muy corto, regresarlo tal cual
+    if (cleanNumber.length <= visibleStart + visibleEnd) {
       return cleanNumber;
     }
 
-    // Get the last 'visibleDigits' digits
-    const visiblePart = cleanNumber.slice(-visibleDigits);
+    // Obtener primeras 6 y últimas 4
+    const startPart = cleanNumber.slice(0, visibleStart);
+    const endPart = cleanNumber.slice(-visibleEnd);
 
-    // Mask the rest
-    const maskedLength = cleanNumber.length - visibleDigits;
-    const maskedPart = maskChar.repeat(maskedLength);
+    // Longitud de lo que debe ir enmascarado
+    const maskedLength = cleanNumber.length - (visibleStart + visibleEnd);
+    const maskedSection = maskChar.repeat(maskedLength);
 
-    // Format as groups of 4
-    const fullMasked = maskedPart + visiblePart;
-    return fullMasked.match(/.{1,4}/g)?.join(' ') || fullMasked;
+    // Armar cadena final
+    const finalNumber = startPart + maskedSection + endPart;
+
+    // Formatear en grupos de 4
+    return finalNumber.match(/.{1,4}/g)?.join(' ') || finalNumber;
   }
 }

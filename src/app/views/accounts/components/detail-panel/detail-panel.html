@@ -10,7 +10,7 @@
         <div class="cardholder-name">{{ cardholderName() }}</div>
         <div class="card-number">
           <mat-icon class="inline-block align-middle text-sm mr-1">credit_card</mat-icon>
-          {{ formatCardNumber(cardNumber()) }}
+          {{ cardNumber() | maskCard }}
         </div>
       </div>
 

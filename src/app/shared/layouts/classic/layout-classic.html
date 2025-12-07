@@ -17,20 +17,8 @@
       <nav-classic [navItems]="navItems()" />
 
       <!-- User Account Section -->
-      <div class="flex p-3 w-full h-17 mt-auto bg-surface-soft">
-        <user-account class="cursor-pointer" />
-        <div class="flex flex-col w-full ml-2 overflow-hidden">
-          <div
-            class="w-full whitespace-nowrap text-ellipsis overflow-hidden leading-normal text-current"
-          >
-            Brian Hughes
-          </div>
-          <div
-            class="w-full mt-0.5 whitespace-nowrap text-sm text-ellipsis overflow-hidden leading-normal text-current opacity-95"
-          >
-            brian.hughes&#64;company.com
-          </div>
-        </div>
+      <div class="flex p-3 w-full h-15 mt-auto bg-surface-soft">
+        <user-account [user]="user()" class="cursor-pointer" />
       </div>
     </div>
   </mat-sidenav>

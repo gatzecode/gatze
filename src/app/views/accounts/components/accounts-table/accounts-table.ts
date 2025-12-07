@@ -27,36 +27,42 @@ import { Account } from '../../../../core/models';
     MatProgressSpinnerModule,
     MatCardModule,
     MatChipsModule,
-    MaskCardPipe
+    MaskCardPipe,
   ],
   templateUrl: './accounts-table.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .table-card {
-      width: 100%;
-    }
+      .table-card {
+        width: 100%;
+      }
 
-    .selected-row {
-      background-color: rgba(var(--primary-rgb, 99, 102, 241), 0.08);
-    }
+      .selected-row {
+        background-color: color-mix(
+          in srgb,
+          var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary)) 8%,
+          transparent
+        );
+      }
 
-    .loading-state,
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
+      .loading-state,
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+        text-align: center;
+      }
 
-    .empty-state mat-icon {
-      margin-bottom: 1rem;
-    }
-  `]
+      .empty-state mat-icon {
+        margin-bottom: 1rem;
+      }
+    `,
+  ],
 })
 export class AccountsTableComponent {
   private readonly accountsState = inject(AccountsStateService);
