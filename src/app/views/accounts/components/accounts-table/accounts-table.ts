@@ -1,13 +1,14 @@
-import { Component, output, inject } from '@angular/core';
+import { Component, output, inject, ViewChild, AfterViewInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Material imports
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 
 // Pipes
 import { MaskCardPipe } from '../../../../shared/pipes/mask-card.pipe';
@@ -27,6 +28,7 @@ import { Account } from '../../../../core/models';
     MatProgressSpinnerModule,
     MatCardModule,
     MatChipsModule,
+    MatPaginatorModule,
     MaskCardPipe,
   ],
   templateUrl: './accounts-table.html',
@@ -64,14 +66,20 @@ import { Account } from '../../../../core/models';
     `,
   ],
 })
-export class AccountsTableComponent {
+export class AccountsTableComponent implements AfterViewInit {
   private readonly accountsState = inject(AccountsStateService);
 
   // Output event
   accountSelected = output<Account>();
 
+  // ViewChild for paginator
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   // Displayed columns
   readonly displayedColumns = ['card', 'name', 'accountNumber', 'status'];
+
+  // DataSource for the table
+  dataSource = new MatTableDataSource<Account>([]);
 
   // Computed from state
   readonly accounts = this.accountsState.accounts;
@@ -79,6 +87,26 @@ export class AccountsTableComponent {
   readonly totalAccounts = this.accountsState.totalAccounts;
   readonly hasAccounts = this.accountsState.hasAccounts;
   readonly loading = this.accountsState.searching;
+
+  constructor() {
+    // Update dataSource when accounts change
+    effect(() => {
+      const accounts = this.accounts();
+      this.dataSource.data = accounts;
+
+      // Reset paginator to first page when data changes
+      // Use queueMicrotask to ensure paginator is ready
+      queueMicrotask(() => {
+        if (this.paginator) {
+          this.paginator.pageIndex = 0;
+        }
+      });
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
 
   onSelectAccount(account: Account): void {
     this.accountSelected.emit(account);

@@ -1,121 +1,121 @@
 @if (showDetail()) {
-  <mat-card class="mt-6">
-    <!-- Account Header -->
-    <div class="account-header">
-      <div class="account-info">
-        <div class="account-number">
-          <mat-icon class="inline-block align-middle text-sm mr-1">account_balance_wallet</mat-icon>
-          Account: {{ accountNumber() }}
-        </div>
-        <div class="cardholder-name">{{ cardholderName() }}</div>
-        <div class="card-number">
-          <mat-icon class="inline-block align-middle text-sm mr-1">credit_card</mat-icon>
-          {{ cardNumber() | maskCard }}
-        </div>
+<mat-card class="mt-6">
+  <!-- Account Header -->
+  <div class="account-header">
+    <div class="account-info">
+      <div class="account-number">
+        <mat-icon class="inline-block align-middle text-sm mr-1">account_balance_wallet</mat-icon>
+        Account: {{ accountNumber() }}
       </div>
-
-      @if (currentTabIndex() === 0) {
-        <div class="action-buttons">
-          <button
-            mat-raised-button
-            (click)="onCancelChanges()"
-            [disabled]="!canSave() || saving()"
-            matTooltip="Cancel changes">
-            <mat-icon>cancel</mat-icon>
-            Cancel
-          </button>
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="onSaveChanges()"
-            [disabled]="!canSave() || saving()"
-            matTooltip="Save changes">
-            @if (saving()) {
-              <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
-            } @else {
-              <mat-icon>save</mat-icon>
-            }
-            Save Changes
-          </button>
-        </div>
-      }
+      <div class="cardholder-name">{{ cardholderName() }}</div>
+      <div class="card-number">
+        <mat-icon class="inline-block align-middle text-sm mr-1">credit_card</mat-icon>
+        {{ cardNumber() | maskCard }}
+      </div>
     </div>
 
-    <!-- Tabs Content -->
-    <mat-tab-group
-      [(selectedIndex)]="currentTabIndex"
-      (selectedIndexChange)="onTabChange($event)"
-      animationDuration="300ms"
-      class="detail-tabs">
+    @if (currentTabIndex() === 0) {
+    <div class="action-buttons">
+      <button
+        mat-raised-button
+        (click)="onCancelChanges()"
+        [disabled]="!canSave() || saving()"
+        matTooltip="Cancel changes"
+      >
+        <mat-icon>cancel</mat-icon>
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        (click)="onSaveChanges()"
+        [disabled]="!canSave() || saving()"
+        matTooltip="Save changes"
+      >
+        @if (saving()) {
+        <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+        } @else {
+        <mat-icon>save</mat-icon>
+        } Save Changes
+      </button>
+    </div>
+    }
+  </div>
 
-      <!-- Cardholder Tab -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="mr-2">person</mat-icon>
-          Cardholder Information
-        </ng-template>
-        <div class="tab-content p-6">
-          @if (loading()) {
-            <div class="flex items-center justify-center p-12">
-              <mat-spinner diameter="40"></mat-spinner>
-            </div>
-          } @else {
-            <app-cardholder-tab />
-          }
+  <!-- Tabs Content -->
+  <mat-tab-group
+    [(selectedIndex)]="currentTabIndex"
+    (selectedIndexChange)="onTabChange($event)"
+    animationDuration="300ms"
+    class="detail-tabs"
+  >
+    <!-- Cardholder Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="mr-2">person</mat-icon>
+        Cardholder Information
+      </ng-template>
+      <div class="tab-content p-6">
+        @if (loading()) {
+        <div class="flex items-center justify-center p-12">
+          <mat-spinner diameter="40"></mat-spinner>
         </div>
-      </mat-tab>
-
-      <!-- Cards Tab -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="mr-2">credit_card</mat-icon>
-          Cards
-        </ng-template>
-        <div class="tab-content p-6">
-          <app-cards-tab />
-        </div>
-      </mat-tab>
-
-      <!-- Additional Tab - Account History (placeholder) -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="mr-2">history</mat-icon>
-          Account History
-        </ng-template>
-        <div class="tab-content p-6">
-          <div class="text-center p-12 text-gray-500">
-            <mat-icon class="text-6xl mb-4 text-gray-400">schedule</mat-icon>
-            <p class="text-lg font-medium">Account History</p>
-            <p class="text-sm">This feature is coming soon</p>
-          </div>
-        </div>
-      </mat-tab>
-
-      <!-- Additional Tab - Documents (placeholder) -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="mr-2">folder</mat-icon>
-          Documents
-        </ng-template>
-        <div class="tab-content p-6">
-          <div class="text-center p-12 text-gray-500">
-            <mat-icon class="text-6xl mb-4 text-gray-400">description</mat-icon>
-            <p class="text-lg font-medium">Documents</p>
-            <p class="text-sm">This feature is coming soon</p>
-          </div>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-card>
-} @else {
-  <!-- No Account Selected -->
-  <mat-card class="mt-6">
-    <mat-card-content class="flex items-center justify-center p-12 text-gray-500">
-      <div class="text-center">
-        <mat-icon class="text-6xl mb-4 text-gray-400">account_balance_wallet</mat-icon>
-        <p class="text-lg font-medium">No account selected</p>
-        <p class="text-sm">Search for and select an account to view details</p>
+        } @else {
+        <app-cardholder-tab />
+        }
       </div>
-    </mat-card-content>
-  </mat-card>
+    </mat-tab>
+
+    <!-- Cards Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="mr-2">credit_card</mat-icon>
+        Cards
+      </ng-template>
+      <div class="tab-content p-6">
+        <app-cards-tab />
+      </div>
+    </mat-tab>
+
+    <!-- Additional Tab - Account History (placeholder) -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="mr-2">history</mat-icon>
+        Account History
+      </ng-template>
+      <div class="tab-content p-6">
+        <div class="text-center p-12 text-gray-500">
+          <mat-icon class="text-6xl mb-4 text-gray-400">schedule</mat-icon>
+          <p class="text-lg font-medium">Account History</p>
+          <p class="text-sm">This feature is coming soon</p>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Additional Tab - Documents (placeholder) -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="mr-2">folder</mat-icon>
+        Documents
+      </ng-template>
+      <div class="tab-content p-6">
+        <div class="text-center p-12 text-gray-500">
+          <mat-icon class="text-6xl mb-4 text-gray-400">description</mat-icon>
+          <p class="text-lg font-medium">Documents</p>
+          <p class="text-sm">This feature is coming soon</p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+} @else {
+<!-- No Account Selected -->
+<mat-card class="mt-6">
+  <mat-card-content class="flex items-center justify-center p-12 text-gray-500">
+    <div class="text-center">
+      <mat-icon class="text-6xl mb-4 text-gray-400">account_balance_wallet</mat-icon>
+      <p class="text-lg font-medium">No account selected</p>
+      <p class="text-sm">Search for and select an account to view details</p>
+    </div>
+  </mat-card-content>
+</mat-card>
 }

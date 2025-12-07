@@ -134,6 +134,16 @@ export class AccountsService {
 
   // ============ MOCK DATA METHODS (Remove in production) ============
 
+  /**
+   * Normalize text by removing accents/tildes for search purposes
+   */
+  private normalizeText(text: string): string {
+    return text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
   private getMockAccounts(criteria: AccountSearchCriteria): Observable<Account[]> {
     const mockAccounts: Account[] = [
       {
@@ -156,20 +166,77 @@ export class AccountsService {
         name: 'RODRÍGUEZ SÁNCHEZ PEDRO ANTONIO',
         accountNumber: '1234567893',
       },
+      {
+        card: '4152313471829325',
+        name: 'GONZÁLEZ RAMÍREZ SOFÍA ELENA',
+        accountNumber: '1234567894',
+      },
+      {
+        card: '4152313471829333',
+        name: 'HERNÁNDEZ GARCÍA JOSÉ LUIS',
+        accountNumber: '1234567895',
+      },
+      {
+        card: '4152313471829341',
+        name: 'LÓPEZ MARTÍNEZ CARMEN ROSA',
+        accountNumber: '1234567896',
+      },
+      {
+        card: '4152313471829358',
+        name: 'SÁNCHEZ PÉREZ FRANCISCO JAVIER',
+        accountNumber: '1234567897',
+      },
+      {
+        card: '4152313471829366',
+        name: 'PÉREZ GONZÁLEZ LUCÍA FERNANDA',
+        accountNumber: '1234567898',
+      },
+      {
+        card: '4152313471829374',
+        name: 'RAMÍREZ TORRES MIGUEL ÁNGEL',
+        accountNumber: '1234567899',
+      },
+      {
+        card: '4152313471829382',
+        name: 'TORRES LÓPEZ DANIELA ALEJANDRA',
+        accountNumber: '1234567900',
+      },
+      {
+        card: '4152313471829390',
+        name: 'FLORES HERNÁNDEZ RICARDO ANTONIO',
+        accountNumber: '1234567901',
+      },
+      {
+        card: '4152313471829408',
+        name: 'JIMÉNEZ GARCÍA PATRICIA ELIZABETH',
+        accountNumber: '1234567902',
+      },
+      {
+        card: '4152313471829416',
+        name: 'MORALES SÁNCHEZ ANDRÉS FELIPE',
+        accountNumber: '1234567903',
+      },
+      {
+        card: '4152313471829424',
+        name: 'DÍAZ RODRÍGUEZ VALENTINA ISABEL',
+        accountNumber: '1234567904',
+      },
     ];
 
-    // Simple filtering based on criteria
+    // Filtering with accent-insensitive search
     let filtered = mockAccounts;
 
     if (criteria.firstName) {
+      const normalizedFirstName = this.normalizeText(criteria.firstName);
       filtered = filtered.filter((acc) =>
-        acc.name.toLowerCase().includes(criteria.firstName!.toLowerCase())
+        this.normalizeText(acc.name).includes(normalizedFirstName)
       );
     }
 
     if (criteria.lastName) {
+      const normalizedLastName = this.normalizeText(criteria.lastName);
       filtered = filtered.filter((acc) =>
-        acc.name.toLowerCase().includes(criteria.lastName!.toLowerCase())
+        this.normalizeText(acc.name).includes(normalizedLastName)
       );
     }
 
