@@ -1,18 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, delay, of } from 'rxjs';
-import {
-  Account,
-  AccountSearchCriteria,
-  Cardholder,
-  Card,
-  PersonalData,
-  ContactData,
-  TaxData
-} from '../models';
+
+import { Account, AccountSearchCriteria, Cardholder, Card } from '../models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountsService {
   private readonly http = inject(HttpClient);
@@ -99,7 +92,11 @@ export class AccountsService {
   /**
    * Create a complete new account with cardholder and card
    */
-  createCompleteAccount(account: Account, cardholder: Cardholder, card: Card): Observable<{ account: Account, cardholder: Cardholder, card: Card }> {
+  createCompleteAccount(
+    account: Account,
+    cardholder: Cardholder,
+    card: Card
+  ): Observable<{ account: Account; cardholder: Cardholder; card: Card }> {
     // TODO: Replace with actual HTTP call
     // return this.http.post<any>(`${this.apiUrl}/complete`, { account, cardholder, card });
 
@@ -142,50 +139,46 @@ export class AccountsService {
       {
         card: '4152313471829283',
         name: 'GARCÍA HERNÁNDEZ MARÍA JOSÉ',
-        accountNumber: '1234567890'
+        accountNumber: '1234567890',
       },
       {
         card: '4152313471829291',
         name: 'GARCÍA HERNÁNDEZ JUAN CARLOS',
-        accountNumber: '1234567891'
+        accountNumber: '1234567891',
       },
       {
         card: '4152313471829309',
         name: 'MARTÍNEZ LÓPEZ ANA LAURA',
-        accountNumber: '1234567892'
+        accountNumber: '1234567892',
       },
       {
         card: '4152313471829317',
         name: 'RODRÍGUEZ SÁNCHEZ PEDRO ANTONIO',
-        accountNumber: '1234567893'
-      }
+        accountNumber: '1234567893',
+      },
     ];
 
     // Simple filtering based on criteria
     let filtered = mockAccounts;
 
     if (criteria.firstName) {
-      filtered = filtered.filter(acc =>
+      filtered = filtered.filter((acc) =>
         acc.name.toLowerCase().includes(criteria.firstName!.toLowerCase())
       );
     }
 
     if (criteria.lastName) {
-      filtered = filtered.filter(acc =>
+      filtered = filtered.filter((acc) =>
         acc.name.toLowerCase().includes(criteria.lastName!.toLowerCase())
       );
     }
 
     if (criteria.accountNumber) {
-      filtered = filtered.filter(acc =>
-        acc.accountNumber.includes(criteria.accountNumber!)
-      );
+      filtered = filtered.filter((acc) => acc.accountNumber.includes(criteria.accountNumber!));
     }
 
     if (criteria.cardNumber) {
-      filtered = filtered.filter(acc =>
-        acc.card.includes(criteria.cardNumber!)
-      );
+      filtered = filtered.filter((acc) => acc.card.includes(criteria.cardNumber!));
     }
 
     return of(filtered);
@@ -201,13 +194,13 @@ export class AccountsService {
         embossName: 'M J GARCIA H',
         birthDate: '1990-05-15',
         rfc: 'GAHM900515XX3',
-        curp: 'GAHM900515MDFRRR03'
+        curp: 'GAHM900515MDFRRR03',
       },
       contactData: {
         homePhone: '5512345678',
         cellPhone: '5523456789',
         workPhone: '5534567890',
-        email: 'maria.garcia@example.com'
+        email: 'maria.garcia@example.com',
       },
       taxData: {
         street: 'AV INSURGENTES SUR',
@@ -218,7 +211,7 @@ export class AccountsService {
         municipality: 'BENITO JUÁREZ',
         state: 'CIUDAD DE MÉXICO',
         taxRegime: '605',
-        cfdiUse: 'G03'
+        cfdiUse: 'G03',
       },
       address: {
         street: 'AV INSURGENTES SUR',
@@ -227,8 +220,8 @@ export class AccountsService {
         zipCode: '03100',
         neighborhood: 'DEL VALLE',
         municipality: 'BENITO JUÁREZ',
-        state: 'CIUDAD DE MÉXICO'
-      }
+        state: 'CIUDAD DE MÉXICO',
+      },
     };
 
     return of(mockCardholder);
@@ -247,8 +240,8 @@ export class AccountsService {
         accessMethods: [
           { accessMethod: 'POS', type: 'CHIP', status: 'ACTIVE' },
           { accessMethod: 'ATM', type: 'CHIP', status: 'ACTIVE' },
-          { accessMethod: 'ECOMMERCE', type: 'CNP', status: 'ACTIVE' }
-        ]
+          { accessMethod: 'ECOMMERCE', type: 'CNP', status: 'ACTIVE' },
+        ],
       },
       {
         cardNumber: '4152313471829291',
@@ -260,9 +253,9 @@ export class AccountsService {
         status: 'ACTIVE',
         accessMethods: [
           { accessMethod: 'POS', type: 'CHIP', status: 'ACTIVE' },
-          { accessMethod: 'ATM', type: 'CHIP', status: 'BLOCKED' }
-        ]
-      }
+          { accessMethod: 'ATM', type: 'CHIP', status: 'BLOCKED' },
+        ],
+      },
     ];
 
     return of(mockCards);
