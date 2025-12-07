@@ -1,0 +1,427 @@
+<div class="wizard-container">
+  <h2 mat-dialog-title class="flex items-center gap-2">
+    <mat-icon class="text-indigo-600">add_business</mat-icon>
+    Crear Nueva Cuenta de Crédito
+  </h2>
+
+  <mat-dialog-content>
+    <mat-stepper orientation="horizontal" linear #stepper (selectionChange)="onStepChange($event)">
+      <!-- Step 1: Account Information -->
+      <mat-step [stepControl]="accountForm" label="Información de Cuenta">
+        <div class="step-content">
+          <div class="section-header">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <h3 class="text-lg font-semibold">Datos de la Cuenta</h3>
+          </div>
+
+          <form [formGroup]="accountForm" class="form-grid">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Número de Cuenta</mat-label>
+              <input
+                matInput
+                formControlName="accountNumber"
+                placeholder="10 dígitos"
+                maxlength="10">
+              <mat-icon matPrefix>account_balance</mat-icon>
+              <mat-hint>Identificador único de la cuenta</mat-hint>
+              @if (accountForm.get('accountNumber')?.invalid && accountForm.get('accountNumber')?.touched) {
+                <mat-error>{{ getErrorMessage(accountForm, 'accountNumber') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo de Cuenta</mat-label>
+              <mat-select formControlName="accountType">
+                <mat-option value="CREDIT">Crédito</mat-option>
+                <mat-option value="DEBIT">Débito</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>category</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Límite de Crédito</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="creditLimit"
+                placeholder="50000">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>MXN</span>
+              @if (accountForm.get('creditLimit')?.invalid && accountForm.get('creditLimit')?.touched) {
+                <mat-error>{{ getErrorMessage(accountForm, 'creditLimit') }}</mat-error>
+              }
+            </mat-form-field>
+          </form>
+
+          <div class="wizard-actions">
+            <button mat-button (click)="onCancel()">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="accountForm.invalid">
+              Siguiente
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- Step 2: Cardholder Information -->
+      <mat-step [stepControl]="cardholderForm" label="Tarjetahabiente">
+        <div class="step-content">
+          <div class="section-header">
+            <mat-icon>person</mat-icon>
+            <h3 class="text-lg font-semibold">Información del Tarjetahabiente</h3>
+          </div>
+
+          <form [formGroup]="cardholderForm" class="form-grid">
+            <!-- Personal Information -->
+            <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Datos Personales</h4>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre(s)</mat-label>
+              <input matInput formControlName="firstName" required>
+              <mat-icon matPrefix>badge</mat-icon>
+              @if (cardholderForm.get('firstName')?.invalid && cardholderForm.get('firstName')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'firstName') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Paterno</mat-label>
+              <input matInput formControlName="lastName" required>
+              <mat-icon matPrefix>badge</mat-icon>
+              @if (cardholderForm.get('lastName')?.invalid && cardholderForm.get('lastName')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'lastName') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Materno</mat-label>
+              <input matInput formControlName="secondLastName">
+              <mat-icon matPrefix>badge</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput [matDatepicker]="birthPicker" formControlName="birthDate" required>
+              <mat-icon matPrefix>cake</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+              <mat-datepicker #birthPicker></mat-datepicker>
+              @if (cardholderForm.get('birthDate')?.invalid && cardholderForm.get('birthDate')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'birthDate') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>RFC</mat-label>
+              <input matInput formControlName="rfc" required maxlength="13" class="uppercase">
+              <mat-icon matPrefix>assignment_ind</mat-icon>
+              @if (cardholderForm.get('rfc')?.invalid && cardholderForm.get('rfc')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'rfc') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>CURP</mat-label>
+              <input matInput formControlName="curp" required maxlength="18" class="uppercase">
+              <mat-icon matPrefix>fingerprint</mat-icon>
+              @if (cardholderForm.get('curp')?.invalid && cardholderForm.get('curp')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'curp') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Contact Information -->
+            <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Contacto</h4>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono Celular</mat-label>
+              <input matInput formControlName="cellPhone" required maxlength="10">
+              <mat-icon matPrefix>smartphone</mat-icon>
+              @if (cardholderForm.get('cellPhone')?.invalid && cardholderForm.get('cellPhone')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'cellPhone') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Correo Electrónico</mat-label>
+              <input matInput formControlName="email" required type="email">
+              <mat-icon matPrefix>email</mat-icon>
+              @if (cardholderForm.get('email')?.invalid && cardholderForm.get('email')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'email') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Address/Tax Information -->
+            <h4 class="full-width text-sm font-semibold text-gray-700 mt-2">Domicilio Fiscal</h4>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Calle</mat-label>
+              <input matInput formControlName="street" required>
+              <mat-icon matPrefix>signpost</mat-icon>
+              @if (cardholderForm.get('street')?.invalid && cardholderForm.get('street')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'street') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Número Exterior</mat-label>
+              <input matInput formControlName="exteriorNumber" required>
+              <mat-icon matPrefix>tag</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Número Interior</mat-label>
+              <input matInput formControlName="interiorNumber">
+              <mat-icon matPrefix>meeting_room</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Código Postal</mat-label>
+              <input matInput formControlName="zipCode" required maxlength="5">
+              <mat-icon matPrefix>markunread_mailbox</mat-icon>
+              @if (cardholderForm.get('zipCode')?.invalid && cardholderForm.get('zipCode')?.touched) {
+                <mat-error>{{ getErrorMessage(cardholderForm, 'zipCode') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Colonia</mat-label>
+              <input matInput formControlName="neighborhood" required>
+              <mat-icon matPrefix>location_city</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Municipio/Alcaldía</mat-label>
+              <input matInput formControlName="municipality" required>
+              <mat-icon matPrefix>apartment</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select formControlName="state" required>
+                @for (state of states; track state) {
+                  <mat-option [value]="state">{{ state }}</mat-option>
+                }
+              </mat-select>
+              <mat-icon matPrefix>map</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Régimen Fiscal</mat-label>
+              <mat-select formControlName="taxRegime" required>
+                @for (regime of taxRegimes; track regime.value) {
+                  <mat-option [value]="regime.value">{{ regime.label }}</mat-option>
+                }
+              </mat-select>
+              <mat-icon matPrefix>account_balance</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Uso de CFDI</mat-label>
+              <mat-select formControlName="cfdiUse" required>
+                @for (use of cfdiUses; track use.value) {
+                  <mat-option [value]="use.value">{{ use.label }}</mat-option>
+                }
+              </mat-select>
+              <mat-icon matPrefix>receipt</mat-icon>
+            </mat-form-field>
+          </form>
+
+          <div class="wizard-actions">
+            <button mat-button matStepperPrevious>
+              <mat-icon>arrow_back</mat-icon>
+              Anterior
+            </button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="cardholderForm.invalid">
+              Siguiente
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- Step 3: Card Information -->
+      <mat-step [stepControl]="cardForm" label="Tarjeta Principal">
+        <div class="step-content">
+          <div class="section-header">
+            <mat-icon>credit_card</mat-icon>
+            <h3 class="text-lg font-semibold">Tarjeta Principal</h3>
+          </div>
+
+          <form [formGroup]="cardForm" class="form-grid">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Número de Tarjeta</mat-label>
+              <input matInput formControlName="cardNumber" required maxlength="16">
+              <mat-icon matPrefix>credit_card</mat-icon>
+              <mat-hint>16 dígitos</mat-hint>
+              @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
+                <mat-error>{{ getErrorMessage(cardForm, 'cardNumber') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Marca</mat-label>
+              <mat-select formControlName="manufacturer" required>
+                <mat-option value="VISA">VISA</mat-option>
+                <mat-option value="MASTERCARD">Mastercard</mat-option>
+                <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
+              </mat-select>
+              <mat-icon matPrefix>payment</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de Expiración</mat-label>
+              <input matInput [matDatepicker]="expirationPicker" formControlName="expiration" required>
+              <mat-icon matPrefix>event</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+              <mat-datepicker #expirationPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nombre en Tarjeta (Opcional)</mat-label>
+              <input matInput formControlName="embossName" maxlength="26" class="uppercase">
+              <mat-icon matPrefix>text_fields</mat-icon>
+              <mat-hint>Máx 26 caracteres. Se generará automáticamente si se deja vacío</mat-hint>
+            </mat-form-field>
+
+            <div class="full-width">
+              <h4 class="text-sm font-semibold text-gray-700 mb-3">Métodos de Acceso</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <mat-checkbox formControlName="accessPOS" color="primary">
+                  <div class="flex items-center gap-2">
+                    <mat-icon class="text-sm">point_of_sale</mat-icon>
+                    <span>POS (Punto de Venta)</span>
+                  </div>
+                </mat-checkbox>
+
+                <mat-checkbox formControlName="accessATM" color="primary">
+                  <div class="flex items-center gap-2">
+                    <mat-icon class="text-sm">local_atm</mat-icon>
+                    <span>ATM (Cajero)</span>
+                  </div>
+                </mat-checkbox>
+
+                <mat-checkbox formControlName="accessEcommerce" color="primary">
+                  <div class="flex items-center gap-2">
+                    <mat-icon class="text-sm">shopping_cart</mat-icon>
+                    <span>E-Commerce</span>
+                  </div>
+                </mat-checkbox>
+              </div>
+            </div>
+          </form>
+
+          <div class="wizard-actions">
+            <button mat-button matStepperPrevious>
+              <mat-icon>arrow_back</mat-icon>
+              Anterior
+            </button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="cardForm.invalid">
+              Revisar
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- Step 4: Summary -->
+      <mat-step label="Confirmar">
+        <div class="step-content">
+          <div class="section-header">
+            <mat-icon>check_circle</mat-icon>
+            <h3 class="text-lg font-semibold">Resumen de la Cuenta</h3>
+          </div>
+
+          <!-- Account Summary -->
+          <div class="summary-card">
+            <h4 class="font-semibold text-indigo-600 mb-2">📋 Cuenta</h4>
+            <div class="summary-item">
+              <span class="summary-label">Número de Cuenta:</span>
+              <span class="summary-value font-mono">{{ accountForm.value.accountNumber }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Tipo:</span>
+              <span class="summary-value">{{ accountForm.value.accountType }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Límite de Crédito:</span>
+              <span class="summary-value font-semibold">${{ accountForm.value.creditLimit | number:'1.2-2' }} MXN</span>
+            </div>
+          </div>
+
+          <!-- Cardholder Summary -->
+          <div class="summary-card">
+            <h4 class="font-semibold text-indigo-600 mb-2">👤 Tarjetahabiente</h4>
+            <div class="summary-item">
+              <span class="summary-label">Nombre Completo:</span>
+              <span class="summary-value">
+                {{ cardholderForm.value.firstName }}
+                {{ cardholderForm.value.lastName }}
+                {{ cardholderForm.value.secondLastName }}
+              </span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">RFC:</span>
+              <span class="summary-value font-mono">{{ cardholderForm.value.rfc }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">CURP:</span>
+              <span class="summary-value font-mono">{{ cardholderForm.value.curp }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Email:</span>
+              <span class="summary-value">{{ cardholderForm.value.email }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Teléfono:</span>
+              <span class="summary-value">{{ cardholderForm.value.cellPhone }}</span>
+            </div>
+          </div>
+
+          <!-- Card Summary -->
+          <div class="summary-card">
+            <h4 class="font-semibold text-indigo-600 mb-2">💳 Tarjeta Principal</h4>
+            <div class="summary-item">
+              <span class="summary-label">Número:</span>
+              <span class="summary-value font-mono">{{ cardForm.value.cardNumber }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Marca:</span>
+              <span class="summary-value">{{ cardForm.value.manufacturer }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Métodos Activos:</span>
+              <span class="summary-value">
+                <span class="inline-flex gap-2">
+                  @if (cardForm.value.accessPOS) { <span class="badge-primary">POS</span> }
+                  @if (cardForm.value.accessATM) { <span class="badge-primary">ATM</span> }
+                  @if (cardForm.value.accessEcommerce) { <span class="badge-primary">E-Commerce</span> }
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <button mat-button matStepperPrevious>
+              <mat-icon>arrow_back</mat-icon>
+              Anterior
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onCreate()"
+              [disabled]="creating() || accountForm.invalid || cardholderForm.invalid || cardForm.invalid">
+              @if (creating()) {
+                <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+              } @else {
+                <mat-icon>check</mat-icon>
+              }
+              Crear Cuenta
+            </button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-dialog-content>
+</div>

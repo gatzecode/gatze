@@ -33,10 +33,15 @@ export const routes: Routes = [
         loadComponent: () => import('./views/product/product').then((m) => m.ProductComponent),
         title: 'Products',
       },
+      {
+        path: 'administration/credit-accounts',
+        loadComponent: () => import('./views/accounts/pages/account-query/account-query').then((m) => m.AccountQueryComponent),
+        title: 'Credit Accounts',
+      },
     ],
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'auth/signin',
   },
 ];

@@ -1,0 +1,152 @@
+<div class="cards-container">
+  <!-- Add Card Button -->
+  <div class="flex justify-end mb-4">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAddCard()"
+      class="add-card-button">
+      <mat-icon>add_card</mat-icon>
+      Agregar Tarjeta
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="flex items-center justify-center p-12">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (totalCards() > 0) {
+    <!-- Cards Summary -->
+    <div class="flex gap-4 mb-6">
+      <mat-card class="flex-1">
+        <mat-card-content class="flex items-center gap-3 p-4">
+          <mat-icon class="text-indigo-500 text-3xl">credit_card</mat-icon>
+          <div>
+            <div class="text-2xl font-bold text-gray-900">{{ totalCards() }}</div>
+            <div class="text-sm text-gray-500">Total Cards</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="flex-1">
+        <mat-card-content class="flex items-center gap-3 p-4">
+          <mat-icon class="text-green-500 text-3xl">check_circle</mat-icon>
+          <div>
+            <div class="text-2xl font-bold text-gray-900">{{ activeCards().length }}</div>
+            <div class="text-sm text-gray-500">Active Cards</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="flex-1">
+        <mat-card-content class="flex items-center gap-3 p-4">
+          <mat-icon class="text-red-500 text-3xl">block</mat-icon>
+          <div>
+            <div class="text-2xl font-bold text-gray-900">{{ blockedCards().length }}</div>
+            <div class="text-sm text-gray-500">Blocked Cards</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid">
+      @for (card of cards(); track card.cardNumber; let idx = $index) {
+        <div class="card-item">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="flex items-center gap-2">
+              <mat-icon [class]="'text-indigo-600'">
+                {{ getManufacturerIcon(card.manufacturer) }}
+              </mat-icon>
+              <div>
+                <div class="text-xs text-gray-500 uppercase">{{ card.manufacturer }}</div>
+                <div class="card-number">{{ formatCardNumber(card.cardNumber) }}</div>
+              </div>
+            </div>
+            <div [class]="'px-2 py-1 rounded-full text-xs font-medium ' + getStatusColor(card.status)">
+              {{ card.status }}
+            </div>
+          </div>
+
+          <!-- Card Details -->
+          <div class="space-y-2">
+            <div class="card-detail-row">
+              <span class="card-detail-label">Type</span>
+              <span class="card-detail-value">{{ card.type }}</span>
+            </div>
+
+            <div class="card-detail-row">
+              <span class="card-detail-label">Cardholder</span>
+              <span class="card-detail-value text-sm">{{ card.cardholder }}</span>
+            </div>
+
+            <div class="card-detail-row">
+              <span class="card-detail-label">Expiration</span>
+              <span class="card-detail-value">{{ formatExpiration(card.expiration) }}</span>
+            </div>
+
+            <div class="card-detail-row">
+              <span class="card-detail-label">Credit Limit</span>
+              <span class="card-detail-value font-semibold text-indigo-600">
+                {{ formatCurrency(card.creditLimit) }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Access Methods -->
+          @if (card.accessMethods && card.accessMethods.length > 0) {
+            <div class="access-methods">
+              <div class="text-xs font-semibold text-gray-700 mb-2 uppercase">Access Methods</div>
+              @for (method of card.accessMethods; track method.accessMethod) {
+                <div class="access-method-item">
+                  <mat-icon class="text-gray-600 text-sm">
+                    {{ getAccessMethodIcon(method.type) }}
+                  </mat-icon>
+                  <span class="flex-1 text-sm font-medium">{{ method.accessMethod }}</span>
+                  <span class="text-xs text-gray-500">{{ method.type }}</span>
+                  @if (method.status) {
+                    <span [class]="'px-1.5 py-0.5 rounded text-xs ' + getAccessMethodStatusColor(method.status)">
+                      {{ method.status }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Card Actions -->
+          <div class="flex gap-2 mt-4 pt-4 border-t border-gray-200">
+            <button
+              mat-button
+              color="primary"
+              class="flex-1"
+              (click)="onEditCard(card)"
+              matTooltip="Editar tarjeta">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button
+              mat-button
+              [color]="card.status === 'BLOCKED' ? 'accent' : 'warn'"
+              class="flex-1"
+              (click)="onToggleCardStatus(card)"
+              matTooltip="Cambiar estado de la tarjeta">
+              <mat-icon>{{ card.status === 'BLOCKED' ? 'lock_open' : 'lock' }}</mat-icon>
+              {{ card.status === 'BLOCKED' ? 'Desbloquear' : 'Bloquear' }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <!-- No Cards Message -->
+    <div class="flex items-center justify-center p-12 text-gray-500">
+      <div class="text-center">
+        <mat-icon class="text-6xl mb-4 text-gray-400">credit_card_off</mat-icon>
+        <p class="text-lg font-medium">No cards found</p>
+        <p class="text-sm">This account has no associated cards</p>
+      </div>
+    </div>
+  }
+</div>

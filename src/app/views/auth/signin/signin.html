@@ -22,8 +22,8 @@
     <!-- Sign in form -->
     <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
       <!-- Email field -->
+      <mat-label>Email address</mat-label>
       <mat-form-field class="w-full" [appearance]="'outline'">
-        <mat-label>Email address</mat-label>
         <input id="email" matInput [formControlName]="'email'" />
 
         @if (signInForm.get('email')?.hasError('required')) {
@@ -34,8 +34,8 @@
       </mat-form-field>
 
       <!-- Password field -->
+      <mat-label>Password</mat-label>
       <mat-form-field class="w-full" [appearance]="'outline'">
-        <mat-label>Password</mat-label>
         <input
           id="password"
           matInput
@@ -76,7 +76,7 @@
 
       <!-- Submit button -->
       <button
-        class="Gatze-mat-button-large w-full mt-6"
+        class="w-full mt-6"
         mat-flat-button
         [color]="'primary'"
         [disabled]="signInForm.disabled"

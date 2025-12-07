@@ -1,0 +1,33 @@
+<div class="page-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="page-title">
+          <mat-icon class="inline-block align-middle mr-2 text-indigo-600">credit_card</mat-icon>
+          Consulta de Cuentas de Crédito
+        </h1>
+        <p class="page-subtitle">
+          Buscar y gestionar información de cuentas de crédito y tarjetahabientes
+        </p>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onCreateAccount()"
+        class="new-account-button">
+        <mat-icon>add_business</mat-icon>
+        Nueva Cuenta
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content-wrapper">
+    <!-- Search Panel -->
+    <app-search-panel (accountSelected)="onAccountSelected($event)" />
+
+    <!-- Detail Panel -->
+    <app-detail-panel />
+  </div>
+</div>

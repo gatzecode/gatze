@@ -9,6 +9,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ConfigService } from '../../core/services/config.service';
+import { BasicDataset } from './charts/basic-dataset';
 
 export interface StatCard {
   title: string;
@@ -48,6 +49,7 @@ export interface Activity {
     MatChipsModule,
     MatProgressBarModule,
     MatBadgeModule,
+    BasicDataset
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

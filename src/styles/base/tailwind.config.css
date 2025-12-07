@@ -165,4 +165,40 @@
   .state-hover:hover::before {
     opacity: var(--mat-sys-hover-state-layer-opacity);
   }
+
+  /* CROWN System - Custom utilities for Credit Accounts module */
+  .badge-primary {
+    @apply bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200;
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-warning {
+    @apply bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200;
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-error {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-200;
+  }
+
+  .card-hover:hover {
+    @apply shadow-lg;
+  }
+
+  /* Active menu item */
+  .active-menu-item {
+    @apply bg-indigo-50 dark:bg-indigo-900/20;
+    @apply border-l-4 border-indigo-500;
+  }
 }

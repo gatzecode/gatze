@@ -1,0 +1,260 @@
+<div class="cardholder-container">
+  @if (cardholder()) {
+    <form [formGroup]="cardholderForm">
+      <!-- Personal Data Section -->
+      <mat-accordion>
+        <mat-expansion-panel
+          [expanded]="personalExpanded()"
+          (opened)="personalExpanded.set(true)"
+          (closed)="personalExpanded.set(false)">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon class="text-indigo-600">person</mat-icon>
+              <span class="font-semibold">Personal Information</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div formGroupName="personalData">
+            <div class="section-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" required>
+                <mat-icon matPrefix>badge</mat-icon>
+                @if (personalData.get('firstName')?.invalid && personalData.get('firstName')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'firstName') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" required>
+                <mat-icon matPrefix>badge</mat-icon>
+                @if (personalData.get('lastName')?.invalid && personalData.get('lastName')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'lastName') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Second Last Name</mat-label>
+                <input matInput formControlName="secondLastName">
+                <mat-icon matPrefix>badge</mat-icon>
+                @if (personalData.get('secondLastName')?.invalid && personalData.get('secondLastName')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'secondLastName') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Emboss Name (Card)</mat-label>
+                <input matInput formControlName="embossName" maxlength="26">
+                <mat-icon matPrefix>credit_card</mat-icon>
+                <mat-hint>Max 26 characters as shown on card</mat-hint>
+                @if (personalData.get('embossName')?.invalid && personalData.get('embossName')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'embossName') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Birth Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthDate" required>
+                <mat-icon matPrefix>cake</mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (personalData.get('birthDate')?.invalid && personalData.get('birthDate')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'birthDate') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>RFC</mat-label>
+                <input matInput formControlName="rfc" required maxlength="13" class="uppercase">
+                <mat-icon matPrefix>assignment_ind</mat-icon>
+                <mat-hint>Federal Tax ID</mat-hint>
+                @if (personalData.get('rfc')?.invalid && personalData.get('rfc')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'rfc') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>CURP</mat-label>
+                <input matInput formControlName="curp" required maxlength="18" class="uppercase">
+                <mat-icon matPrefix>fingerprint</mat-icon>
+                <mat-hint>Unique Population Registry Code</mat-hint>
+                @if (personalData.get('curp')?.invalid && personalData.get('curp')?.touched) {
+                  <mat-error>{{ getErrorMessage(personalData, 'curp') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Contact Data Section -->
+        <mat-expansion-panel
+          [expanded]="contactExpanded()"
+          (opened)="contactExpanded.set(true)"
+          (closed)="contactExpanded.set(false)">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon class="text-indigo-600">contact_phone</mat-icon>
+              <span class="font-semibold">Contact Information</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div formGroupName="contactData">
+            <div class="section-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Home Phone</mat-label>
+                <input matInput formControlName="homePhone" maxlength="10" placeholder="10 digits">
+                <mat-icon matPrefix>home</mat-icon>
+                @if (contactData.get('homePhone')?.invalid && contactData.get('homePhone')?.touched) {
+                  <mat-error>{{ getErrorMessage(contactData, 'homePhone') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Cell Phone</mat-label>
+                <input matInput formControlName="cellPhone" required maxlength="10" placeholder="10 digits">
+                <mat-icon matPrefix>smartphone</mat-icon>
+                @if (contactData.get('cellPhone')?.invalid && contactData.get('cellPhone')?.touched) {
+                  <mat-error>{{ getErrorMessage(contactData, 'cellPhone') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Work Phone</mat-label>
+                <input matInput formControlName="workPhone" maxlength="10" placeholder="10 digits">
+                <mat-icon matPrefix>business</mat-icon>
+                @if (contactData.get('workPhone')?.invalid && contactData.get('workPhone')?.touched) {
+                  <mat-error>{{ getErrorMessage(contactData, 'workPhone') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required type="email">
+                <mat-icon matPrefix>email</mat-icon>
+                @if (contactData.get('email')?.invalid && contactData.get('email')?.touched) {
+                  <mat-error>{{ getErrorMessage(contactData, 'email') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <!-- Tax Data Section -->
+        <mat-expansion-panel
+          [expanded]="taxExpanded()"
+          (opened)="taxExpanded.set(true)"
+          (closed)="taxExpanded.set(false)">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="flex items-center gap-2">
+              <mat-icon class="text-indigo-600">receipt_long</mat-icon>
+              <span class="font-semibold">Tax Information & Address</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div formGroupName="taxData">
+            <div class="section-grid">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Street</mat-label>
+                <input matInput formControlName="street" required>
+                <mat-icon matPrefix>signpost</mat-icon>
+                @if (taxData.get('street')?.invalid && taxData.get('street')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'street') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Exterior Number</mat-label>
+                <input matInput formControlName="exteriorNumber" required>
+                <mat-icon matPrefix>tag</mat-icon>
+                @if (taxData.get('exteriorNumber')?.invalid && taxData.get('exteriorNumber')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'exteriorNumber') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Interior Number</mat-label>
+                <input matInput formControlName="interiorNumber">
+                <mat-icon matPrefix>meeting_room</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Postal Code</mat-label>
+                <input matInput formControlName="zipCode" required maxlength="5" placeholder="5 digits">
+                <mat-icon matPrefix>markunread_mailbox</mat-icon>
+                @if (taxData.get('zipCode')?.invalid && taxData.get('zipCode')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'zipCode') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Neighborhood</mat-label>
+                <input matInput formControlName="neighborhood" required>
+                <mat-icon matPrefix>location_city</mat-icon>
+                @if (taxData.get('neighborhood')?.invalid && taxData.get('neighborhood')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'neighborhood') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Municipality</mat-label>
+                <input matInput formControlName="municipality" required>
+                <mat-icon matPrefix>apartment</mat-icon>
+                @if (taxData.get('municipality')?.invalid && taxData.get('municipality')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'municipality') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" required>
+                  @for (state of states; track state) {
+                    <mat-option [value]="state">{{ state }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>map</mat-icon>
+                @if (taxData.get('state')?.invalid && taxData.get('state')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'state') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tax Regime</mat-label>
+                <mat-select formControlName="taxRegime" required>
+                  @for (regime of taxRegimes; track regime.value) {
+                    <mat-option [value]="regime.value">{{ regime.label }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>account_balance</mat-icon>
+                @if (taxData.get('taxRegime')?.invalid && taxData.get('taxRegime')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'taxRegime') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>CFDI Use</mat-label>
+                <mat-select formControlName="cfdiUse" required>
+                  @for (use of cfdiUses; track use.value) {
+                    <mat-option [value]="use.value">{{ use.label }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matPrefix>receipt</mat-icon>
+                <mat-hint>Invoice usage type</mat-hint>
+                @if (taxData.get('cfdiUse')?.invalid && taxData.get('cfdiUse')?.touched) {
+                  <mat-error>{{ getErrorMessage(taxData, 'cfdiUse') }}</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  } @else {
+    <div class="flex items-center justify-center p-12 text-gray-500">
+      <div class="text-center">
+        <mat-icon class="text-6xl mb-4 text-gray-400">person_off</mat-icon>
+        <p>No cardholder data available</p>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,161 @@
+<mat-card class="mb-6">
+  <mat-card-header>
+    <mat-card-title class="text-xl font-semibold text-gray-900">
+      <mat-icon class="align-middle mr-2">search</mat-icon>
+      Search Credit Accounts
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="pt-4">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <!-- Search Criteria -->
+      <div class="search-form">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" placeholder="Enter first name">
+          <mat-icon matPrefix>person</mat-icon>
+          @if (searchForm.get('firstName')?.invalid && searchForm.get('firstName')?.touched) {
+            <mat-error>{{ getErrorMessage('firstName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" placeholder="Enter last name">
+          <mat-icon matPrefix>person</mat-icon>
+          @if (searchForm.get('lastName')?.invalid && searchForm.get('lastName')?.touched) {
+            <mat-error>{{ getErrorMessage('lastName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Second Last Name</mat-label>
+          <input matInput formControlName="secondLastName" placeholder="Enter second last name">
+          <mat-icon matPrefix>person</mat-icon>
+          @if (searchForm.get('secondLastName')?.invalid && searchForm.get('secondLastName')?.touched) {
+            <mat-error>{{ getErrorMessage('secondLastName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Account Number</mat-label>
+          <input matInput formControlName="accountNumber" placeholder="Enter account number">
+          <mat-icon matPrefix>account_balance_wallet</mat-icon>
+          @if (searchForm.get('accountNumber')?.invalid && searchForm.get('accountNumber')?.touched) {
+            <mat-error>{{ getErrorMessage('accountNumber') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Card Number</mat-label>
+          <input matInput formControlName="cardNumber" placeholder="16 digits" maxlength="16">
+          <mat-icon matPrefix>credit_card</mat-icon>
+          @if (searchForm.get('cardNumber')?.invalid && searchForm.get('cardNumber')?.touched) {
+            <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="flex items-center">
+          <mat-checkbox formControlName="additionalsOnly" color="primary">
+            Additional Cards Only
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="onClear()"
+          [disabled]="searching()">
+          <mat-icon>clear</mat-icon>
+          Clear
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="searching()">
+          @if (searching()) {
+            <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+          } @else {
+            <mat-icon>search</mat-icon>
+          }
+          Search
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- Search Results -->
+@if (hasAccounts() || searching()) {
+  <mat-card>
+    <mat-card-header>
+      <div class="results-header w-full">
+        <mat-card-title class="text-lg font-semibold text-gray-900">
+          Search Results
+        </mat-card-title>
+        @if (!searching()) {
+          <span class="text-sm text-gray-500">
+            {{ totalResults() }} {{ totalResults() === 1 ? 'result' : 'results' }} found
+          </span>
+        }
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (searching()) {
+        <div class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+      } @else if (hasAccounts()) {
+        <div class="results-table">
+          <table mat-table [dataSource]="accounts()" class="w-full">
+            <!-- Card Column -->
+            <ng-container matColumnDef="card">
+              <th mat-header-cell *matHeaderCellDef class="font-semibold">Card Number</th>
+              <td mat-cell *matCellDef="let account">
+                <div class="flex items-center gap-2">
+                  <mat-icon class="text-indigo-500">credit_card</mat-icon>
+                  <span class="font-mono">{{ account.card }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef class="font-semibold">Cardholder Name</th>
+              <td mat-cell *matCellDef="let account">
+                <span class="font-medium">{{ account.name }}</span>
+              </td>
+            </ng-container>
+
+            <!-- Account Column -->
+            <ng-container matColumnDef="account">
+              <th mat-header-cell *matHeaderCellDef class="font-semibold">Account Number</th>
+              <td mat-cell *matCellDef="let account">
+                <span class="font-mono text-gray-600">{{ account.accountNumber }}</span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns();"
+              (click)="selectAccount(row)"
+              class="cursor-pointer hover:bg-indigo-50"
+              matTooltip="Click to view details">
+            </tr>
+          </table>
+        </div>
+      } @else {
+        <div class="no-results">
+          <mat-icon class="text-gray-400 text-5xl mb-2">search_off</mat-icon>
+          <p class="text-gray-500">No results found</p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+}
