@@ -19,7 +19,7 @@ import {
   curpValidator,
   emailValidator,
   phoneValidator,
-  postalCodeValidator
+  postalCodeValidator,
 } from '../../../../shared/utils/validators';
 
 @Component({
@@ -35,52 +35,40 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './cardholder-tab.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem 0;
-    }
+      .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 1rem 0;
+      }
 
-    .full-width {
-      grid-column: 1 / -1;
-    }
+      .full-width {
+        grid-column: 1 / -1;
+      }
 
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.375rem;
-    }
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
 
-    .field-label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #374151;
-      margin-left: 0.25rem;
-    }
-
-    ::ng-deep .mat-expansion-panel {
-      box-shadow: none !important;
-      border: 1px solid #E5E7EB;
-      margin-bottom: 0.5rem;
-    }
-
-    ::ng-deep .mat-expansion-panel-header {
-      background-color: #F9FAFB;
-    }
-
-    ::ng-deep .mat-expansion-panel-header:hover {
-      background-color: #F3F4F6 !important;
-    }
-  `]
+      .field-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        margin-left: 0.25rem;
+      }
+    `,
+  ],
 })
 export class CardholderTabComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
@@ -107,19 +95,29 @@ export class CardholderTabComponent implements OnInit {
     { value: '606', label: '606 - Arrendamiento' },
     { value: '607', label: '607 - Régimen de Enajenación o Adquisición de Bienes' },
     { value: '608', label: '608 - Demás ingresos' },
-    { value: '610', label: '610 - Residentes en el Extranjero sin Establecimiento Permanente en México' },
+    {
+      value: '610',
+      label: '610 - Residentes en el Extranjero sin Establecimiento Permanente en México',
+    },
     { value: '611', label: '611 - Ingresos por Dividendos (socios y accionistas)' },
     { value: '612', label: '612 - Personas Físicas con Actividades Empresariales y Profesionales' },
     { value: '614', label: '614 - Ingresos por intereses' },
     { value: '615', label: '615 - Régimen de los ingresos por obtención de premios' },
     { value: '616', label: '616 - Sin obligaciones fiscales' },
-    { value: '620', label: '620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos' },
+    {
+      value: '620',
+      label: '620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos',
+    },
     { value: '621', label: '621 - Incorporación Fiscal' },
     { value: '622', label: '622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras' },
     { value: '623', label: '623 - Opcional para Grupos de Sociedades' },
     { value: '624', label: '624 - Coordinados' },
-    { value: '625', label: '625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas' },
-    { value: '626', label: '626 - Régimen Simplificado de Confianza' }
+    {
+      value: '625',
+      label:
+        '625 - Régimen de las Actividades Empresariales con ingresos a través de Plataformas Tecnológicas',
+    },
+    { value: '626', label: '626 - Régimen Simplificado de Confianza' },
   ];
 
   // CFDI use options (SAT catalog)
@@ -139,25 +137,59 @@ export class CardholderTabComponent implements OnInit {
     { value: 'D02', label: 'D02 - Gastos médicos por incapacidad o discapacidad' },
     { value: 'D03', label: 'D03 - Gastos funerales' },
     { value: 'D04', label: 'D04 - Donativos' },
-    { value: 'D05', label: 'D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)' },
+    {
+      value: 'D05',
+      label:
+        'D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)',
+    },
     { value: 'D06', label: 'D06 - Aportaciones voluntarias al SAR' },
     { value: 'D07', label: 'D07 - Primas por seguros de gastos médicos' },
     { value: 'D08', label: 'D08 - Gastos de transportación escolar obligatoria' },
-    { value: 'D09', label: 'D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones' },
+    {
+      value: 'D09',
+      label:
+        'D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones',
+    },
     { value: 'D10', label: 'D10 - Pagos por servicios educativos (colegiaturas)' },
     { value: 'S01', label: 'S01 - Sin efectos fiscales' },
     { value: 'CP01', label: 'CP01 - Pagos' },
-    { value: 'CN01', label: 'CN01 - Nómina' }
+    { value: 'CN01', label: 'CN01 - Nómina' },
   ];
 
   // Mexican states
   readonly states = [
-    'AGUASCALIENTES', 'BAJA CALIFORNIA', 'BAJA CALIFORNIA SUR', 'CAMPECHE',
-    'CHIAPAS', 'CHIHUAHUA', 'CIUDAD DE MÉXICO', 'COAHUILA', 'COLIMA',
-    'DURANGO', 'GUANAJUATO', 'GUERRERO', 'HIDALGO', 'JALISCO', 'MÉXICO',
-    'MICHOACÁN', 'MORELOS', 'NAYARIT', 'NUEVO LEÓN', 'OAXACA', 'PUEBLA',
-    'QUERÉTARO', 'QUINTANA ROO', 'SAN LUIS POTOSÍ', 'SINALOA', 'SONORA',
-    'TABASCO', 'TAMAULIPAS', 'TLAXCALA', 'VERACRUZ', 'YUCATÁN', 'ZACATECAS'
+    'AGUASCALIENTES',
+    'BAJA CALIFORNIA',
+    'BAJA CALIFORNIA SUR',
+    'CAMPECHE',
+    'CHIAPAS',
+    'CHIHUAHUA',
+    'CIUDAD DE MÉXICO',
+    'COAHUILA',
+    'COLIMA',
+    'DURANGO',
+    'GUANAJUATO',
+    'GUERRERO',
+    'HIDALGO',
+    'JALISCO',
+    'MÉXICO',
+    'MICHOACÁN',
+    'MORELOS',
+    'NAYARIT',
+    'NUEVO LEÓN',
+    'OAXACA',
+    'PUEBLA',
+    'QUERÉTARO',
+    'QUINTANA ROO',
+    'SAN LUIS POTOSÍ',
+    'SINALOA',
+    'SONORA',
+    'TABASCO',
+    'TAMAULIPAS',
+    'TLAXCALA',
+    'VERACRUZ',
+    'YUCATÁN',
+    'ZACATECAS',
   ];
 
   constructor() {
@@ -184,7 +216,7 @@ export class CardholderTabComponent implements OnInit {
         embossName: ['', [Validators.maxLength(26)]],
         birthDate: ['', Validators.required],
         rfc: ['', [Validators.required, rfcValidator()]],
-        curp: ['', [Validators.required, curpValidator()]]
+        curp: ['', [Validators.required, curpValidator()]],
       }),
 
       // Contact Data
@@ -192,7 +224,7 @@ export class CardholderTabComponent implements OnInit {
         homePhone: ['', [phoneValidator()]],
         cellPhone: ['', [Validators.required, phoneValidator()]],
         workPhone: ['', [phoneValidator()]],
-        email: ['', [Validators.required, emailValidator()]]
+        email: ['', [Validators.required, emailValidator()]],
       }),
 
       // Tax Data
@@ -205,17 +237,20 @@ export class CardholderTabComponent implements OnInit {
         municipality: ['', Validators.required],
         state: ['', Validators.required],
         taxRegime: ['', Validators.required],
-        cfdiUse: ['', Validators.required]
-      })
+        cfdiUse: ['', Validators.required],
+      }),
     });
   }
 
   private patchFormFromCardholder(cardholder: any): void {
-    this.cardholderForm.patchValue({
-      personalData: cardholder.personalData,
-      contactData: cardholder.contactData,
-      taxData: cardholder.taxData
-    }, { emitEvent: false });
+    this.cardholderForm.patchValue(
+      {
+        personalData: cardholder.personalData,
+        contactData: cardholder.contactData,
+        taxData: cardholder.taxData,
+      },
+      { emitEvent: false }
+    );
   }
 
   // Getters to access FormGroups
@@ -258,7 +293,7 @@ export class CardholderTabComponent implements OnInit {
   getCardholderData(): any {
     return {
       cardNumber: this.cardNumber(),
-      ...this.cardholderForm.value
+      ...this.cardholderForm.value,
     };
   }
 }

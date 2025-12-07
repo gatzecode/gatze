@@ -35,82 +35,76 @@ import { Card, CardStatus } from '../../../../core/models';
     MatExpansionModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './cards-tab.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 1.5rem;
-      padding: 1rem 0;
-    }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+      }
 
-    .card-item {
-      border: 1px solid #E5E7EB;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      background: white;
-      transition: all 0.2s;
-    }
+      .card-item {
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: all 0.2s;
+      }
 
-    .card-item:hover {
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-      border-color: #6366F1;
-    }
+      .card-item:hover {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        border-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
+      }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1rem;
-    }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+      }
 
-    .card-number {
-      font-family: 'Courier New', monospace;
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #111827;
-      letter-spacing: 0.05em;
-    }
+      .card-number {
+        font-family: 'Courier New', monospace;
+        font-size: 1.125rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
 
-    .card-detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-    }
+      .card-detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+      }
 
-    .card-detail-label {
-      color: #6B7280;
-      font-size: 0.875rem;
-    }
+      .card-detail-label {
+        font-size: 0.875rem;
+      }
 
-    .card-detail-value {
-      font-weight: 500;
-      color: #111827;
-    }
+      .card-detail-value {
+        font-weight: 500;
+      }
 
-    .access-methods {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #E5E7EB;
-    }
+      .access-methods {
+        margin-top: 1rem;
+      }
 
-    .access-method-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      background: #F9FAFB;
-      border-radius: 0.375rem;
-      margin-bottom: 0.5rem;
-    }
-  `]
+      .access-method-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 0.375rem;
+        margin-bottom: 0.5rem;
+      }
+    `,
+  ],
 })
 export class CardsTabComponent {
   private readonly accountsState = inject(AccountsStateService);
@@ -132,10 +126,10 @@ export class CardsTabComponent {
    */
   getStatusColor(status: CardStatus): string {
     const colors: Record<CardStatus, string> = {
-      'ACTIVE': 'bg-green-100 text-green-800',
-      'BLOCKED': 'bg-red-100 text-red-800',
-      'CANCELLED': 'bg-gray-100 text-gray-800',
-      'EXPIRED': 'bg-orange-100 text-orange-800'
+      ACTIVE: 'bg-green-100 text-green-800',
+      BLOCKED: 'bg-red-100 text-red-800',
+      CANCELLED: 'bg-gray-100 text-gray-800',
+      EXPIRED: 'bg-orange-100 text-orange-800',
     };
     return colors[status] || 'bg-gray-100 text-gray-800';
   }
@@ -145,10 +139,10 @@ export class CardsTabComponent {
    */
   getStatusIcon(status: CardStatus): string {
     const icons: Record<CardStatus, string> = {
-      'ACTIVE': 'check_circle',
-      'BLOCKED': 'block',
-      'CANCELLED': 'cancel',
-      'EXPIRED': 'schedule'
+      ACTIVE: 'check_circle',
+      BLOCKED: 'block',
+      CANCELLED: 'cancel',
+      EXPIRED: 'schedule',
     };
     return icons[status] || 'info';
   }
@@ -177,7 +171,7 @@ export class CardsTabComponent {
   formatCurrency(amount: number): string {
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
-      currency: 'MXN'
+      currency: 'MXN',
     }).format(amount);
   }
 
@@ -188,7 +182,7 @@ export class CardsTabComponent {
     const date = typeof expiration === 'string' ? new Date(expiration) : expiration;
     return new Intl.DateTimeFormat('es-MX', {
       year: 'numeric',
-      month: '2-digit'
+      month: '2-digit',
     }).format(date);
   }
 
@@ -245,12 +239,12 @@ export class CardsTabComponent {
     }
 
     const dialogRef = this.dialog.open(CardDialogComponent, {
-      width: '600px',
+      width: '700px',
       data: {
         accountNumber,
-        isAdditional: this.totalCards() > 0 // If there are cards, suggest additional
+        isAdditional: this.totalCards() > 0, // If there are cards, suggest additional
       },
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((card: Card) => {
@@ -268,12 +262,12 @@ export class CardsTabComponent {
     const accountNumber = this.accountsState.accountNumber();
 
     const dialogRef = this.dialog.open(CardDialogComponent, {
-      width: '600px',
+      width: '700px',
       data: {
         card,
-        accountNumber
+        accountNumber,
       },
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((updatedCard: Card) => {
@@ -293,9 +287,10 @@ export class CardsTabComponent {
 
     this.accountsState.saveCard(updatedCard);
 
-    const message = newStatus === 'BLOCKED'
-      ? 'Tarjeta bloqueada exitosamente'
-      : 'Tarjeta desbloqueada exitosamente';
+    const message =
+      newStatus === 'BLOCKED'
+        ? 'Tarjeta bloqueada exitosamente'
+        : 'Tarjeta desbloqueada exitosamente';
     this.showSuccess(message);
   }
 
@@ -304,7 +299,7 @@ export class CardsTabComponent {
       duration: 3000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['success-snackbar']
+      panelClass: ['success-snackbar'],
     });
   }
 
@@ -313,7 +308,7 @@ export class CardsTabComponent {
       duration: 5000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['error-snackbar']
+      panelClass: ['error-snackbar'],
     });
   }
 }

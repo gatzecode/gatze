@@ -39,7 +39,7 @@ export interface CardDialogData {
     MatIconModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   template: `
     <div class="dialog-container">
@@ -59,10 +59,11 @@ export interface CardDialogData {
                 formControlName="cardNumber"
                 maxlength="16"
                 placeholder="16 dígitos"
-                [readonly]="isEditMode()">
+                [readonly]="isEditMode()"
+              />
               <mat-icon matPrefix>credit_card</mat-icon>
               @if (cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched) {
-                <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
+              <mat-error>{{ getErrorMessage('cardNumber') }}</mat-error>
               }
             </mat-form-field>
           </div>
@@ -77,7 +78,7 @@ export interface CardDialogData {
               </mat-select>
               <mat-icon matPrefix>category</mat-icon>
               @if (cardForm.get('type')?.invalid && cardForm.get('type')?.touched) {
-                <mat-error>{{ getErrorMessage('type') }}</mat-error>
+              <mat-error>{{ getErrorMessage('type') }}</mat-error>
               }
             </mat-form-field>
           </div>
@@ -90,10 +91,11 @@ export interface CardDialogData {
                 matInput
                 formControlName="cardholder"
                 maxlength="100"
-                placeholder="Nombre completo">
+                placeholder="Nombre completo"
+              />
               <mat-icon matPrefix>person</mat-icon>
               @if (cardForm.get('cardholder')?.invalid && cardForm.get('cardholder')?.touched) {
-                <mat-error>{{ getErrorMessage('cardholder') }}</mat-error>
+              <mat-error>{{ getErrorMessage('cardholder') }}</mat-error>
               }
             </mat-form-field>
           </div>
@@ -109,8 +111,9 @@ export interface CardDialogData {
                   <mat-option value="AMERICAN EXPRESS">American Express</mat-option>
                 </mat-select>
                 <mat-icon matPrefix>payment</mat-icon>
-                @if (cardForm.get('manufacturer')?.invalid && cardForm.get('manufacturer')?.touched) {
-                  <mat-error>{{ getErrorMessage('manufacturer') }}</mat-error>
+                @if (cardForm.get('manufacturer')?.invalid && cardForm.get('manufacturer')?.touched)
+                {
+                <mat-error>{{ getErrorMessage('manufacturer') }}</mat-error>
                 }
               </mat-form-field>
             </div>
@@ -119,15 +122,12 @@ export interface CardDialogData {
             <div class="field-group">
               <label class="field-label">Fecha de Expiración</label>
               <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  [matDatepicker]="expirationPicker"
-                  formControlName="expiration">
+                <input matInput [matDatepicker]="expirationPicker" formControlName="expiration" />
                 <mat-icon matPrefix>event</mat-icon>
                 <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
                 <mat-datepicker #expirationPicker></mat-datepicker>
                 @if (cardForm.get('expiration')?.invalid && cardForm.get('expiration')?.touched) {
-                  <mat-error>{{ getErrorMessage('expiration') }}</mat-error>
+                <mat-error>{{ getErrorMessage('expiration') }}</mat-error>
                 }
               </mat-form-field>
             </div>
@@ -138,15 +138,11 @@ export interface CardDialogData {
             <div class="field-group">
               <label class="field-label">Límite de Crédito</label>
               <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  type="number"
-                  formControlName="creditLimit"
-                  placeholder="0.00">
+                <input matInput type="number" formControlName="creditLimit" placeholder="0.00" />
                 <span matPrefix>$&nbsp;</span>
                 <span matSuffix>MXN</span>
                 @if (cardForm.get('creditLimit')?.invalid && cardForm.get('creditLimit')?.touched) {
-                  <mat-error>{{ getErrorMessage('creditLimit') }}</mat-error>
+                <mat-error>{{ getErrorMessage('creditLimit') }}</mat-error>
                 }
               </mat-form-field>
             </div>
@@ -163,7 +159,7 @@ export interface CardDialogData {
                 </mat-select>
                 <mat-icon matPrefix>info</mat-icon>
                 @if (cardForm.get('status')?.invalid && cardForm.get('status')?.touched) {
-                  <mat-error>{{ getErrorMessage('status') }}</mat-error>
+                <mat-error>{{ getErrorMessage('status') }}</mat-error>
                 }
               </mat-form-field>
             </div>
@@ -218,95 +214,98 @@ export interface CardDialogData {
           mat-raised-button
           color="primary"
           (click)="onSave()"
-          [disabled]="cardForm.invalid || saving()">
+          [disabled]="cardForm.invalid || saving()"
+        >
           @if (saving()) {
-            <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+          <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
           } @else {
-            <mat-icon>save</mat-icon>
+          <mat-icon>save</mat-icon>
           }
           {{ isEditMode() ? 'Guardar Cambios' : 'Crear Tarjeta' }}
         </button>
       </mat-dialog-actions>
     </div>
   `,
-  styles: [`
-    .dialog-container {
-      min-width: 500px;
-      max-width: 600px;
-    }
-
-    .card-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1rem 0;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .full-width {
-      width: 100%;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.375rem;
-    }
-
-    .field-label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #374151;
-      margin-left: 0.25rem;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 0.75rem;
-    }
-
-    .access-methods-section {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #E5E7EB;
-    }
-
-    .access-methods-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .dialog-actions {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid #E5E7EB;
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 600px) {
+  styles: [
+    `
       .dialog-container {
-        min-width: 100%;
+        min-width: 500px;
+        max-width: 600px;
+      }
+
+      .card-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
       }
 
       .form-row {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .full-width {
+        width: 100%;
+      }
+
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
+
+      .field-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        margin-left: 0.25rem;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.75rem;
+      }
+
+      .access-methods-section {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e5e7eb;
       }
 
       .access-methods-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
       }
-    }
-  `]
+
+      .dialog-actions {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 1rem;
+      }
+
+      @media (max-width: 600px) {
+        .dialog-container {
+          min-width: 100%;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .access-methods-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    `,
+  ],
 })
 export class CardDialogComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
@@ -342,7 +341,7 @@ export class CardDialogComponent implements OnInit {
       accessPOS: [true],
       accessATM: [true],
       accessEcommerce: [true],
-      accessContactless: [false]
+      accessContactless: [false],
     });
   }
 
@@ -357,10 +356,10 @@ export class CardDialogComponent implements OnInit {
       expiration: card.expiration,
       creditLimit: card.creditLimit,
       status: card.status,
-      accessPOS: accessMethods.some(m => m.accessMethod === 'POS'),
-      accessATM: accessMethods.some(m => m.accessMethod === 'ATM'),
-      accessEcommerce: accessMethods.some(m => m.accessMethod === 'ECOMMERCE'),
-      accessContactless: accessMethods.some(m => m.accessMethod === 'CONTACTLESS')
+      accessPOS: accessMethods.some((m) => m.accessMethod === 'POS'),
+      accessATM: accessMethods.some((m) => m.accessMethod === 'ATM'),
+      accessEcommerce: accessMethods.some((m) => m.accessMethod === 'ECOMMERCE'),
+      accessContactless: accessMethods.some((m) => m.accessMethod === 'CONTACTLESS'),
     });
   }
 
@@ -394,7 +393,7 @@ export class CardDialogComponent implements OnInit {
       expiration: formValue.expiration,
       creditLimit: formValue.creditLimit,
       status: formValue.status as CardStatus,
-      accessMethods
+      accessMethods,
     };
 
     this.dialogRef.close(card);
@@ -409,7 +408,8 @@ export class CardDialogComponent implements OnInit {
     if (!control || !control.errors) return '';
 
     if (control.errors['required']) return 'Este campo es requerido';
-    if (control.errors['maxLength']) return `Máximo ${control.errors['maxLength'].requiredLength} caracteres`;
+    if (control.errors['maxLength'])
+      return `Máximo ${control.errors['maxLength'].requiredLength} caracteres`;
     if (control.errors['min']) return `Valor mínimo: ${control.errors['min'].min}`;
     if (control.errors['invalidCardNumber']) return control.errors['invalidCardNumber'].message;
 

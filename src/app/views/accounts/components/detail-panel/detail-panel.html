@@ -16,21 +16,7 @@
 
     @if (currentTabIndex() === 0) {
     <div class="action-buttons">
-      <button
-        mat-raised-button
-        (click)="onCancelChanges()"
-        [disabled]="!canSave() || saving()"
-        matTooltip="Cancel changes"
-      >
-        <mat-icon>cancel</mat-icon>
-        Cancel
-      </button>
-      <button
-        mat-raised-button
-        (click)="onSaveChanges()"
-        [disabled]="!canSave() || saving()"
-        matTooltip="Save changes"
-      >
+      <button mat-raised-button (click)="onSaveChanges()" matTooltip="Save changes">
         @if (saving()) {
         <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
         } @else {
