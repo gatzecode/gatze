@@ -44,25 +44,28 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
 
     .search-panel {
       padding: 1.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .panel-header {
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 2px solid #E5E7EB;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }
 
     .panel-title {
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      color: #111827;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       margin: 0;
     }
 
     .panel-content {
+      flex: 1;
       overflow-y: auto;
     }
 
@@ -81,7 +84,7 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
     .field-label {
       font-size: 0.875rem;
       font-weight: 500;
-      color: #374151;
+      color: var(--text-secondary, #6B7280);
       margin-left: 0.25rem;
     }
 
@@ -98,6 +101,8 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
       flex-direction: column;
       gap: 0.75rem;
       margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .full-width {

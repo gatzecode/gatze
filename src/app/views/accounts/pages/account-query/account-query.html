@@ -1,11 +1,12 @@
-<div class="w-full min-h-screen p-4 sm:p-6 lg:p-8">
-  <mat-sidenav-container class="">
+<div class="w-full min-h-screen py-8 px-4">
+  <mat-sidenav-container class="sidenav-container">
     <!-- Search Sidenav -->
     <mat-sidenav
       #searchSidenav
       mode="side"
       position="end"
       [opened]="searchSidenavOpen()"
+      class="sidenav"
     >
       <app-search-panel />
     </mat-sidenav>
@@ -13,38 +14,43 @@
     <!-- Main Content -->
     <mat-sidenav-content class="main-content">
       <!-- Page Header -->
-      <div class="page-header">
-        <div class="header-info">
-          <h1>
-            <mat-icon>credit_card</mat-icon>
-            Cuentas de Crédito
-          </h1>
-          <p>Consulta y gestión de cuentas de crédito</p>
-        </div>
-        <div class="header-actions">
-          <button
-            mat-stroked-button
-            (click)="toggleSearchSidenav()"
-            matTooltip="Filtros de búsqueda"
-            class="filters-button"
-          >
-            <mat-icon>{{ searchSidenavOpen() ? 'filter_list_off' : 'filter_list' }}</mat-icon>
-            Filtros
-          </button>
-          <button mat-raised-button color="primary" (click)="onCreateAccount()">
-            <mat-icon>add_business</mat-icon>
-            Nueva Cuenta
-          </button>
+      <div class="mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 class="text-4xl font-bold text-text tracking-tight flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center shadow-professional">
+                <mat-icon class="text-primary text-2xl!">credit_card</mat-icon>
+              </div>
+              Cuentas de Crédito
+            </h1>
+            <p class="mt-2 text-base text-secondary font-normal">
+              Consulta y gestión de cuentas de crédito
+            </p>
+          </div>
+          <div class="flex gap-3">
+            <button
+              mat-raised-button
+              (click)="toggleSearchSidenav()"
+              matTooltip="Filtros de búsqueda"
+            >
+              <mat-icon>{{ searchSidenavOpen() ? 'filter_list_off' : 'filter_list' }}</mat-icon>
+              Filtros
+            </button>
+            <button mat-raised-button color="primary" (click)="onCreateAccount()">
+              <mat-icon>add_business</mat-icon>
+              Nueva Cuenta
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Accounts Table -->
-      <div class="content-section">
+      <div class="mb-8">
         <app-accounts-table (accountSelected)="onAccountSelected($event)" />
       </div>
 
       <!-- Detail Panel -->
-      <div class="content-section">
+      <div>
         <app-detail-panel />
       </div>
     </mat-sidenav-content>

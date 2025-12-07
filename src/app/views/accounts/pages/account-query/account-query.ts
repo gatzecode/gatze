@@ -40,70 +40,34 @@ import { Account } from '../../../../core/models';
     }
 
     .sidenav-container {
-      height: calc(100vh - 64px);
+      height: 100%;
+      background: transparent;
     }
 
     .sidenav {
       width: 350px;
-      border-right: 1px solid #E5E7EB;
+      border-left: 1px solid rgba(0, 0, 0, 0.12);
       transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
     }
 
     .main-content {
-      padding: 1.5rem;
       height: 100%;
       overflow-y: auto;
-      transition: margin-left 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      transition: margin-right 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-    }
-
-    .header-info h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .header-info p {
-      font-size: 0.875rem;
-      margin: 0.25rem 0 0 0;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    .filters-button {
-      display: flex;
-      align-items: center;
-      gap: 0.375rem;
-    }
-
-    .content-section {
-      margin-bottom: 2rem;
+    .shadow-professional {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     @media (max-width: 768px) {
       .sidenav {
-        width: 280px;
+        width: 100%;
+        max-width: 350px;
         position: absolute;
         z-index: 100;
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-      }
-
-      .filters-button span {
-        display: none;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
       }
     }
   `]

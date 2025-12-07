@@ -1,71 +1,81 @@
-<div class="table-container">
-  <div class="table-header">
-    <div>
-      <div class="table-title">
-        <mat-icon>credit_card</mat-icon>
-        Cuentas de Crédito
+<mat-card class="table-card hover:shadow-lg transition-shadow">
+  <mat-card-header class="p-6 pb-0">
+    <mat-card-title class="flex items-center gap-2">
+      <mat-icon class="text-primary">credit_card</mat-icon>
+      <span>Resultados de Búsqueda</span>
+    </mat-card-title>
+    @if (hasAccounts() && !loading()) {
+      <mat-card-subtitle>{{ totalAccounts() }} {{ totalAccounts() === 1 ? 'cuenta encontrada' : 'cuentas encontradas' }}</mat-card-subtitle>
+    }
+  </mat-card-header>
+
+  <mat-card-content class="p-0">
+    @if (loading()) {
+      <div class="loading-state">
+        <mat-spinner diameter="40"></mat-spinner>
       </div>
-      @if (hasAccounts() && !loading()) {
-        <div class="table-count">{{ totalAccounts() }} {{ totalAccounts() === 1 ? 'cuenta' : 'cuentas' }}</div>
-      }
-    </div>
-  </div>
+    } @else if (hasAccounts()) {
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="accounts()" class="w-full">
+        <!-- Card Number Column -->
+        <ng-container matColumnDef="card">
+          <th mat-header-cell *matHeaderCellDef class="font-semibold">Tarjeta</th>
+          <td mat-cell *matCellDef="let account">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-primary text-base">credit_card</mat-icon>
+              <span class="font-mono text-sm">{{ account.card | maskCard }}</span>
+            </div>
+          </td>
+        </ng-container>
 
-  @if (loading()) {
-    <div class="loading-state">
-      <mat-spinner diameter="40"></mat-spinner>
-    </div>
-  } @else if (hasAccounts()) {
-    <table mat-table [dataSource]="accounts()" class="accounts-table">
-      <!-- Card Number Column -->
-      <ng-container matColumnDef="card">
-        <th mat-header-cell *matHeaderCellDef>Tarjeta</th>
-        <td mat-cell *matCellDef="let account">
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-indigo-500 text-base">credit_card</mat-icon>
-            <span class="card-number">{{ account.card | maskCard }}</span>
-          </div>
-        </td>
-      </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="font-semibold">Tarjetahabiente</th>
+          <td mat-cell *matCellDef="let account">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                <span class="text-xs font-semibold text-primary">{{ account.name.charAt(0) }}</span>
+              </div>
+              <span>{{ account.name }}</span>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Tarjetahabiente</th>
-        <td mat-cell *matCellDef="let account">
-          <span class="account-name">{{ account.name }}</span>
-        </td>
-      </ng-container>
+        <!-- Account Number Column -->
+        <ng-container matColumnDef="accountNumber">
+          <th mat-header-cell *matHeaderCellDef class="font-semibold">Número de Cuenta</th>
+          <td mat-cell *matCellDef="let account">
+            <span class="font-mono">{{ account.accountNumber }}</span>
+          </td>
+        </ng-container>
 
-      <!-- Account Number Column -->
-      <ng-container matColumnDef="accountNumber">
-        <th mat-header-cell *matHeaderCellDef>Número de Cuenta</th>
-        <td mat-cell *matCellDef="let account">
-          <span class="account-number">{{ account.accountNumber }}</span>
-        </td>
-      </ng-container>
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="font-semibold">Estado</th>
+          <td mat-cell *matCellDef="let account">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+              ACTIVA
+            </span>
+          </td>
+        </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
-        <td mat-cell *matCellDef="let account">
-          <span class="status-chip status-active">ACTIVA</span>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns;"
-        [class.selected]="isSelected(row)"
-        (click)="onSelectAccount(row)"
-        matTooltip="Click para ver detalles">
-      </tr>
-    </table>
-  } @else {
-    <div class="empty-state">
-      <mat-icon>search_off</mat-icon>
-      <h3 class="text-lg font-medium text-gray-900 mb-2">No se encontraron cuentas</h3>
-      <p class="text-sm text-gray-500">Ajusta los filtros de búsqueda o crea una nueva cuenta</p>
-    </div>
-  }
-</div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns;"
+          [class.selected-row]="isSelected(row)"
+          (click)="onSelectAccount(row)"
+          matTooltip="Click para ver detalles"
+          class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer">
+        </tr>
+      </table>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <mat-icon class="text-6xl text-gray-400">search_off</mat-icon>
+        <h3 class="text-lg font-medium text-text mb-2">No se encontraron cuentas</h3>
+        <p class="text-sm text-secondary">Ajusta los filtros de búsqueda o crea una nueva cuenta</p>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>
