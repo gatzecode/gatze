@@ -67,7 +67,7 @@ interface StatusOption {
     <div class="dialog-container">
       <!-- Header -->
       <div class="dialog-header">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1">
           <div class="icon-wrapper">
             <mat-icon>{{ isEditMode() ? 'edit' : 'add_card' }}</mat-icon>
           </div>
