@@ -91,7 +91,7 @@ export class Main {
       children: [
         {
           id: 'credit-accounts',
-          title: 'Credit Accounts',
+          title: 'Cuentas',
           icon: 'credit_card',
           link: '/administration/credit-accounts',
           type: 'basic',
@@ -116,14 +116,14 @@ export class Main {
       children: [
         {
           id: 'reports-1',
-          title: 'Historial Disposición Crédito',
+          title: 'Historial Disposición',
           icon: 'assessment',
           link: '/reports',
           type: 'basic',
         },
         {
           id: 'reports-2',
-          title: 'Saldos Cuentas SubEmisores',
+          title: 'Saldos Cuentas',
           icon: 'assessment',
           link: '/reports',
           type: 'basic',
