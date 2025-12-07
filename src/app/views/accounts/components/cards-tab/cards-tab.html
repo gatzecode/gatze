@@ -1,7 +1,7 @@
 <div class="cards-container">
   <!-- Add Card Button -->
   <div class="flex justify-end mb-4">
-    <button mat-raised-button color="primary" (click)="onAddCard()" class="add-card-button">
+    <button mat-button color="primary" (click)="onAddCard()" class="add-card-button">
       <mat-icon>add_card</mat-icon>
       Agregar Tarjeta
     </button>
@@ -48,11 +48,11 @@
   <!-- Cards Grid -->
   <div class="cards-grid">
     @for (card of cards(); track card.cardNumber; let idx = $index) {
-    <mat-card class="card-item">
+    <mat-card>
       <!-- Card Header -->
       <mat-card-header class="card-header">
         <div class="flex items-center gap-2">
-          <mat-icon [class]="'text-indigo-600'">
+          <mat-icon>
             {{ getManufacturerIcon(card.manufacturer) }}
           </mat-icon>
           <div>

@@ -129,7 +129,7 @@ export interface ProductDialogData {
       <mat-dialog-actions align="end" class="gap-2">
         <button mat-button (click)="onCancel()">Cancel</button>
         <button
-          mat-raised-button
+          mat-button
           color="primary"
           (click)="onSave()"
           [disabled]="!productForm.valid || saving()"

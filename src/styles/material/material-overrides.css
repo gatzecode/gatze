@@ -15,23 +15,6 @@
    BUTTONS
    ============================================ */
 
-.mat-mdc-raised-button,
-.mat-mdc-unelevated-button,
-.mat-mdc-outlined-button {
-  font-weight: var(--mat-sys-medium-font-weight) !important;
-  letter-spacing: 0.025em !important;
-  transition: transform var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-standard),
-    box-shadow var(--mat-sys-motion-duration-short) var(--mat-sys-motion-easing-standard) !important;
-}
-
-.mat-mdc-raised-button {
-  box-shadow: var(--mat-sys-level1) !important;
-}
-
-.mat-mdc-raised-button:hover:not(:disabled) {
-  box-shadow: var(--mat-sys-level2) !important;
-}
-
 /* Icon buttons */
 .mat-mdc-icon-button {
   position: relative;

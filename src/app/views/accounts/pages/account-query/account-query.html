@@ -29,14 +29,14 @@
           </div>
           <div class="flex gap-3">
             <button
-              mat-raised-button
+              mat-button
               (click)="toggleSearchSidenav()"
               matTooltip="Filtros de búsqueda"
             >
               <mat-icon>{{ searchSidenavOpen() ? 'filter_list_off' : 'filter_list' }}</mat-icon>
               Filtros
             </button>
-            <button mat-raised-button color="primary" (click)="onCreateAccount()">
+            <button mat-button color="primary" (click)="onCreateAccount()">
               <mat-icon>add_business</mat-icon>
               Nueva Cuenta
             </button>

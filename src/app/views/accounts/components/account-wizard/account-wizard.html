@@ -64,7 +64,7 @@
               <mat-icon>close</mat-icon>
               Cancelar
             </button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="accountForm.invalid">
+            <button mat-button color="primary" matStepperNext [disabled]="accountForm.invalid">
               Siguiente
               <mat-icon>arrow_forward</mat-icon>
             </button>
@@ -273,7 +273,7 @@
               <mat-icon>arrow_back</mat-icon>
               Anterior
             </button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="cardholderForm.invalid">
+            <button mat-button color="primary" matStepperNext [disabled]="cardholderForm.invalid">
               Siguiente
               <mat-icon>arrow_forward</mat-icon>
             </button>
@@ -365,7 +365,7 @@
               <mat-icon>arrow_back</mat-icon>
               Anterior
             </button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="cardForm.invalid">
+            <button mat-button color="primary" matStepperNext [disabled]="cardForm.invalid">
               Revisar
               <mat-icon>arrow_forward</mat-icon>
             </button>
@@ -456,7 +456,7 @@
               Anterior
             </button>
             <button
-              mat-raised-button
+              mat-button
               color="primary"
               (click)="onCreate()"
               [disabled]="creating() || accountForm.invalid || cardholderForm.invalid || cardForm.invalid">

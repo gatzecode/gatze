@@ -135,6 +135,9 @@ html {
   --mat-toolbar-container-background-color: var(--mat-sys-surface);
   --mat-toolbar-container-text-color: var(--mat-sys-on-surface);
   --mat-toolbar-container-height: 64px;
+
+  /* Modal */
+  --mat-dialog-container-max-width: 700px;
 }
 
 html.dark {

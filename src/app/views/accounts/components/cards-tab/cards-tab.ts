@@ -57,7 +57,7 @@ import { Card, CardStatus } from '../../../../core/models';
         transition: all 0.2s;
       }
 
-      .card-item:hover {
+      mat-card:hover {
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         border-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
       }
@@ -239,7 +239,7 @@ export class CardsTabComponent {
     }
 
     const dialogRef = this.dialog.open(CardDialogComponent, {
-      width: '700px',
+       width: '70vw',
       data: {
         accountNumber,
         isAdditional: this.totalCards() > 0, // If there are cards, suggest additional
@@ -262,7 +262,7 @@ export class CardsTabComponent {
     const accountNumber = this.accountsState.accountNumber();
 
     const dialogRef = this.dialog.open(CardDialogComponent, {
-      width: '700px',
+      width: '70vw',
       data: {
         card,
         accountNumber,

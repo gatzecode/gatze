@@ -16,7 +16,7 @@
 
     @if (currentTabIndex() === 0) {
     <div class="action-buttons">
-      <button mat-raised-button (click)="onSaveChanges()" matTooltip="Save changes">
+      <button mat-button (click)="onSaveChanges()" matTooltip="Save changes">
         @if (saving()) {
         <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
         } @else {
