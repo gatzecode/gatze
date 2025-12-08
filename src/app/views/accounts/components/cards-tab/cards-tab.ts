@@ -51,15 +51,12 @@ import { Card, CardStatus } from '../../../../core/models';
         padding: 1rem 0;
       }
 
-      .card-item {
-        border-radius: 0.75rem;
-        padding: 1.5rem;
-        transition: all 0.2s;
+      mat-card:hover {
+        border: 1px solid var(--mat-sys-primary);
       }
 
-      mat-card:hover {
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        border-color: var(--mat-list-active-indicator-color, var(--mat-sys-inverse-primary));
+      mat-card {
+        border: 1px solid var(--mat-sys-inverse-primary);
       }
 
       .card-header {
@@ -239,7 +236,7 @@ export class CardsTabComponent {
     }
 
     const dialogRef = this.dialog.open(CardDialogComponent, {
-       width: '70vw',
+      width: '70vw',
       data: {
         accountNumber,
         isAdditional: this.totalCards() > 0, // If there are cards, suggest additional
