@@ -43,16 +43,15 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
     }
 
     .search-panel {
-      padding: 1.5rem;
+      padding: 0;
       height: 100%;
       display: flex;
       flex-direction: column;
     }
 
     .panel-header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      margin-bottom: 0;
+      padding: 1.5rem 1.5rem 1rem;
     }
 
     .panel-title {
@@ -67,6 +66,7 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
     .panel-content {
       flex: 1;
       overflow-y: auto;
+      padding: 1.5rem;
     }
 
     .form-fields {
@@ -100,9 +100,9 @@ import { cardNumberValidator } from '../../../../shared/utils/validators';
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      margin: 0;
+      padding: 1rem 1.5rem 1.5rem;
+      background: rgba(0, 0, 0, 0.01);
     }
 
     .full-width {
@@ -197,6 +197,8 @@ export class SearchPanelComponent implements OnInit {
       additionalsOnly: false
     });
     this.accountsState.clearSearch();
+    // Reload all initial data
+    this.accountsState.loadInitialData();
   }
 
   selectAccount(account: Account): void {

@@ -1,18 +1,19 @@
-<div class="w-full min-h-screen py-8 px-4">
-  <mat-sidenav-container class="sidenav-container">
+<div class="w-full min-h-screen">
+  <mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
     <!-- Search Sidenav -->
     <mat-sidenav
       #searchSidenav
       mode="side"
       position="end"
       [opened]="searchSidenavOpen()"
-      class="sidenav"
+      class="sidenav [--mat-sidenav-container-shape:0] rounded-none!"
     >
       <app-search-panel />
     </mat-sidenav>
 
     <!-- Main Content -->
     <mat-sidenav-content class="main-content">
+      <div class="content-wrapper">
       <!-- Page Header -->
       <div class="mb-6">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -52,6 +53,7 @@
       <!-- Detail Panel -->
       <div>
         <app-detail-panel />
+      </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

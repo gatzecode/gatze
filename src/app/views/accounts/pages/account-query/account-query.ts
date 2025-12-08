@@ -30,47 +30,36 @@ import { Account } from '../../../../core/models';
     MatToolbarModule,
     SearchPanelComponent,
     DetailPanelComponent,
-    AccountsTableComponent
+    AccountsTableComponent,
   ],
   templateUrl: './account-query.html',
-  styles: [`
-    :host {
-      display: block;
-      height: 100%;
-    }
-
-    .sidenav-container {
-      height: 100%;
-      background: transparent;
-    }
-
-    .sidenav {
-      width: 350px;
-      border-left: 1px solid rgba(0, 0, 0, 0.12);
-      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .main-content {
-      height: 100%;
-      overflow-y: auto;
-      transition: margin-right 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .shadow-professional {
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    @media (max-width: 768px) {
-      .sidenav {
-        width: 100%;
-        max-width: 350px;
-        position: absolute;
-        z-index: 100;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
       }
-    }
-  `]
+
+      .sidenav-container {
+        height: 100%;
+        background: transparent;
+      }
+
+      .main-content {
+        height: 100%;
+        overflow-y: auto;
+        transition: margin-right 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .content-wrapper {
+        padding: 2rem 1rem;
+      }
+
+      .shadow-professional {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+    `,
+  ],
 })
 export class AccountQueryComponent implements OnInit, OnDestroy {
   private readonly accountsState = inject(AccountsStateService);
@@ -108,7 +97,7 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
   }
 
   toggleSearchSidenav(): void {
-    this.searchSidenavOpen.update(value => !value);
+    this.searchSidenavOpen.update((value) => !value);
     this.storeSidenavState(this.searchSidenavOpen());
   }
 
@@ -138,7 +127,7 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
       duration: 4000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['success-snackbar']
+      panelClass: ['success-snackbar'],
     });
   }
 
@@ -147,7 +136,7 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
       duration: 5000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['error-snackbar']
+      panelClass: ['error-snackbar'],
     });
   }
 
@@ -156,7 +145,7 @@ export class AccountQueryComponent implements OnInit, OnDestroy {
       duration: 2000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      panelClass: ['info-snackbar']
+      panelClass: ['info-snackbar'],
     });
   }
 }
