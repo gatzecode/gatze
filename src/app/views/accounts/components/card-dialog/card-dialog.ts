@@ -92,7 +92,7 @@ interface StatusOption {
       <mat-dialog-content class="dialog-content">
         <form [formGroup]="cardForm" class="card-form">
           <!-- Card Preview -->
-          @if (!isEditMode()) {
+          @if (isEditMode()) {
           <div
             class="card-preview"
             [class.card-preview-visa]="cardForm.get('manufacturer')?.value === 'VISA'"
@@ -132,8 +132,8 @@ interface StatusOption {
             </h3>
 
             <!-- Card Number -->
+            <label>Número de Tarjeta</label>
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Número de Tarjeta</mat-label>
               <input
                 matInput
                 formControlName="cardNumber"
@@ -157,50 +157,51 @@ interface StatusOption {
 
             <!-- Card Type & Manufacturer Row -->
             <div class="form-row">
-              <mat-form-field appearance="outline">
-                <mat-label>Tipo de Tarjeta</mat-label>
-                <mat-select formControlName="type" [disabled]="isEditMode()">
-                  @for (type of cardTypes; track type.value) {
-                  <mat-option [value]="type.value">
-                    <div class="flex items-center gap-2">
-                      <mat-icon class="text-sm">{{ type.icon }}</mat-icon>
-                      <div>
-                        <div>{{ type.label }}</div>
-                        <div class="text-xs text-gray-500">{{ type.description }}</div>
+              <div>
+                <label>Tipo de Tarjeta</label>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="type" [disabled]="isEditMode()">
+                    @for (type of cardTypes; track type.value) {
+                    <mat-option [value]="type.value">
+                      <div class="flex items-center gap-2">
+                        <div>
+                          <div>{{ type.label }}</div>
+                        </div>
                       </div>
-                    </div>
-                  </mat-option>
+                    </mat-option>
+                    }
+                  </mat-select>
+                  <mat-icon matPrefix>{{ selectedCardTypeIcon() }}</mat-icon>
+                  @if (cardForm.get('type')?.invalid && cardForm.get('type')?.touched) {
+                  <mat-error>Selecciona el tipo de tarjeta</mat-error>
                   }
-                </mat-select>
-                <mat-icon matPrefix>category</mat-icon>
-                @if (cardForm.get('type')?.invalid && cardForm.get('type')?.touched) {
-                <mat-error>Selecciona el tipo de tarjeta</mat-error>
-                }
-              </mat-form-field>
+                </mat-form-field>
+              </div>
 
-              <mat-form-field appearance="outline">
-                <mat-label>Marca</mat-label>
-                <mat-select formControlName="manufacturer">
-                  @for (manu of manufacturers; track manu.value) {
-                  <mat-option [value]="manu.value">
-                    <div class="flex items-center gap-2">
-                      <mat-icon class="text-sm">{{ manu.icon }}</mat-icon>
-                      {{ manu.label }}
-                    </div>
-                  </mat-option>
+              <div>
+                <label>Marca</label>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="manufacturer">
+                    @for (manu of manufacturers; track manu.value) {
+                    <mat-option [value]="manu.value">
+                      <div class="flex items-center gap-2">
+                        {{ manu.label }}
+                      </div>
+                    </mat-option>
+                    }
+                  </mat-select>
+                  <mat-icon matPrefix>{{ selectedManufacturerIcon() }}</mat-icon>
+                  @if (cardForm.get('manufacturer')?.invalid &&
+                  cardForm.get('manufacturer')?.touched) {
+                  <mat-error>Selecciona la marca</mat-error>
                   }
-                </mat-select>
-                <mat-icon matPrefix>payment</mat-icon>
-                @if (cardForm.get('manufacturer')?.invalid && cardForm.get('manufacturer')?.touched)
-                {
-                <mat-error>Selecciona la marca</mat-error>
-                }
-              </mat-form-field>
+                </mat-form-field>
+              </div>
             </div>
 
             <!-- Cardholder Name -->
+            <label>Nombre del Tarjetahabiente</label>
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombre del Tarjetahabiente</mat-label>
               <input
                 matInput
                 formControlName="cardholder"
@@ -221,46 +222,50 @@ interface StatusOption {
 
             <!-- Expiration & Status Row -->
             <div class="form-row">
-              <mat-form-field appearance="outline">
-                <mat-label>Fecha de Expiración</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="expirationPicker"
-                  formControlName="expiration"
-                  [min]="minDate"
-                />
-                <mat-icon matPrefix>event</mat-icon>
-                <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
-                <mat-datepicker #expirationPicker startView="multi-year"></mat-datepicker>
-                @if (cardForm.get('expiration')?.invalid && cardForm.get('expiration')?.touched) {
-                <mat-error>Selecciona una fecha válida</mat-error>
-                } @if (isExpiringSoon()) {
-                <mat-hint class="text-orange-600">⚠️ Tarjeta próxima a vencer</mat-hint>
-                }
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>Estado</mat-label>
-                <mat-select formControlName="status">
-                  @for (status of statusOptions; track status.value) {
-                  <mat-option [value]="status.value">
-                    <div class="flex items-center gap-2">
-                      <span class="status-dot" [style.background-color]="status.color"></span>
-                      {{ status.label }}
-                    </div>
-                  </mat-option>
+              <div>
+                <label>Fecha de Expiración</label>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    [matDatepicker]="expirationPicker"
+                    formControlName="expiration"
+                    [min]="minDate"
+                  />
+                  <mat-icon matPrefix>event</mat-icon>
+                  <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #expirationPicker startView="multi-year"></mat-datepicker>
+                  @if (cardForm.get('expiration')?.invalid && cardForm.get('expiration')?.touched) {
+                  <mat-error>Selecciona una fecha válida</mat-error>
+                  } @if (isExpiringSoon()) {
+                  <mat-hint class="text-orange-600">⚠️ Tarjeta próxima a vencer</mat-hint>
                   }
-                </mat-select>
-                <mat-icon matPrefix>info</mat-icon>
-                @if (cardForm.get('status')?.invalid && cardForm.get('status')?.touched) {
-                <mat-error>Selecciona el estado</mat-error>
-                }
-              </mat-form-field>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <label>Estado</label>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="status">
+                    @for (status of statusOptions; track status.value) {
+                    <mat-option [value]="status.value">
+                      <div class="flex items-center gap-2">
+                        <span class="status-dot" [style.background-color]="status.color"></span>
+                        {{ status.label }}
+                      </div>
+                    </mat-option>
+                    }
+                  </mat-select>
+                  <mat-icon matPrefix>info</mat-icon>
+                  @if (cardForm.get('status')?.invalid && cardForm.get('status')?.touched) {
+                  <mat-error>Selecciona el estado</mat-error>
+                  }
+                </mat-form-field>
+              </div>
             </div>
 
             <!-- Credit Limit -->
+            <label>Límite de Crédito</label>
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Límite de Crédito</mat-label>
               <input
                 matInput
                 type="number"
@@ -268,7 +273,7 @@ interface StatusOption {
                 placeholder="0.00"
                 step="100"
               />
-              <span matPrefix>$&nbsp;</span>
+
               <span matSuffix>MXN</span>
               <mat-icon matPrefix>account_balance_wallet</mat-icon>
               @if (cardForm.get('creditLimit')?.hasError('required') &&
@@ -361,20 +366,20 @@ interface StatusOption {
 
       <!-- Footer Actions -->
       <mat-dialog-actions class="dialog-actions">
-        <button mat-stroked-button (click)="onCancel()" [disabled]="saving()">Cancelar</button>
+        <button mat-button (click)="onCancel()" [disabled]="saving()">Cancelar</button>
+
         <button
           mat-flat-button
           color="primary"
           (click)="onSave()"
           [disabled]="cardForm.invalid || saving()"
         >
-          @if (saving()) {
-          <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
-          Guardando... } @else {
-          <ng-container>
-            <mat-icon class="mr-1">{{ isEditMode() ? 'save' : 'add' }}</mat-icon>
-            {{ isEditMode() ? 'Guardar Cambios' : 'Crear Tarjeta' }}
-          </ng-container>
+          @if (!saving()) {
+          <mat-icon>{{ isEditMode() ? 'save' : 'add' }}</mat-icon>
+          } @if (!saving()) {
+          <span>{{ isEditMode() ? 'Guardar Cambios' : 'Crear Tarjeta' }}</span>
+          } @if (saving()) {
+          <mat-spinner diameter="20"></mat-spinner>
           }
         </button>
       </mat-dialog-actions>
@@ -405,14 +410,17 @@ interface StatusOption {
         flex-direction: column;
         gap: 1.5rem;
       }
+      .access-method-card {
+        height: 120px; /* o la altura que prefieras */
+        display: flex;
+      }
 
       .card-preview {
         width: 100%;
-        height: 100px;
+        height: 150px;
         border-radius: 16px;
         padding: 1.5rem;
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        transition: all 0.3s ease;
+        border: 1px solid var(--mat-sys-on-primary-container);
       }
 
       .card-preview-content {
@@ -536,6 +544,8 @@ export class CardDialogComponent implements OnInit {
   readonly isEditMode = signal(false);
   readonly cardNumberLength = signal(0);
   readonly cardholderLength = signal(0);
+  readonly selectedType = signal<string>('PRINCIPAL');
+  readonly selectedManufacturer = signal<string>('VISA');
   readonly minDate = new Date();
 
   cardForm!: FormGroup;
@@ -581,9 +591,26 @@ export class CardDialogComponent implements OnInit {
     }).format(value);
   });
 
+  readonly selectedCardTypeIcon = computed(() => {
+    const typeValue = this.selectedType();
+    const selectedType = this.cardTypes.find((t) => t.value === typeValue);
+    return selectedType?.icon || 'category';
+  });
+
+  readonly selectedManufacturerIcon = computed(() => {
+    const manuValue = this.selectedManufacturer();
+    const selectedManu = this.manufacturers.find((m) => m.value === manuValue);
+    return selectedManu?.icon || 'payment';
+  });
+
   ngOnInit(): void {
     this.isEditMode.set(!!this.data?.card);
     this.initForm();
+
+    // Inicializar signals con valores del formulario
+    this.selectedType.set(this.cardForm.get('type')?.value || 'PRINCIPAL');
+    this.selectedManufacturer.set(this.cardForm.get('manufacturer')?.value || 'VISA');
+
     this.setupFormListeners();
 
     if (this.data?.card) {
@@ -623,6 +650,20 @@ export class CardDialogComponent implements OnInit {
       .subscribe((value) => {
         this.cardholderLength.set(value?.length || 0);
       });
+
+    this.cardForm
+      .get('type')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.selectedType.set(value || 'PRINCIPAL');
+      });
+
+    this.cardForm
+      .get('manufacturer')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.selectedManufacturer.set(value || 'VISA');
+      });
   }
 
   private patchFormFromCard(card: Card): void {
@@ -644,6 +685,8 @@ export class CardDialogComponent implements OnInit {
 
     this.cardNumberLength.set(card.cardNumber?.length || 0);
     this.cardholderLength.set(card.cardholder?.length || 0);
+    this.selectedType.set(card.type || 'PRINCIPAL');
+    this.selectedManufacturer.set(card.manufacturer || 'VISA');
   }
 
   onCardNumberInput(event: Event): void {
