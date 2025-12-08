@@ -201,4 +201,13 @@
     @apply bg-indigo-50 dark:bg-indigo-900/20;
     @apply border-l-4 border-indigo-500;
   }
+
+  /* Professional shadow effect */
+  .shadow-professional {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .shadow-professional {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 }
