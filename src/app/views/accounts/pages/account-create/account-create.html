@@ -109,7 +109,7 @@
                 <div>
                   <label class="block text-sm font-medium text-text mb-1">Nombre(s)</label>
                   <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="firstName" required>
+                    <input matInput formControlName="firstName" required class="uppercase" (input)="toUpperCase($event, 'firstName')">
                     <mat-icon matPrefix>badge</mat-icon>
                     @if (cardholderForm.get('firstName')?.invalid && cardholderForm.get('firstName')?.touched) {
                       <mat-error>{{ getErrorMessage(cardholderForm, 'firstName') }}</mat-error>
@@ -120,7 +120,7 @@
                 <div>
                   <label class="block text-sm font-medium text-text mb-1">Apellido Paterno</label>
                   <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="lastName" required>
+                    <input matInput formControlName="lastName" required class="uppercase" (input)="toUpperCase($event, 'lastName')">
                     <mat-icon matPrefix>badge</mat-icon>
                     @if (cardholderForm.get('lastName')?.invalid && cardholderForm.get('lastName')?.touched) {
                       <mat-error>{{ getErrorMessage(cardholderForm, 'lastName') }}</mat-error>
@@ -131,7 +131,7 @@
                 <div>
                   <label class="block text-sm font-medium text-text mb-1">Apellido Materno</label>
                   <mat-form-field appearance="outline" class="w-full">
-                    <input matInput formControlName="secondLastName">
+                    <input matInput formControlName="secondLastName" class="uppercase" (input)="toUpperCase($event, 'secondLastName')">
                     <mat-icon matPrefix>badge</mat-icon>
                   </mat-form-field>
                 </div>

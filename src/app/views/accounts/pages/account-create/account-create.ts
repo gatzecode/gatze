@@ -115,7 +115,7 @@ export class AccountCreateComponent implements OnInit {
   private initForms(): void {
     // Account Form
     this.accountForm = this.fb.group({
-      accountNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      accountNumber: ['9999999999', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       accountType: ['CREDIT', Validators.required],
       creditLimit: [50000, [Validators.required, Validators.min(1000)]]
     });
@@ -127,8 +127,8 @@ export class AccountCreateComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       secondLastName: ['', Validators.maxLength(100)],
       birthDate: ['', Validators.required],
-      rfc: ['', [Validators.required, rfcValidator()]],
-      curp: ['', [Validators.required, curpValidator()]],
+      rfc: ['XAXX010101000', [Validators.required, rfcValidator()]],
+      curp: ['XAXX010101HDFXXX00', [Validators.required, curpValidator()]],
 
       // Contact
       cellPhone: ['', [Validators.required, phoneValidator()]],
@@ -284,6 +284,12 @@ export class AccountCreateComponent implements OnInit {
     if (control.errors['invalidCardNumber']) return control.errors['invalidCardNumber'].message;
 
     return 'Valor inválido';
+  }
+
+  toUpperCase(event: Event, controlName: string): void {
+    const input = event.target as HTMLInputElement;
+    const uppercaseValue = input.value.toUpperCase();
+    this.cardholderForm.get(controlName)?.setValue(uppercaseValue, { emitEvent: false });
   }
 
   private showSuccess(message: string): void {
