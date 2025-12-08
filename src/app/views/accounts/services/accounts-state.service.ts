@@ -116,34 +116,78 @@ export class AccountsStateService {
    * Add a new card to the list
    */
   addCard(newCard: Card): void {
-    this.cardsSignal.update(cards => [...cards, newCard]);
-
-    // Optionally persist to backend
-    const accountNumber = this.accountNumber();
-    if (accountNumber) {
-      this.setSaving(true);
-      this.accountsService.createCard(accountNumber, newCard).subscribe({
-        next: (createdCard) => {
-          // Update the card with any server-generated data
-          this.updateCard(createdCard);
-          this.setSaving(false);
-        },
-        error: (error: any) => {
-          this.setError('Error creating card: ' + error.message);
-          // Remove the optimistically added card on error
-          this.cardsSignal.update(cards =>
-            cards.filter(c => c.cardNumber !== newCard.cardNumber)
-          );
-          this.setSaving(false);
-        }
-      });
+    // Validation
+    if (!newCard || !newCard.cardNumber) {
+      this.setError('Invalid card data: card number is required');
+      return;
     }
+
+    const accountNumber = this.accountNumber();
+    if (!accountNumber) {
+      this.setError('No account selected. Please select an account first.');
+      return;
+    }
+
+    // Check for duplicate card numbers
+    const existingCard = this.cardsSignal().find(c => c.cardNumber === newCard.cardNumber);
+    if (existingCard) {
+      this.setError(`Card ${newCard.cardNumber} already exists for this account`);
+      return;
+    }
+
+    // Optimistic update
+    this.cardsSignal.update(cards => [...cards, newCard]);
+    this.setSaving(true);
+    this.clearError();
+
+    // Persist to backend
+    this.accountsService.createCard(accountNumber, newCard).subscribe({
+      next: (createdCard) => {
+        // Update the card with any server-generated data
+        this.updateCard(createdCard);
+        this.setSaving(false);
+      },
+      error: (error: any) => {
+        const errorMessage = this.extractErrorMessage(error, 'creating card');
+        this.setError(errorMessage);
+        // Rollback optimistic update
+        this.cardsSignal.update(cards =>
+          cards.filter(c => c.cardNumber !== newCard.cardNumber)
+        );
+        this.setSaving(false);
+      }
+    });
   }
 
   /**
    * Create a complete new account with cardholder and card
    */
   createAccount(account: Account, cardholder: Cardholder, card: Card): void {
+    // Validation
+    if (!account || !account.accountNumber) {
+      this.setError('Invalid account data: account number is required');
+      return;
+    }
+
+    if (!cardholder || !cardholder.personalData) {
+      this.setError('Invalid cardholder data: personal information is required');
+      return;
+    }
+
+    if (!card || !card.cardNumber) {
+      this.setError('Invalid card data: card number is required');
+      return;
+    }
+
+    // Check for duplicate account number
+    const existingAccount = this.accountsSignal().find(
+      a => a.accountNumber === account.accountNumber
+    );
+    if (existingAccount) {
+      this.setError(`Account ${account.accountNumber} already exists`);
+      return;
+    }
+
     this.setLoading(true);
     this.clearError();
 
@@ -162,7 +206,8 @@ export class AccountsStateService {
         this.setLoading(false);
       },
       error: (error: any) => {
-        this.setError('Error creating account: ' + error.message);
+        const errorMessage = this.extractErrorMessage(error, 'creating account');
+        this.setError(errorMessage);
         this.setLoading(false);
       }
     });
@@ -241,8 +286,19 @@ export class AccountsStateService {
     const cardholder = this.cardholderSignal();
     const accountNumber = this.accountNumber();
 
-    if (!cardholder || !accountNumber) {
+    if (!cardholder) {
       this.setError('No cardholder data to save');
+      return;
+    }
+
+    if (!accountNumber) {
+      this.setError('No account selected. Please select an account first.');
+      return;
+    }
+
+    // Validate required cardholder fields
+    if (!cardholder.personalData?.firstName || !cardholder.personalData?.lastName) {
+      this.setError('Cardholder name is required');
       return;
     }
 
@@ -255,7 +311,8 @@ export class AccountsStateService {
         this.setSaving(false);
       },
       error: (error) => {
-        this.setError('Error saving cardholder data: ' + error.message);
+        const errorMessage = this.extractErrorMessage(error, 'saving cardholder data');
+        this.setError(errorMessage);
         this.setSaving(false);
       }
     });
@@ -267,8 +324,20 @@ export class AccountsStateService {
   saveCard(card: Card): void {
     const accountNumber = this.accountNumber();
 
+    if (!card || !card.cardNumber) {
+      this.setError('Invalid card data: card number is required');
+      return;
+    }
+
     if (!accountNumber) {
-      this.setError('No account selected');
+      this.setError('No account selected. Please select an account first.');
+      return;
+    }
+
+    // Verify card exists in current account
+    const existingCard = this.cardsSignal().find(c => c.cardNumber === card.cardNumber);
+    if (!existingCard) {
+      this.setError(`Card ${card.cardNumber} not found in current account`);
       return;
     }
 
@@ -281,7 +350,8 @@ export class AccountsStateService {
         this.setSaving(false);
       },
       error: (error) => {
-        this.setError('Error saving card data: ' + error.message);
+        const errorMessage = this.extractErrorMessage(error, 'saving card data');
+        this.setError(errorMessage);
         this.setSaving(false);
       }
     });
@@ -293,6 +363,11 @@ export class AccountsStateService {
    * Load cardholder and cards data for the selected account
    */
   private loadAccountData(accountNumber: string): void {
+    if (!accountNumber) {
+      this.setError('Invalid account number');
+      return;
+    }
+
     this.setLoading(true);
     this.clearError();
 
@@ -312,7 +387,8 @@ export class AccountsStateService {
           this.cardholderSignal.set(cardholder);
         },
         error: (error: any) => {
-          this.setError('Error loading cardholder data: ' + error.message);
+          const errorMessage = this.extractErrorMessage(error, 'loading cardholder data');
+          this.setError(errorMessage);
           this.setLoading(false);
         }
       });
@@ -323,10 +399,53 @@ export class AccountsStateService {
           this.setLoading(false);
         },
         error: (error: any) => {
-          this.setError('Error loading cards data: ' + error.message);
+          const errorMessage = this.extractErrorMessage(error, 'loading cards data');
+          this.setError(errorMessage);
           this.setLoading(false);
         }
       });
+    }
+  }
+
+  /**
+   * Extract user-friendly error message from HTTP error
+   * @param error - Error object from HTTP request
+   * @param operation - Description of the operation that failed
+   * @returns User-friendly error message
+   */
+  private extractErrorMessage(error: any, operation: string): string {
+    // Network error
+    if (error.status === 0) {
+      return `Network error while ${operation}. Please check your internet connection.`;
+    }
+
+    // HTTP error codes
+    switch (error.status) {
+      case 400:
+        return `Invalid data while ${operation}. Please verify your input.`;
+      case 401:
+        return `Authentication required. Please log in again.`;
+      case 403:
+        return `Access denied while ${operation}. You don't have permission to perform this action.`;
+      case 404:
+        return `Resource not found while ${operation}.`;
+      case 409:
+        return `Conflict while ${operation}. The resource may already exist.`;
+      case 422:
+        return `Validation error while ${operation}. ${error.error?.message || 'Please check your data.'}`;
+      case 500:
+        return `Server error while ${operation}. Please try again later.`;
+      case 503:
+        return `Service temporarily unavailable. Please try again later.`;
+      default:
+        // Try to extract error message from response
+        if (error.error?.message) {
+          return `Error while ${operation}: ${error.error.message}`;
+        }
+        if (error.message) {
+          return `Error while ${operation}: ${error.message}`;
+        }
+        return `Unexpected error while ${operation}. Please try again.`;
     }
   }
 }

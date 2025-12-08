@@ -401,6 +401,248 @@ Each navigation item (`NavItemType`) can include:
 - `classes`: Custom CSS classes for title, subtitle, icon, wrapper
 - `expanded`: Initial expansion state hint
 
+## Application Features
+
+Gatze includes several sophisticated features demonstrating modern Angular development practices:
+
+### Dashboard
+
+**Location**: `src/app/views/dashboard/`
+**Route**: `/dashboard`
+
+A comprehensive analytics dashboard featuring:
+
+- **KPI Cards**: Revenue, orders, users, and conversion rate metrics
+- **Charts Integration**: ECharts for data visualization
+- **Recent Transactions**: Table with status indicators
+- **Activity Feed**: System events timeline
+- **Dark Mode Support**: Automatic theme adaptation
+- **Responsive Design**: Mobile-optimized layout
+
+### Product Management
+
+**Location**: `src/app/views/product/`
+**Route**: `/products/list`
+
+Complete CRUD operations for product management:
+
+- **Product Listing**: Sortable table with filtering
+- **Create Product**: Dialog-based product creation
+- **Edit Product**: Inline editing with validation
+- **Delete Product**: Confirmation dialog before deletion
+- **Status Management**: Active, inactive, out-of-stock states
+- **Inventory Tracking**: Real-time stock monitoring
+- **Category Icons**: Visual product categorization
+- **Currency Formatting**: Localized price display
+
+**Features**:
+- Material Design dialogs and snackbar notifications
+- Form validation with reactive forms
+- Service-based state management
+- Mock data service integration
+
+### Credit Accounts Management
+
+**Location**: `src/app/views/accounts/`
+**Route**: `/administration/credit-accounts`
+
+Sophisticated credit account management system with signal-based state management.
+
+#### Architecture
+
+```
+accounts/
+├── pages/
+│   ├── account-query/           # Search and manage accounts
+│   └── account-create/          # Create new account wizard
+├── components/
+│   ├── search-panel/            # Advanced search with filters
+│   ├── detail-panel/            # Account details sidebar
+│   ├── accounts-table/          # Accounts listing table
+│   ├── cardholder-tab/          # Cardholder information
+│   ├── cards-tab/               # Card management
+│   ├── card-dialog/             # Create/edit card dialog
+│   └── account-wizard/          # Multi-step account creation
+└── services/
+    └── accounts-state.service.ts # Centralized state management
+```
+
+#### Key Components
+
+**1. Account Query Page**
+- Dual-panel layout with search sidebar and results table
+- Persistent sidebar state saved to localStorage
+- Account selection with instant detail view
+- Real-time search functionality
+- Loading states and error handling
+- Snackbar notifications for user feedback
+- Material sidenav integration
+
+**2. Account Creation Wizard**
+- Multi-step stepper form with progress indicator
+- **Step 1**: Account information (number, type, status, limits)
+- **Step 2**: Cardholder personal data (name, CURP, RFC, contact)
+- **Step 3**: Card information (number, expiration, CVV, limits)
+- Form validation with custom validators
+- Step navigation with forward/back controls
+- Create and return to query functionality
+
+**3. Search Panel**
+- Card number search
+- Account number search
+- Cardholder name search
+- Advanced filtering capabilities
+- Search execution with loading indicator
+- Clear functionality
+
+**4. Detail Panel**
+- Account information display
+- Tabbed interface for cardholder and cards
+- Editable cardholder information form
+- Cards listing and management
+- Save functionality with optimistic updates
+- Responsive Material tabs
+
+**5. Accounts Table**
+- Sortable columns (account number, card, name, status)
+- Color-coded status indicators
+- Row selection with highlighting
+- Empty state handling
+- Responsive design for mobile
+
+**6. Cardholder Tab**
+- Personal data form (name, CURP, RFC, birth date)
+- Contact information (phone, email)
+- Address information (street, city, state, postal code)
+- Form validation with reactive forms
+- Save functionality
+- Edit mode with validation
+
+**7. Cards Tab**
+- List of all cards associated with account
+- Status indicators (Active, Blocked, Expired)
+- Card details (masked number, expiration, limits)
+- Add new card button with dialog
+- Block/unblock card functionality
+- Card balance and limit display
+
+**8. Card Dialog**
+- Create or edit card
+- Card number input with format validation
+- Expiration date selector with validation
+- CVV input with security
+- Credit limit configuration
+- Card type selection (Credit/Debit)
+- Status management
+
+**9. Account Wizard**
+- Stepper-based multi-step form
+- Account data collection
+- Cardholder data collection
+- Card data collection
+- Cross-step validation
+- Progress tracking
+- Complete account creation on submission
+
+#### State Management
+
+The `AccountsStateService` (`src/app/views/accounts/services/accounts-state.service.ts`) provides centralized, signal-based state management with:
+
+**Signals:**
+- `accounts`: List of search result accounts
+- `selectedAccount`: Currently selected account
+- `cardholder`: Cardholder information
+- `cards`: List of cards for selected account
+- `loading`, `searching`, `saving`: Operation states
+- `error`: Error messages
+
+**Computed Signals:**
+- `hasAccounts`: Boolean indicating if accounts exist
+- `totalAccounts`: Count of accounts
+- `accountActive`: Boolean for account selection
+- `cardholderFullName`: Computed full name
+- `activeCards`: Filtered active cards list
+- `blockedCards`: Filtered blocked cards list
+
+**Methods:**
+- `selectAccount()`: Select account and load related data
+- `createAccount()`: Create complete account with cardholder and card
+- `updateCardholder()`: Update cardholder information
+- `saveCardholder()`: Persist cardholder changes to API
+- `addCard()`: Add new card with optimistic update
+- `updateCard()`: Update single card
+- `saveCard()`: Persist card changes
+- `loadInitialData()`: Load mock accounts
+- `reset()`: Reset all state
+
+**Data Models:**
+
+```typescript
+// Account
+{
+  accountNumber: string;
+  card: string;
+  firstName: string;
+  lastName: string;
+  accountType: 'INDIVIDUAL' | 'BUSINESS';
+  status: 'ACTIVE' | 'BLOCKED' | 'SUSPENDED';
+  creditLimit: number;
+  balance: number;
+  createdAt: Date;
+}
+
+// Cardholder
+{
+  personalData: { firstName, lastName, curp, rfc, birthDate };
+  contactInfo: { phoneNumber, email };
+  address: { street, city, state, country, postalCode };
+}
+
+// Card
+{
+  cardNumber: string;
+  expirationDate: Date;
+  cvv: string;
+  cardType: 'CREDIT' | 'DEBIT';
+  status: 'ACTIVE' | 'BLOCKED' | 'EXPIRED';
+  creditLimit: number;
+  balance: number;
+}
+```
+
+**Technical Patterns:**
+- Signal-based reactive state management
+- Optimistic UI updates
+- Centralized error handling
+- Fine-grained loading states
+- Custom form validators
+- Responsive design
+- Accessibility support
+
+### Authentication
+
+**Location**: `src/app/views/auth/signin/`
+**Route**: `/auth/signin`
+
+Sign-in page with:
+- Empty layout (no navigation)
+- User authentication interface
+- Redirect to dashboard on successful login
+- Form validation
+- Error handling
+
+### Internationalization (i18n)
+
+**Framework**: @jsverse/transloco
+**Supported Languages**: English (en), Spanish (es)
+**Default**: Spanish
+
+Features:
+- Dynamic language switching via settings
+- Translation files in `public/i18n/`
+- Integrated with configuration service
+- Persistent language preference
+
 ## Service Architecture
 
 ### Config Service
@@ -773,6 +1015,102 @@ ng test
 ```
 
 Tests run with Karma test runner and Jasmine framework.
+
+**Testing Framework Configuration:**
+- **Test Runner**: Karma 6.4.0
+- **Testing Framework**: Jasmine 5.9.0
+- **Browser**: Chrome (karma-chrome-launcher)
+- **Coverage**: karma-coverage for code coverage reports
+
+**Current Status:**
+- Testing framework is fully configured and ready
+- No unit tests are currently implemented
+- Framework supports component, service, and integration testing
+
+**Recommended Testing Priorities:**
+
+1. **Core Services** (High Priority):
+   - `ConfigService`: Theme, layout, and mode management
+   - `AccountsStateService`: Signal-based state management
+   - `AccountsService`: API communication and mock data
+   - `BreakpointService`: Responsive breakpoint detection
+
+2. **Validators** (High Priority):
+   - RFC validator (Mexican tax ID)
+   - CURP validator (Mexican citizen ID)
+   - Card number validator with Luhn algorithm
+   - CVV validator
+   - Email, phone, postal code validators
+
+3. **Components** (Medium Priority):
+   - Navigation components (ClassicNav, DenseNav)
+   - Account wizard stepper
+   - Search panel with filters
+   - Accounts table with sorting
+
+4. **Integration Tests** (Low Priority):
+   - Complete account creation flow
+   - Card management operations
+   - Layout switching and persistence
+   - Theme switching
+
+**Example Test Structure:**
+
+```typescript
+// Example: ConfigService test
+import { TestBed } from '@angular/core/testing';
+import { ConfigService } from './config.service';
+
+describe('ConfigService', () => {
+  let service: ConfigService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(ConfigService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should have default theme color', () => {
+    expect(service.themeColor()).toBe('indigo');
+  });
+
+  it('should update theme color', () => {
+    service.setThemeColor('green');
+    expect(service.themeColor()).toBe('green');
+  });
+
+  it('should persist theme to localStorage', () => {
+    service.setThemeColor('rose');
+    const stored = localStorage.getItem('app_config');
+    expect(stored).toContain('rose');
+  });
+});
+```
+
+**Running Tests:**
+
+```bash
+# Run tests in watch mode
+ng test
+
+# Run tests once with code coverage
+ng test --code-coverage --watch=false
+
+# View coverage report
+open coverage/index.html
+```
+
+**Best Practices for Testing:**
+- Write tests for business logic in services first
+- Test validators thoroughly with edge cases
+- Use TestBed for dependency injection
+- Mock HTTP calls in service tests
+- Test signal updates and computed values
+- Verify localStorage persistence
+- Test error handling scenarios
 
 ### Code Formatting
 
