@@ -9,12 +9,11 @@
   >
     <div class="flex flex-col w-full h-full overflow-hidden">
       <!-- Header -->
-      <div
-        navHeader
-        class="logo-header-container"
-        [class.logo-header-container--centered]="!isNavExpanded()"
-      >
-        <app-branding [width]="40" [height]="40" [showText]="isNavExpanded()" />
+      <div navHeader class="logo-header-container">
+        @if (isNavExpanded()) {
+        <app-logo [theme]="themeMode()" variant="immo-black-1" [height]="'42px'" />
+
+        } @else { <app-logo [theme]="themeMode()" variant="immo-card-black-2" [height]="'42px'" /> }
       </div>
 
       <!-- Dense Navigation -->

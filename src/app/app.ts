@@ -4,8 +4,9 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  template: `<div class="min-h-screen bg-background">
+    <router-outlet></router-outlet>
+  </div>`,
 })
 export class App {
   private readonly environment = import.meta.env.ENVIRONMENT;

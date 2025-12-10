@@ -14,9 +14,9 @@ import { Languages } from '@app/shared/components/languages/languages';
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { ClassicNav } from '../../components/nav/classic/classic';
-import { AppBranding } from '../../components/app-branding/app-branding';
 import { UserAccount } from '../../components/user-account/user-account';
 import { BreakpointService } from '@app/core/services/breakpoint.service';
+import { Logo } from '@app/shared/components/logo/logo';
 
 @Component({
   selector: 'layout-classic',
@@ -32,7 +32,7 @@ import { BreakpointService } from '@app/core/services/breakpoint.service';
     RouterOutlet,
     UserAccount,
     Settings,
-    AppBranding,
+    Logo,
     ClassicNav,
     Languages,
   ],
@@ -47,6 +47,8 @@ export class LayoutClassic {
   availableThemes = input.required<ThemeColor[]>();
   themeColor = input.required<ThemeColor>();
   user = input.required<User>();
+
+  themeMode = input.required<ThemeMode>()
 
   // Outputs
   layoutChange = output<LayoutType>();

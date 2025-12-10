@@ -17,6 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { MatCardModule } from '@angular/material/card';
+import { Logo } from '@app/shared/components/logo/logo';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    Logo
   ],
   templateUrl: './signin.html',
   styleUrl: './signin.css',

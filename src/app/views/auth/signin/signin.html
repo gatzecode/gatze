@@ -1,40 +1,39 @@
-<div class="flex flex-col items-center justify-center flex-auto min-w-0 min-h-screen p-4">
-  <div class="flex flex-col w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+<div
+  class="flex flex-col items-center justify-center flex-auto min-w-0 min-h-screen bg-gray-100 dark:bg-gray-800"
+>
+  <div
+    class="flex flex-col w-full max-w-[500px] mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-10 pb-18"
+  >
     <!-- Logo -->
-    <div class="group cursor-pointer">
-      <img src="./images/logo/logo.svg" alt="Logo" />
+    <div class="group cursor-pointer flex justify-center">
+      <app-logo [theme]="'light'" variant="immo-black-1" [width]="'300px'" />
     </div>
 
-    <!-- Title -->
-    <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Sign in</div>
-    <div class="flex items-baseline mt-0.5 font-medium">
-      <div>Don't have an account?</div>
-      <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-up']">Sign up </a>
-    </div>
+    <!-- Título -->
+    <div class="mt-2 text-3xl font-extrabold tracking-tight leading-tight text-center">Iniciar sesión</div>
 
-    <!-- Dynamic Alert -->
+    <!-- Alerta Dinámica -->
     @if (showAlert) {
-    <div class="mt-8">
+    <div class="mt-6">
       {{ alert.message }}
     </div>
     }
 
-    <!-- Sign in form -->
-    <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
-      <!-- Email field -->
-      <mat-label>Email address</mat-label>
+    <!-- Formulario de inicio de sesión -->
+    <form class="mt-6" [formGroup]="signInForm" #signInNgForm="ngForm">
+      <!-- Campo de correo electrónico -->
+      <mat-label>Dirección de correo electrónico</mat-label>
       <mat-form-field class="w-full" [appearance]="'outline'">
         <input id="email" matInput [formControlName]="'email'" />
-
         @if (signInForm.get('email')?.hasError('required')) {
-        <mat-error>Email address is required</mat-error>
+        <mat-error>La dirección de correo electrónico es obligatoria</mat-error>
         } @if (signInForm.get('email')?.hasError('email')) {
-        <mat-error>Please enter a valid email address</mat-error>
+        <mat-error>Por favor, introduce una dirección de correo electrónico válida</mat-error>
         }
       </mat-form-field>
 
-      <!-- Password field -->
-      <mat-label>Password</mat-label>
+      <!-- Campo de contraseña -->
+      <mat-label>Contraseña</mat-label>
       <mat-form-field class="w-full" [appearance]="'outline'">
         <input
           id="password"
@@ -59,22 +58,23 @@
           <mat-icon>visibility_off</mat-icon>
           }
         </button>
-        <mat-error>Password is required</mat-error>
+        <mat-error>La contraseña es obligatoria</mat-error>
       </mat-form-field>
 
-      <!-- Actions -->
-      <div class="inline-flex items-center justify-between w-full mt-1.5">
+      <!-- Acciones -->
+      <div class="inline-flex items-center justify-between w-full mt-2">
         <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'">
-          Remember me
+          Recuérdame
         </mat-checkbox>
         <a
           class="text-md font-medium text-primary-500 hover:underline"
           [routerLink]="['/forgot-password']"
-          >Forgot password?
+        >
+          ¿Olvidaste tu contraseña?
         </a>
       </div>
 
-      <!-- Submit button -->
+      <!-- Botón de envío -->
       <button
         class="w-full mt-6"
         mat-flat-button
@@ -83,7 +83,7 @@
         (click)="signIn()"
       >
         @if (!signInForm.disabled) {
-        <span>Sign in</span>
+        <span>Iniciar sesión</span>
         } @else {
         <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
         }

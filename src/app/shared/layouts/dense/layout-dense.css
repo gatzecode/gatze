@@ -4,7 +4,9 @@
 .logo-header-container {
   display: flex;
   align-items: center;
-  padding: 0.8rem;
+  padding-top: 0.6rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   transition: justify-content 300ms ease-in-out;
 }
 
@@ -25,40 +27,6 @@
 
 .user-account-container--centered {
   justify-content: center;
-}
-
-.user-account-icon {
-  flex-shrink: 0;
-}
-
-.user-account-info {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-left: 0.5rem;
-  overflow: hidden;
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out, max-width 300ms ease-in-out,
-    margin 300ms ease-in-out;
-}
-
-.user-account-name {
-  width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  line-height: normal;
-  opacity: 0.8;
-}
-
-.user-account-email {
-  width: 100%;
-  margin-top: 0.125rem;
-  white-space: nowrap;
-  font-size: 0.875rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  line-height: normal;
-  opacity: 0.5;
 }
 
 .bg-surface-soft {

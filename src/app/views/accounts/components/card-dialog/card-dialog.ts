@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Models and validators
 import { Card, CardStatus } from '../../../../core/models';
 import { cardNumberValidator } from '../../../../shared/utils/validators';
+import { CardPreview } from '../card-preview/card-preview';
 
 export interface CardDialogData {
   card?: Card;
@@ -47,7 +48,6 @@ interface StatusOption {
 
 @Component({
   selector: 'app-card-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -62,6 +62,7 @@ interface StatusOption {
     MatChipsModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    CardPreview,
   ],
   template: `
     <div class="dialog-container">
@@ -93,35 +94,16 @@ interface StatusOption {
         <form [formGroup]="cardForm" class="card-form">
           <!-- Card Preview -->
           @if (isEditMode()) {
-          <div
-            class="card-preview"
-            [class.card-preview-visa]="cardForm.get('manufacturer')?.value === 'VISA'"
-            [class.card-preview-mastercard]="cardForm.get('manufacturer')?.value === 'MASTERCARD'"
-            [class.card-preview-amex]="cardForm.get('manufacturer')?.value === 'AMERICAN EXPRESS'"
-          >
-            <div class="card-preview-content">
-              <div class="card-preview-chip">
-                <mat-icon>credit_card</mat-icon>
-              </div>
-              <div class="card-preview-number">
-                {{ formatCardNumber(cardForm.get('cardNumber')?.value) || '•••• •••• •••• ••••' }}
-              </div>
-              <div class="card-preview-footer">
-                <div>
-                  <div class="card-preview-label">TITULAR</div>
-                  <div class="card-preview-name">
-                    {{ cardForm.get('cardholder')?.value || 'NOMBRE DEL TITULAR' }}
-                  </div>
-                </div>
-                <div>
-                  <div class="card-preview-label">VENCE</div>
-                  <div class="card-preview-exp">
-                    {{ formatExpiration(cardForm.get('expiration')?.value) || 'MM/YY' }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <card-preview
+            [cardBrand]="cardForm.get('manufacturer')?.value"
+            [cardExpiration]="formatExpiration(cardForm.get('expiration')?.value) || 'MM/YY'"
+            ,
+            [cardNumber]="
+              formatCardNumber(cardForm.get('cardNumber')?.value) || '•••• •••• •••• ••••'
+            "
+            [cardHolder]="cardForm.get('cardholder')?.value || 'NOMBRE DEL TITULAR'"
+          />
+
           }
 
           <!-- Card Information Section -->

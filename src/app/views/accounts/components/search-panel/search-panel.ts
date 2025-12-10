@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Services and models
-import { AccountsService } from '../../../../core/services/accounts.service';
+import { AccountsService } from '../../services/accounts.service';
 import { AccountsStateService } from '../../services/accounts-state.service';
 import { Account } from '../../../../core/models';
 import { cardNumberValidator } from '../../../../shared/utils/validators';

@@ -1,5 +1,5 @@
 import { Injectable, signal, effect, computed, DestroyRef, inject } from '@angular/core';
-import { LocalStorageService } from './localstorege.service';
+import { LocalStorageService } from './local-storage.service';
 import { AvailableLangs, TranslocoService } from '@jsverse/transloco';
 
 export type ThemeColor = 'indigo' | 'green' | 'rose' | 'orange';

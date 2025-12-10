@@ -1,7 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Account, Cardholder, Card } from '../../../core/models';
-import { AccountsService } from '../../../core/services/accounts.service';
-import { MockDataService } from '../../../core/services/mock-data.service';
+import { AccountsService } from './accounts.service';
+import { MockDataService } from './mock-data.service';
 
 @Injectable({
   providedIn: 'root'

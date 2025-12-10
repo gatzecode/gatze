@@ -32,7 +32,7 @@ import { MaskCardPipe } from '../../../../shared/pipes/mask-card.pipe';
 
 // Models and Services
 import { Account, Cardholder, Card } from '../../../../core/models';
-import { AccountsService } from '../../../../core/services/accounts.service';
+import { AccountsService } from '../../services/accounts.service';
 import { AccountsStateService } from '../../services/accounts-state.service';
 
 @Component({

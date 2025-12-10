@@ -2,6 +2,7 @@
 <layout-classic
   [user]="user"
   [navItems]="navItems"
+  [themeMode]="effectiveThemeMode()"
   [currentLayout]="effectiveLayout()"
   [availableLayouts]="configService.availableLayouts"
   [availableThemes]="configService.availableColors"
@@ -15,6 +16,7 @@
   [user]="user"
   [navItems]="navItems"
   [currentLayout]="effectiveLayout()"
+   [themeMode]="effectiveThemeMode()"
   [availableLayouts]="configService.availableLayouts"
   [availableThemes]="configService.availableColors"
   [themeColor]="configService.themeColor()"

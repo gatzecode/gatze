@@ -49,6 +49,11 @@ export class Main {
     return configuredLayout;
   });
 
+  protected effectiveThemeMode = computed<ThemeMode>(() => {
+    const themeMode = this.configService.themeMode();
+    return themeMode;
+  });
+
   // Navigation items
   protected readonly navItems: NavItemType[] = [
     {

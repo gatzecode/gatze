@@ -11,11 +11,11 @@ import { BreakpointService } from '@app/core/services/breakpoint.service';
 import { LayoutType, ThemeColor, ThemeMode } from '@app/core/services/config.service';
 import { User } from '@app/core/models';
 import { Languages } from '@app/shared/components/languages/languages';
+import { Logo } from '@app/shared/components/logo/logo';
 
 import { NavItemType } from '../../components/nav';
 import { Settings } from '../../components/settings/settings';
 import { DenseNav } from '../../components/nav/dense/dense';
-import { AppBranding } from '../../components/app-branding/app-branding';
 import { UserAccount } from '../../components/user-account/user-account';
 
 @Component({
@@ -32,9 +32,9 @@ import { UserAccount } from '../../components/user-account/user-account';
     RouterOutlet,
     UserAccount,
     Settings,
-    AppBranding,
     DenseNav,
     Languages,
+    Logo,
   ],
 })
 export class LayoutDense {
@@ -47,6 +47,8 @@ export class LayoutDense {
   availableThemes = input.required<ThemeColor[]>();
   themeColor = input.required<ThemeColor>();
   user = input.required<User>();
+
+  themeMode = input.required<ThemeMode>();
 
   // Outputs
   layoutChange = output<LayoutType>();
